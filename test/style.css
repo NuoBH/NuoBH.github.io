@@ -1,0 +1,24 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.full-header-05nuo{
+    position: relative;
+    background: linear-gradient(180deg, rgba(92,196,151,1) 0%, rgba(255,255,255,1) 83%);
+    display: block;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 0;
+    overflow-x: hidden;
+}
+    
+#header-svg-05nuo{
+    position: absolute;
+    display: block;
+    width: 65%;
+    left: calc(35% - max(3.35%, 28px));
+    top: 0;
+    transition: left 1s ease, top 1s ease;
+}
