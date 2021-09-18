@@ -13,12 +13,35 @@ html,body{
     height: 0;
     overflow-x: hidden;
 }
+
+#header-title-05nuo{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 40%;
+    padding-left: 1%;
+
+    font-size: 2rem;
+}
+
+#header-title-05nuo p{
+
+}
+
+#header-title-05nuo #text-scrollA-05nuo{
+    perspective: 800;
+    
+}
+
+#header-title-05nuo #text-scrollB-05nuo{
+
+}
     
 #header-svg-05nuo{
     position: absolute;
     display: block;
-    width: 65%;
-    left: calc(35% - max(3.35%, 28px));
+    width: 60%;
+    left: calc(40% - max(3.35%, 28px));
     top: 0;
     transition: left 1s ease, top 1s ease;
 }

@@ -9,18 +9,21 @@ function switchHeroHV_05nuo(svg){
 
     if(width < 1050 && width < height){
         whRatio_05nuo = 0.675;
-        svg.style.width = "110%";
+        //svg.style.width = "110%";
         svg.style.left = "-5%";
     }
     else{
         whRatio_05nuo = 2.13;
-        svg.style.width = "65%";
-        svg.style.left = "calc(35% - max(3.35%, 28px))";
+        //svg.style.width = "65%";
+        svg.style.left = "calc(40% - max(3.35%, 28px))";
     }
 }
 
 //make svg and its container responsive in horizontal mode
 function responsiveSVGH_05nuo(container, svg){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
     let w = window.innerWidth;
     let h = w / whRatio_05nuo;
 
@@ -30,8 +33,20 @@ function responsiveSVGH_05nuo(container, svg){
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
 
-    let top = h - parseFloat(window.getComputedStyle(svg).getPropertyValue('height'));
-    console.log(h - window.getComputedStyle(svg).getPropertyValue('height'));
+    let top;
+    let svgW;
+
+    if(width < 1050 && width < height){
+        svgW = w * 1.1;
+        top = h - svgW / 1.604;
+    }
+    else{
+        svgW = w * 0.6;
+        top = (h - (svgW / 1.604)) / 2;
+    }
+    console.log(`${svgW / 1.604}, ${h}`);
+
+    svg.style.width = `${svgW}px`;
     svg.style.top = `${top}px`;
 }
 
