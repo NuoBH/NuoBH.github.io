@@ -4,6 +4,8 @@ html,body{
     overflow-x: hidden;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
 .full-header-05nuo{
     position: relative;
     background: linear-gradient(180deg, rgba(92,196,151,1) 0%, rgba(255,255,255,1) 83%);
@@ -16,7 +18,7 @@ html,body{
 
 #header-title-05nuo{
     --title-padding-left-05nuo: 2.5%;
-    --title-size-05nuo: 45px;
+    --title-size-05nuo: 35px;
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -24,70 +26,127 @@ html,body{
     text-align: left;
     padding-top: 3.5%;
     padding-left: var(--title-padding-left-05nuo);
+
+    font-family: 'Work Sans', sans-serif;
+    font-weight: normal;
 }
+#header-title-05nuo .large-title-05nuo{
+    font-size: 45px; 
+    font-weight: 600;
+}
+
 
 #header-title-05nuo h1{
     margin: 0;
     font-size: var(--title-size-05nuo);
-    line-height: 80px;
+    line-height: calc(var(--title-size-05nuo) * 1.8);
+    font-weight: normal;
 }
 
 #placeholder-05nuo{
     opacity: 0;
+    user-select: none;
 }
 
 #placeholder2-05nuo{
     opacity: 0;
+    user-select: none;
 }
 
 .cube-text-05nuo{
     --face-height-05nuo: 0;
-    --cube-rotate-05nuo: 0deg;
+
     position: absolute;
     display: block;
     box-sizing: border-box;
-    width: 30%;
 
     font-size: var(--title-size-05nuo);
+    font-weight: 400;
     text-align: center;
 
     backface-visibility: visible;
     perspective-origin: center;
     transform-style: preserve-3d;
     transform-origin: calc(var(--face-height-05nuo) / 2) calc(var(--face-height-05nuo) / 2) 0;
-    transform: perspective(1000px) rotateX(var(--cube-rotate-05nuo));
+    transform: perspective(1000px);
     transition: transform 1s ease-in-out;
+}
+
+#interactive-text-05nuo{
+    --cube-rotate-05nuo: 0deg;
+    transform: rotateX(var(--cube-rotate-05nuo));
+
+}
+#interactive-text2-05nuo{
+    --cube-rotate2-05nuo: 0deg;
+    transform: rotateX(var(--cube-rotate2-05nuo));
 }
 
 .face-05nuo{
     position: absolute;
     display: block;
     box-sizing: border-box;
-    left: calc(var(--title-padding-left-05nuo) * 100vw * 0.45);
+    left: 0;
     top:0;
     padding-top: 0;
     width: 100%;
     height: var(--face-height-05nuo);
 }
 
-.text-scrollFront-05nuo{
-    background: rgb(226, 226, 226, 1);
+/* cube 1 */
+
+#interactive-text-05nuo .text-scrollFront-05nuo{
+    background: linear-gradient(90deg, rgba(255,255,255,1) 50%, rgba(92,196,151,1) 100%);
     transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
 }
 
-.text-scrollTop-05nuo{
-    background: rgb(170, 170, 170, 1);
+#interactive-text-05nuo .text-scrollTop-05nuo{
+    background: linear-gradient(90deg, rgba(92,196,151,1) 80%, rgba(255,255,255,1) 100%);
     transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+    color:white;
 }
 
-.text-scrollBottom-05nuo{
-    background: rgb(138, 138, 138, 1);
+#interactive-text-05nuo .text-scrollBottom-05nuo{
+    background: linear-gradient(90deg, rgba(92,196,151,1) 70%, rgba(255,255,255,1) 100%);
     transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+    color:white;
 }
 
-.text-scrollBack-05nuo{
-    background: rgb(95, 95, 95, 1);
+#interactive-text-05nuo .text-scrollBack-05nuo{
+    background: linear-gradient(90deg, rgba(255,255,255,1) 60%, rgba(92,196,151,1) 100%);
     transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+}
+
+/*cube 2*/
+
+#interactive-text2-05nuo .text-scrollFront-05nuo{
+    background: linear-gradient(90deg, rgba(92,196,151,1) 88%, rgba(255,255,255,1) 100%);
+    transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+    color: white;
+}
+
+#interactive-text2-05nuo .text-scrollTop-05nuo{
+    background: linear-gradient(90deg, rgba(255,255,255,1) 60%, rgba(92,196,151,1) 100%);
+    transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+}
+
+#interactive-text2-05nuo .text-scrollBottom-05nuo{
+    background: linear-gradient(90deg, rgba(255,255,255,1) 50%, rgba(92,196,151,1) 100%);
+    transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+}
+
+#interactive-text2-05nuo .text-scrollBack-05nuo{
+    background: linear-gradient(90deg, rgba(92,196,151,1) 80%, rgba(255,255,255,1) 100%);
+    transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+    opacity: 1;
+    color: white;
 }
     
 #header-svg-05nuo{
