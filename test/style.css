@@ -15,33 +15,86 @@ html,body{
 }
 
 #header-title-05nuo{
+    --title-padding-left-05nuo: 2.5%;
+    --title-size-05nuo: 45px;
     position: relative;
     display: block;
     box-sizing: border-box;
     width: 40%;
-    padding-left: 1%;
-
-    font-size: 2rem;
+    text-align: left;
+    padding-top: 3.5%;
+    padding-left: var(--title-padding-left-05nuo);
 }
 
-#header-title-05nuo p{
-
+#header-title-05nuo h1{
+    margin: 0;
+    font-size: var(--title-size-05nuo);
+    line-height: 80px;
 }
 
-#header-title-05nuo #text-scrollA-05nuo{
-    perspective: 800;
-    
+#placeholder-05nuo{
+    opacity: 0;
 }
 
-#header-title-05nuo #text-scrollB-05nuo{
+#placeholder2-05nuo{
+    opacity: 0;
+}
 
+.cube-text-05nuo{
+    --face-height-05nuo: 0;
+    --cube-rotate-05nuo: 0deg;
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 30%;
+
+    font-size: var(--title-size-05nuo);
+    text-align: center;
+
+    backface-visibility: visible;
+    perspective-origin: center;
+    transform-style: preserve-3d;
+    transform-origin: calc(var(--face-height-05nuo) / 2) calc(var(--face-height-05nuo) / 2) 0;
+    transform: perspective(1000px) rotateX(var(--cube-rotate-05nuo));
+    transition: transform 1s ease-in-out;
+}
+
+.face-05nuo{
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    left: calc(var(--title-padding-left-05nuo) * 100vw * 0.45);
+    top:0;
+    padding-top: 0;
+    width: 100%;
+    height: var(--face-height-05nuo);
+}
+
+.text-scrollFront-05nuo{
+    background: rgb(226, 226, 226, 1);
+    transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
+}
+
+.text-scrollTop-05nuo{
+    background: rgb(170, 170, 170, 1);
+    transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+}
+
+.text-scrollBottom-05nuo{
+    background: rgb(138, 138, 138, 1);
+    transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
+}
+
+.text-scrollBack-05nuo{
+    background: rgb(95, 95, 95, 1);
+    transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
 }
     
 #header-svg-05nuo{
     position: absolute;
     display: block;
-    width: 60%;
-    left: calc(40% - max(3.35%, 28px));
+    width: 53%;
+    left: calc(47% - max(3.35%, 28px));
     top: 0;
     transition: left 1s ease, top 1s ease;
 }
