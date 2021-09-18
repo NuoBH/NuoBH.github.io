@@ -121,15 +121,14 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         top = (h - svgH) / 2;
     }
 
-    if(width < widthLimit && width < height){
-        if(h >= height){
-            h = height;
-        }
-        if(h < headerTitle.offsetHeight + svgH){
-            h = (headerTitle.offsetHeight + svgH) * 1.1;
-            console.log("!111")
-        }
+    //adjust header container height
+    if(h >= height){
+        h = height;
     }
+    if(h < headerTitle.offsetHeight + svgH){
+        h = (headerTitle.offsetHeight + svgH) * 1.1;
+    }
+
 
     if(width < widthLimit && width < height){
         top = h -  svgH;
