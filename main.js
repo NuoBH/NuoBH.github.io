@@ -54,15 +54,14 @@ const widthLimit = 1050;
 let whRatio_05nuo = 2.3;
 
 function responsiveInteractivText_05nuo(text, placeholder){
-    const boudningRect = placeholder.getBoundingClientRect();
-    let posX = boudningRect.x + window.scrollX;
-    let posY = boudningRect.y + window.scrollY;
+    let posX = placeholder.offsetLeft;
+    let posY = placeholder.offsetTop;
     
     const hratio = 1.2;
     const wratio = 1.1;
-    let width = boudningRect.width * wratio;
-    let height = boudningRect.height * hratio;
-    let paddingTop = (height - boudningRect.height) / 2;
+    let width = placeholder.offsetWidth * wratio;
+    let height = placeholder.offsetHeight * hratio;
+    let paddingTop = (height - placeholder.offsetHeight) / 2;
     posY = posY - paddingTop;
 
     text.style.width = `${width}px`;
@@ -75,11 +74,9 @@ function responsiveInteractivText_05nuo(text, placeholder){
     }
 }
 
-function responsiveInteractiveTextLineHeight_05nuo(text1, placeholder1, text2, placeholder2){
-    const p1 = placeholder1.getBoundingClientRect();
-    const p2 = placeholder2.getBoundingClientRect();
-    if(Math.abs(p1.y - p2.y) >= 1){
-        let y = p2.y + p2.height * 0.2 + window.scrollY;
+function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
+    if(Math.abs(p1.offsetTop - p2.offsetTop) >= 1){
+        let y = p2.offsetTop + p2.offsetHeight * 0.2;
         text2.style.top = `${y}px`;
     }
     else{
@@ -87,7 +84,7 @@ function responsiveInteractiveTextLineHeight_05nuo(text1, placeholder1, text2, p
         parseFloat(window.getComputedStyle(text1).getPropertyValue("width"));
         const b2Left = parseFloat(window.getComputedStyle(text2).getPropertyValue("left"))
         if(b1Right - b2Left > 0){
-            let x = p2.x * 1.05 + window.scrollX;
+            let x = p2.offsetLeft + p2.offsetWidth * 0.1;
             text2.style.left = `${x}px`;
         }
     }
@@ -180,12 +177,12 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     }
 
     //adjust header container height
-    if(h >= height){
-        h = height;
-    }
-    if(h < headerTitle.offsetHeight + svgH){
+    // if(h >= height){
+    //     h = height;
+    // }
+    // if(h < headerTitle.offsetHeight + svgH){
         h = (headerTitle.offsetHeight + svgH) * 1.16;
-    }
+    // }
 
     if(width < widthLimit && width < height){
         top = h - svgH;
@@ -201,6 +198,14 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     svg.style.top = `${top}px`;
 }
 
+function responsiveInteractiveText_05nuo(){
+    responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
+    responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
+    requestTimeout(()=>{
+        responsiveInteractiveTextLineHeight_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo, interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
+    }, 250);
+}
+
 function resizeHero_05nuo(){
     switchHeroHV_05nuo(svg_05nuo)
     responsiveSVG_05nuo(svgContainer_05nuo, svg_05nuo, headerTitle_05nuo);
@@ -208,28 +213,17 @@ function resizeHero_05nuo(){
 
 function responsiveTitle_05nuo(){
     responsiveTitleFont(headerTitle_05nuo, mainTitle_05nuo);
-    responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
-    responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
-    requestTimeout(()=>{
-        responsiveInteractiveTextLineHeight_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo, interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
-    }, 300);
+    responsiveInteractiveText_05nuo();
 }
 
 const responsiveFunc_05nuo = function(){
     responsiveTitle_05nuo();
     resizeHero_05nuo();
 
-    requestTimeout(scrollFunc_05nuo, 200);
+    requestTimeout(responsiveInteractiveText_05nuo, 20);
 }
 
-const scrollFunc_05nuo = function(){
-    responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
-    responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
-    requestTimeout(()=>{
-        responsiveInteractiveTextLineHeight_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo, interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
-    }, 300);}
-
-responsiveFunc_05nuo();
+requestTimeout(responsiveFunc_05nuo, 0);
+requestTimeout(responsiveFunc_05nuo, 50);
 
 window.addEventListener("resize", responsiveFunc_05nuo);
-window.addEventListener("scroll", scrollFunc_05nuo);
