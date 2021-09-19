@@ -90,11 +90,11 @@ function switchHeroHV_05nuo(svg){
 
     if(width < widthLimit && width < height){
         whRatio_05nuo = 0.675;
-        svg.style.left = "-5%";
+        svg.style.left = "-10%";
     }
     else{
         whRatio_05nuo = 2.13;
-        svg.style.left = "calc(45% - max(3.35%, 28px))";
+        svg.style.left = "calc(35% - max(3.35%, 28px))";
     }
 }
 
@@ -111,14 +111,12 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     let svgH;
 
     if(width < widthLimit && width < height){
-        svgW = w * 1.1;
+        svgW = w * 1.2;
         svgH = svgW / 1.604;
-        top = h -  svgH;
     }
     else{
-        svgW = w * 0.55;
+        svgW = w * 0.65;
         svgH = svgW / 1.604;
-        top = (h - svgH) / 2;
     }
 
     //adjust header container height
@@ -129,12 +127,11 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         h = (headerTitle.offsetHeight + svgH) * 1.1;
     }
 
-
     if(width < widthLimit && width < height){
         top = h -  svgH;
     }
     else{
-        top = (h - svgH) / 2;
+        top = (h - svgH) /2.75;
     }
 
     container.style.width = `${w}px`;  
