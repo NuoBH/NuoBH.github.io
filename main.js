@@ -16,8 +16,6 @@ function responsiveInteractivText_05nuo(text, placeholder){
     let posX = boudningRect.x + window.scrollX;
     let posY = boudningRect.y + window.scrollY;
     
-    console.log(boudningRect.width);
-
     const hratio = 1.2;
     const wratio = 1.1;
     let width = boudningRect.width * wratio;
@@ -118,6 +116,19 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     }
     else{
         svgW = w * 0.65;
+        
+        //calculate if title and img overlap
+        const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('left'));
+        const headerLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('padding-left'));
+        const headerRight = headerTitle.offsetWidth + headerLeft;
+        console.log(`hr ${headerRight}, sl ${svgLeft}, sw1 ${svgW}`);
+        if(svgLeft < headerTitle.offsetWidth + headerLeft){
+            svgW = svgW - (headerTitle.offsetWidth + headerLeft - svgLeft);
+            let svgLeftPerc = 100 - (svgW / w) * 100;
+            console.log(`slp ${svgLeftPerc}, sw ${svgW}`)
+            let svgLeftCSS = `calc(${svgLeftPerc}% - max(3.35%, 28px))`;
+            svg.style.left = svgLeftCSS;
+        }
         svgH = svgW / 1.604;
     }
 
@@ -130,10 +141,10 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     }
 
     if(width < widthLimit && width < height){
-        top = h -  svgH;
+        top = h - svgH;
     }
     else{
-        top = (h - svgH) /2.75;
+        top = headerTitle.offsetHeight / 2;
     }
 
     container.style.width = `${w}px`;  
@@ -148,10 +159,10 @@ function resizeHero_05nuo(){
 }
 
 const responsiveFunc_05nuo = function(){
-    resizeHero_05nuo();
     responsiveTitleFont(headerTitle_05nuo, mainTitle_05nuo);
     responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
     responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
+    resizeHero_05nuo();
 }
 
 const scrollFunc_05nuo = function(){

@@ -22,7 +22,7 @@ html,body{
     position: relative;
     display: block;
     box-sizing: border-box;
-    width: 50%;
+    width: 40%;
     text-align: left;
     padding-top: 3.5%;
     padding-left: var(--title-padding-left-05nuo);
