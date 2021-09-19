@@ -9,7 +9,7 @@ const svg_05nuo = document.getElementById("header-svg-05nuo");
 const svgContainer_05nuo = svg_05nuo.parentElement;
 
 const widthLimit = 1050;
-let whRatio_05nuo = 2.13;
+let whRatio_05nuo = 2.3;
 
 function responsiveInteractivText_05nuo(text, placeholder){
     const boudningRect = placeholder.getBoundingClientRect();
@@ -93,7 +93,7 @@ function switchHeroHV_05nuo(svg){
         svg.style.left = "-10%";
     }
     else{
-        whRatio_05nuo = 2.13;
+        whRatio_05nuo = 2.3;
         svg.style.left = "calc(35% - max(3.35%, 28px))";
     }
 }
@@ -116,19 +116,6 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     }
     else{
         svgW = w * 0.65;
-        
-        //calculate if title and img overlap
-        const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('left'));
-        const headerLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('padding-left'));
-        const headerRight = headerTitle.offsetWidth + headerLeft;
-        console.log(`hr ${headerRight}, sl ${svgLeft}, sw1 ${svgW}`);
-        if(svgLeft < headerTitle.offsetWidth + headerLeft){
-            svgW = svgW - (headerTitle.offsetWidth + headerLeft - svgLeft);
-            let svgLeftPerc = 100 - (svgW / w) * 100;
-            console.log(`slp ${svgLeftPerc}, sw ${svgW}`)
-            let svgLeftCSS = `calc(${svgLeftPerc}% - max(3.35%, 28px))`;
-            svg.style.left = svgLeftCSS;
-        }
         svgH = svgW / 1.604;
     }
 
@@ -144,13 +131,23 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         top = h - svgH;
     }
     else{
-        top = headerTitle.offsetHeight / 2;
+        top = (document.getElementById("main-title-05nuo").offsetHeight + 
+        parseFloat(window.getComputedStyle(headerTitle).getPropertyValue("padding-top")));
     }
 
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
     svg.style.width = `${svgW}px`;
     svg.style.top = `${top}px`;
+
+    //adjust title and svg if overlap
+    const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('left'));
+    const headerLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('padding-left'));
+    const headerRight = headerTitle.offsetWidth + headerLeft;
+    console.log(`hr ${headerRight}, sl ${svgLeft}, sw1 ${svgW}`);
+    if(svgLeft < headerTitle.offsetWidth + headerLeft){
+        document.getElementById("placeholder2-05nuo").insertBefore("<br>");
+    }
 }
 
 function resizeHero_05nuo(){
