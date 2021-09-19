@@ -13,9 +13,11 @@ let whRatio_05nuo = 2.13;
 
 function responsiveInteractivText_05nuo(text, placeholder){
     const boudningRect = placeholder.getBoundingClientRect();
-    let posX = boudningRect.x;
-    let posY = boudningRect.y;
+    let posX = boudningRect.x + window.scrollX;
+    let posY = boudningRect.y + window.scrollY;
     
+    console.log(boudningRect.width);
+
     const hratio = 1.2;
     const wratio = 1.1;
     let width = boudningRect.width * wratio;
@@ -152,6 +154,12 @@ const responsiveFunc_05nuo = function(){
     responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
 }
 
+const scrollFunc_05nuo = function(){
+    responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
+    responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
+}
+
 responsiveFunc_05nuo();
 
 window.addEventListener("resize", responsiveFunc_05nuo);
+window.addEventListener("scroll", scrollFunc_05nuo);
