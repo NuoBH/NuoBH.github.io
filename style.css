@@ -8,7 +8,7 @@ html,body{
 
 .full-header-05nuo{
     position: relative;
-    background: linear-gradient(180deg, rgb(86, 187, 143) 0%, rgba(255,255,255,1) 83%);
+    background: linear-gradient(180deg, rgb(86, 187, 143) 0%, rgba(255,255,255,1) 75%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -68,7 +68,7 @@ html,body{
     transform-style: preserve-3d;
     transform-origin: calc(var(--face-height-05nuo) / 2) calc(var(--face-height-05nuo) / 2) 0;
     transform: perspective(1000px);
-    transition: transform 1s ease-in-out;
+    transition: transform 1s ease-in-out, left 0.15s ease, top 0.15s ease;
 }
 
 #interactive-text-05nuo{

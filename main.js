@@ -1,3 +1,45 @@
+/*******************************request time out***************************************** */
+// requestAnimationFrame() shim by Paul Irish
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+window.requestAnimFrame = (function() {
+    return  window.requestAnimationFrame       || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function(/* function */ callback, /* DOMElement */ element){
+          window.setTimeout(callback, 1000 / 60);
+        };
+  })();
+  
+/**
+ * Behaves the same as setTimeout except uses requestAnimationFrame() where possible for better performance
+ * @param {function} fn The callback function
+ * @param {int} delay The delay in milliseconds
+ */
+  
+window.requestTimeout = function(fn, delay) {
+    if( !window.requestAnimationFrame       && 
+        !window.webkitRequestAnimationFrame && 
+        !(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+        !window.oRequestAnimationFrame      && 
+        !window.msRequestAnimationFrame)
+        return window.setTimeout(fn, delay);
+        
+    var start = new Date().getTime(),
+        handle = new Object();
+        
+    function loop(){
+        var current = new Date().getTime(),
+        delta = current - start;
+        
+        delta >= delay ? fn.call() : handle.value = requestAnimFrame(loop);
+    };
+
+    handle.value = requestAnimFrame(loop);
+    return handle;
+};
+
 const interactiveText_05nuo = document.getElementById("interactive-text-05nuo");
 const interactiveText2_05nuo = document.getElementById("interactive-text2-05nuo");
 const interactiveTextPlaceholder_05nuo = document.getElementById("placeholder-05nuo");
@@ -151,6 +193,8 @@ const responsiveFunc_05nuo = function(){
     responsiveInteractivText_05nuo(interactiveText_05nuo, interactiveTextPlaceholder_05nuo);
     responsiveInteractivText_05nuo(interactiveText2_05nuo, interactiveTextPlaceholder2_05nuo);
     resizeHero_05nuo();
+
+    requestTimeout(scrollFunc_05nuo, 200);
 }
 
 const scrollFunc_05nuo = function(){
