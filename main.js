@@ -139,15 +139,6 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     container.style.height = `${h}px`;
     svg.style.width = `${svgW}px`;
     svg.style.top = `${top}px`;
-
-    //adjust title and svg if overlap
-    const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('left'));
-    const headerLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue('padding-left'));
-    const headerRight = headerTitle.offsetWidth + headerLeft;
-    console.log(`hr ${headerRight}, sl ${svgLeft}, sw1 ${svgW}`);
-    if(svgLeft < headerTitle.offsetWidth + headerLeft){
-        document.getElementById("placeholder2-05nuo").insertBefore("<br>");
-    }
 }
 
 function resizeHero_05nuo(){
