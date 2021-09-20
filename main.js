@@ -181,7 +181,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     //     h = height;
     // }
     // if(h < headerTitle.offsetHeight + svgH){
-        h = (headerTitle.offsetHeight + svgH) * 1.16;
+        h = (headerTitle.offsetHeight + svgH) * 1.05;
     // }
 
     if(width < widthLimit && width < height){
