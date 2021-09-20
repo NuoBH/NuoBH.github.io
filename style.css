@@ -40,18 +40,17 @@ html,body{
     position: relative;
     display: block;
     box-sizing: border-box;
-    width: 35%;
-    text-align: left;
-    padding:2.5% 1% 2.5% 1%;
-    margin: 1.5% 2.5% 1.5% 2.5%;
+    width: 100%;
+    text-align: center;
+    padding:0 1% 0 1%;
+    margin: 3% 0% 2.5% 0%;
     padding-left: var(--title-padding-left-05nuo);
     border-radius: 20px;
-    float:right;
+    float:left;
 
     font-family: 'Work Sans', sans-serif;
     color: white;
     font-weight: normal;
-    background: linear-gradient(180deg, rgba(76, 180, 135, 0.95) 5%, rgba(90, 199, 152, 0.5) 100%);
 }
 
 #header-title-05nuo .large-title-05nuo{

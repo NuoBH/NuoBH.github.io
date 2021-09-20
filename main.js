@@ -120,6 +120,7 @@ const interactiveTextPlaceholder_05nuo = document.getElementById("placeholder-05
 const interactiveTextPlaceholder2_05nuo = document.getElementById("placeholder2-05nuo");
 const headerTitle_05nuo = document.getElementById("header-title-05nuo");
 const mainTitle_05nuo = document.getElementById("main-title-05nuo");
+const inBtwTitle_05nuo = document.getElementById("in-btw-title-05nuo");
 
 const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = svg_05nuo.parentElement;
@@ -135,7 +136,7 @@ function responsiveInteractivText_05nuo(text, placeholder){
     const wratio = 1.1;
     let width = placeholder.offsetWidth * wratio;
     let height = placeholder.offsetHeight * hratio;
-    let paddingTop = (height - placeholder.offsetHeight) / 2.5;
+    let paddingTop = (height - placeholder.offsetHeight) / 2;
     posY = posY - paddingTop;
 
     text.style.width = `${width}px`;
@@ -164,21 +165,18 @@ function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
     }
 }
 
-function responsiveHeaderTitle(headerTitle){
+function responsiveHeaderTitle(headerTitle, inBtwTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
     if(width < widthLimit_05nuo && width < height){
-        headerTitle.style.width = "100%";
-        headerTitle.style.float = "left";
-        headerTitle.style.background = "none";
+        inBtwTitle.innerHTML = "<br> Should be <br>";
+        headerTitle.style.textAlign="left";
+        headerTitle.style.margin="5% 0% 2.5% 3%";
     }
     else{
-        headerTitle.style.width = "35%";
-        if(width < 1350){
-            headerTitle.style.width = "40%";
-        }
-        headerTitle.style.float = "right";
-        headerTitle.style.background = "linear-gradient(180deg, rgba(76, 180, 135, 0.95) 5%, rgba(90, 199, 152, 0.5) 100%)";
+        inBtwTitle.innerHTML = " Should be ";
+        headerTitle.style.textAlign="center";
+        headerTitle.style.margin="5% 0% 2.5% 0%";
     }
 }
 
@@ -253,7 +251,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         }
         svgH = svgW / 1.604;
 
-        top = (headerTitle.offsetHeight + parseFloat(window.getComputedStyle(headerTitle).getPropertyValue("padding-top"))) * 1.2;
+        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
         left = (svgW - w) / -2.5;
     }
     else{
@@ -263,10 +261,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         }
         svgH = svgW / 1.604;
 
-        top = headerTitle.offsetHeight * 1.5;
-        if(top > (h - svgH)){
-            top = Math.max(50, (h-svgH) * 1.05);
-        }
+        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.35;
         left = (w - svgW) / 2;
     }
 
@@ -290,7 +285,7 @@ function resizeHero_05nuo(){
 }
 
 function responsiveTitle_05nuo(){
-    responsiveHeaderTitle(headerTitle_05nuo);
+    responsiveHeaderTitle(headerTitle_05nuo, inBtwTitle_05nuo);
     responsiveTitleFont(headerTitle_05nuo, mainTitle_05nuo);
     responsiveInteractiveText_05nuo();
 }
