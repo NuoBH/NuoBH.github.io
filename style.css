@@ -8,12 +8,22 @@ html,body{
 
 .full-header-05nuo{
     position: relative;
-    background: linear-gradient(180deg, rgb(86, 187, 143) 0%, rgba(255,255,255,1) 75%);
+    background: linear-gradient(180deg, rgb(86, 187, 143) 5%, rgba(255,255,255,1) 75%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
-    height: 0;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
+}
+@media only screen and (max-height:500px){
+    .full-header-05nuo{
+        background: linear-gradient(180deg, rgb(86, 187, 143) 20%, rgba(255,255,255,1) 100%);
+    }
+}
+@media only screen and (max-height:400px){
+    .full-header-05nuo{
+        background: linear-gradient(180deg, rgb(86, 187, 143) 25%, rgba(255,255,255,1) 120%);
+    }
 }
 
 #header-title-05nuo{
@@ -22,14 +32,23 @@ html,body{
     position: relative;
     display: block;
     box-sizing: border-box;
-    width: 45%;
+    width: 35%;
     text-align: left;
-    padding-top: 3.5%;
+    padding:2.5% 1% 2.5% 1%;
+    margin: 1.5% 2.5% 1.5% 2.5%;
     padding-left: var(--title-padding-left-05nuo);
+    border-radius: 20px;
+    float:right;
 
     font-family: 'Work Sans', sans-serif;
     color: white;
     font-weight: normal;
+    background: linear-gradient(180deg, rgba(76, 180, 135, 0.95) 5%, rgba(90, 199, 152, 0.5) 100%);
+}
+@media only screen and (max-width: 1350px){
+    #header-title-05nuo{
+        width: 40%;
+    }
 }
 #header-title-05nuo .large-title-05nuo{
     font-size: 45px; 
@@ -58,7 +77,7 @@ html,body{
 
 .cube-text-05nuo{
     --face-height-05nuo: 0;
-
+    --transform-transition-time-05nuo: 1s;
     position: absolute;
     display: block;
     box-sizing: border-box;
@@ -71,7 +90,7 @@ html,body{
     transform-style: preserve-3d;
     transform-origin: calc(var(--face-height-05nuo) / 2) calc(var(--face-height-05nuo) / 2) 0;
     transform: perspective(1000px);
-    transition: transform 1s ease-in-out, left 0.15s ease, top 0.15s ease;
+    transition: transform var(--transform-transition-time-05nuo) ease-in-out, left 0.15s ease, top 0.15s ease;
 }
 
 #interactive-text-05nuo{
