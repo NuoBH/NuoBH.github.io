@@ -124,7 +124,7 @@ const mainTitle_05nuo = document.getElementById("main-title-05nuo");
 const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = svg_05nuo.parentElement;
 
-const widthLimit = 1050;
+const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
 function responsiveInteractivText_05nuo(text, placeholder){
@@ -135,7 +135,7 @@ function responsiveInteractivText_05nuo(text, placeholder){
     const wratio = 1.1;
     let width = placeholder.offsetWidth * wratio;
     let height = placeholder.offsetHeight * hratio;
-    let paddingTop = (height - placeholder.offsetHeight) / 2;
+    let paddingTop = (height - placeholder.offsetHeight) / 2.5;
     posY = posY - paddingTop;
 
     text.style.width = `${width}px`;
@@ -167,7 +167,7 @@ function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
 function responsiveHeaderTitle(headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    if(width < widthLimit){
+    if(width < widthLimit_05nuo){
         if(width < height){
             headerTitle.style.width = "100%";
             headerTitle.style.float = "left";
@@ -176,6 +176,9 @@ function responsiveHeaderTitle(headerTitle){
     }
     else{
         headerTitle.style.width = "35%";
+        if(width < 1350){
+            headerTitle.style.width = "40%";
+        }
         headerTitle.style.float = "right";
         headerTitle.style.background = "linear-gradient(180deg, rgba(76, 180, 135, 0.95) 5%, rgba(90, 199, 152, 0.5) 100%)";
     }
@@ -185,9 +188,9 @@ function responsiveTitleFont(headerTitle, mainTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    if(width < widthLimit){
+    if(width < widthLimit_05nuo){
         if(width < height){
-            if(width < widthLimit && width >= 600){
+            if(width < widthLimit_05nuo && width >= 600){
                 headerTitle.style.setProperty("--title-size-05nuo", "26px");
                 mainTitle.style.fontSize="35px";
             }
@@ -201,7 +204,7 @@ function responsiveTitleFont(headerTitle, mainTitle){
             }
         }
         else{
-            if(width < widthLimit && width >= 600){
+            if(width < widthLimit_05nuo && width >= 600){
                 headerTitle.style.setProperty("--title-size-05nuo", "26px");
                 mainTitle.style.fontSize="30px";
             }
@@ -245,7 +248,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     let svgW;
     let svgH;
 
-    if(width < widthLimit && width < height){
+    if(width < widthLimit_05nuo && width < height){
         svgW = w * 1.2;
         if(svgW < minSVGW_V){
             svgW = minSVGW_V;

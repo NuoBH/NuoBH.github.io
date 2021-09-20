@@ -4,6 +4,10 @@ html,body{
     overflow-x: hidden;
 }
 
+.fusion-page-title-bar{
+	display:none;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
 .full-header-05nuo{
@@ -45,11 +49,7 @@ html,body{
     font-weight: normal;
     background: linear-gradient(180deg, rgba(76, 180, 135, 0.95) 5%, rgba(90, 199, 152, 0.5) 100%);
 }
-@media only screen and (max-width: 1350px){
-    #header-title-05nuo{
-        width: 40%;
-    }
-}
+
 #header-title-05nuo .large-title-05nuo{
     font-size: 45px; 
     font-weight: 600;
