@@ -167,12 +167,10 @@ function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
 function responsiveHeaderTitle(headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    if(width < widthLimit_05nuo){
-        if(width < height){
-            headerTitle.style.width = "100%";
-            headerTitle.style.float = "left";
-            headerTitle.style.background = "none";
-        }
+    if(width < widthLimit_05nuo && width < height){
+        headerTitle.style.width = "100%";
+        headerTitle.style.float = "left";
+        headerTitle.style.background = "none";
     }
     else{
         headerTitle.style.width = "35%";
@@ -265,9 +263,9 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         }
         svgH = svgW / 1.604;
 
-        top = headerTitle.offsetHeight * 1.05;
+        top = headerTitle.offsetHeight * 1.5;
         if(top > (h - svgH)){
-            top = Math.max(80, h-svgH * 1.5);
+            top = Math.max(50, (h-svgH) * 1.05);
         }
         left = (w - svgW) / 2;
     }
