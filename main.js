@@ -171,12 +171,12 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
     if(width < widthLimit_05nuo && width < height){
         inBtwTitle.innerHTML = "<br> Should be <br>";
         headerTitle.style.textAlign="left";
-        headerTitle.style.margin="5% 0% 2.5% 3%";
+        headerTitle.style.margin="5.5% 0% 0% 3%";
     }
     else{
         inBtwTitle.innerHTML = " Should be ";
         headerTitle.style.textAlign="center";
-        headerTitle.style.margin="5% 0% 2.5% 0%";
+        headerTitle.style.margin="2% 0% 0% 0%";
     }
 }
 
@@ -217,15 +217,15 @@ function responsiveTitleFont(headerTitle, mainTitle){
     else{
         if(width < 1200){
             headerTitle.style.setProperty("--title-size-05nuo", "26px");
-            mainTitle.style.fontSize="36px";
+            mainTitle.style.fontSize="37px";
         }
         else if(width < 1450 && width >= 1200){
             headerTitle.style.setProperty("--title-size-05nuo", "30px");
-            mainTitle.style.fontSize="38px";
+            mainTitle.style.fontSize="40px";
         }
         else{
             headerTitle.style.setProperty("--title-size-05nuo", "34px");
-            mainTitle.style.fontSize="39px";
+            mainTitle.style.fontSize="41px";
         }
     } 
 }
@@ -255,13 +255,13 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         left = (svgW - w) / -2.5;
     }
     else{
-        svgW = w * 0.82;
+        svgW = w * 0.675;
         if(svgW < minSVGW_H){
             svgW = minSVGW_H;
         }
         svgH = svgW / 1.604;
 
-        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.35;
+        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.275;
         left = (w - svgW) / 2;
     }
 
@@ -352,19 +352,24 @@ function titleRotate_05nuo(timestamp){
 titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 
 /**scroll controls */
+let svgTranslateY_05nuo = 0;
+window.addEventListener("wheel", function(e){
+    const svgTop = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('top'));
+    const svgHeight = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('height'));
+    let svgMidPointPos = svgTop + svgHeight/2 + svgTranslateY_05nuo;
+    let distance = svgMidPointPos - window.innerHeight/2;
+    console.log(`${svgMidPointPos}, ${window.innerHeight}`)
+    if(Math.abs(distance) > 30){
+        let direction = 1;
+        if(distance > 0){
+            direction *= -1;
+        }
+        if(e.deltaY > 0){
+            let move = e.deltaY * direction * 0.05;
+            svgTranslateY_05nuo += move;
+            svg_05nuo.style.transform = `translateY(${svgTranslateY_05nuo}px)`;
+        }
+    }
 
-// let sumWheelDelta = 0;
-// let haveStoppedWheel = false;
-
-// window.addEventListener("wheel", (e) =>{
-//     if((window.scrollY + window.innerHeight) >= ((fullHeader_05nuo.offsetHeight + fullHeader_05nuo.offsetTop)/2)){
-//         console.log("!!")
-//         toggleScroll_05nuo.disableScroll();
-//         sumWheelDelta += e.deltaY;
-//         if(sumWheelDelta >= 1000){
-//             console.log(sumWheelDelta)
-//             sumWheelDelta = 0;
-//         }
-//     }
-// }, eventListenerOption_05nuo);
+}, eventListenerOption_05nuo);
 

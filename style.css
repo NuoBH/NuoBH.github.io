@@ -13,6 +13,7 @@ html,body{
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 .full-header-05nuo{
     position: relative;
@@ -42,8 +43,8 @@ html,body{
     box-sizing: border-box;
     width: 100%;
     text-align: center;
-    padding:0 1% 0 1%;
-    margin: 3% 0% 2.5% 0%;
+    padding:0 4% 0 0%;
+    margin: 2% 0% 2.5% 0%;
     padding-left: var(--title-padding-left-05nuo);
     border-radius: 20px;
     float:left;
@@ -60,6 +61,7 @@ html,body{
 
 #header-title-05nuo h1{
     margin: 0;
+    padding: 0;
     font-size: var(--title-size-05nuo);
     line-height: calc(var(--title-size-05nuo) * 2);
     font-weight: normal;
@@ -67,6 +69,16 @@ html,body{
     color: white;
     font-weight: normal;
 }
+
+#header-title-05nuo h2{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-size: calc(var(--title-size-05nuo)*0.815);
+    font-weight: normal;
+    color:white;
+}
+
 
 #placeholder-05nuo{
     opacity: 0;
