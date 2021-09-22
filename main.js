@@ -554,4 +554,19 @@ titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 //     }
 
 // }, eventListenerOption_05nuo);
+// let disableScroll = false;
+// window.addEventListener("wheel", function(e){
+//     if(window.scrollY + window.innerHeight >= document.body.clientHeight - 1){
+//         disableScroll = true;
+//     }
+// })
+
+// document.body.addEventListener("scroll", () => {
+//     if(window.scrollY + window.innerHeight >= document.body.clientHeight - 1){
+//         disableScroll = true;
+//     }
+//     if(disableScroll){
+//         toggleScroll_05nuo.disableScroll();
+//     }
+// }, eventListenerOption_05nuo)
 
