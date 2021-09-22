@@ -265,6 +265,8 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         left = (w - svgW) / 2;
     }
 
+    h = top + svgH;
+
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
     svg.style.width = `${svgW}px`;
@@ -352,24 +354,24 @@ function titleRotate_05nuo(timestamp){
 titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 
 /**scroll controls */
-let svgTranslateY_05nuo = 0;
-window.addEventListener("wheel", function(e){
-    const svgTop = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('top'));
-    const svgHeight = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('height'));
-    let svgMidPointPos = svgTop + svgHeight/2 + svgTranslateY_05nuo;
-    let distance = svgMidPointPos - window.innerHeight/2;
-    console.log(`${svgMidPointPos}, ${window.innerHeight}`)
-    if(Math.abs(distance) > 30){
-        let direction = 1;
-        if(distance > 0){
-            direction *= -1;
-        }
-        if(e.deltaY > 0){
-            let move = e.deltaY * direction * 0.05;
-            svgTranslateY_05nuo += move;
-            svg_05nuo.style.transform = `translateY(${svgTranslateY_05nuo}px)`;
-        }
-    }
+// let svgTranslateY_05nuo = 0;
+// window.addEventListener("wheel", function(e){
+//     const svgTop = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('top'));
+//     const svgHeight = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('height'));
+//     let svgMidPointPos = svgTop + svgHeight/2 + svgTranslateY_05nuo;
+//     let distance = svgMidPointPos - window.innerHeight/2;
+//     console.log(`${svgMidPointPos}, ${window.innerHeight}`)
+//     if(Math.abs(distance) > 30){
+//         let direction = 1;
+//         if(distance > 0){
+//             direction *= -1;
+//         }
+//         if(e.deltaY > 0){
+//             let move = e.deltaY * direction * 0.1;
+//             svgTranslateY_05nuo += move;
+//             svg_05nuo.style.transform = `translateY(${svgTranslateY_05nuo}px)`;
+//         }
+//     }
 
-}, eventListenerOption_05nuo);
+// }, eventListenerOption_05nuo);
 

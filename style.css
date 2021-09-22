@@ -22,7 +22,7 @@ html,body{
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
