@@ -192,7 +192,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         let marginLeft = (width - w) / 1.9;
         headerTitle.style.width = `${w}px` 
         headerTitle.style.background = "rgba(85, 184, 141, 0.65)";
-        headerTitle.style.border = "white inset 2px";
+        headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
         headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
     }
