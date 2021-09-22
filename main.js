@@ -469,7 +469,7 @@ let notIE = (document.documentMode === undefined),
     isChromium = window.chrome;
 if (notIE && !isChromium) {
     // checks for Firefox and other  NON IE Chrome versions
-    $(window).on("focusout", function () {
+    window.addEventListener("focusout", function () {
     // blur
     svgPanAnimLastTime_05nuo = undefined;
     });
