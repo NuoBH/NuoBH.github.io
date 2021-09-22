@@ -128,6 +128,11 @@ const fullHeader_05nuo = svg_05nuo.parentElement;
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
+const minSVGW_V_05nuo = 575;
+const minSVGW_H_05nuo = 1170;
+const svgWRatioH_05nuo = 0.75;
+const svgWRatioV_05nuo = 1.1;
+
 function responsiveInteractivText_05nuo(text, placeholder){
     let posX = placeholder.offsetLeft;
     let posY = placeholder.offsetTop;
@@ -169,14 +174,27 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
     if(width < widthLimit_05nuo && width < height){
-        inBtwTitle.innerHTML = "<br> Should be <br>";
+        headerTitle.style.width = "100%";
+        headerTitle.style.background = "none";
+        headerTitle.style.border = "none";
         headerTitle.style.textAlign="left";
-        headerTitle.style.margin="5.5% 0% 0% 3%";
+        headerTitle.style.margin="0% 0% 0% 5%";
     }
     else{
-        inBtwTitle.innerHTML = " Should be ";
+        let w = 0;
+
+        w = width * svgWRatioH_05nuo;
+        if(w < minSVGW_H_05nuo){
+            w = minSVGW_H_05nuo;
+        }
+
+        w = w / 2.25;
+        let marginLeft = (width - w) / 1.9;
+        headerTitle.style.width = `${w}px` 
+        headerTitle.style.background = "rgba(85, 184, 141, 0.65)";
+        headerTitle.style.border = "white inset 2px";
         headerTitle.style.textAlign="center";
-        headerTitle.style.margin="2% 0% 0% 0%";
+        headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
     }
 }
 
@@ -234,38 +252,36 @@ function responsiveTitleFont(headerTitle, mainTitle){
 function responsiveSVG_05nuo(container, svg, headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const minSVGW_V = 575;
-    const minSVGW_H = 1170;
 
     let w = window.innerWidth;
     let h = height;
     let top;
     let left;
     let svgW;
-    let svgH;
+    // let svgH;
 
     if(width < widthLimit_05nuo && width < height){
-        svgW = w * 1.2;
-        if(svgW < minSVGW_V){
-            svgW = minSVGW_V;
-        }
-        svgH = svgW / 1.604;
+        svgW = ( h - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95 * 1.604;
+
+        // svgW = w * svgWRatioV_05nuo;
+        // if(svgW < minSVGW_V_05nuo){
+        //     svgW = minSVGW_V_05nuo;
+        // }
+        // svgH = svgW / 1.604;
 
         top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
-        left = (svgW - w) / -2.5;
+        left = (svgW - w) / -2;
     }
     else{
-        svgW = w * 0.675;
-        if(svgW < minSVGW_H){
-            svgW = minSVGW_H;
+        svgW = w * svgWRatioH_05nuo;
+        if(svgW < minSVGW_H_05nuo){
+            svgW = minSVGW_H_05nuo;
         }
-        svgH = svgW / 1.604;
+        // svgH = svgW / 1.604;
 
-        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.275;
+        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
         left = (w - svgW) / 2;
     }
-
-    h = top + svgH;
 
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
@@ -297,6 +313,7 @@ const responsiveFunc_05nuo = function(){
     resizeHero_05nuo();
 
     requestTimeout(responsiveInteractiveText_05nuo, 20);
+    svgPanStartCheck(svg_05nuo);
 }
 
 requestTimeout(responsiveFunc_05nuo, 0);
@@ -304,7 +321,108 @@ requestTimeout(responsiveFunc_05nuo, 50);
 
 window.addEventListener("resize", responsiveFunc_05nuo);
 
-/** title text rotate animation*/
+
+/********** svg pan ******************** */
+let svgTranslateX_05nuo = 0;
+let svgPrevTranslateX_05nuo = 0;
+let svgPanAnim_05nuo = undefined;
+let svgPanAnimCurtime_05nuo = undefined;
+let svgPanDir_05nuo = 1;
+let svgPanSpeed_05nuo = 0.0015;
+let stopSvgPan_05nuo = true;
+
+function svgPanCheck_05uo(svg){
+    const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
+    const width = window.innerWidth;
+
+    if(svgWidth >= width * 1.15){
+        stopSvgPan_05nuo = false;
+    }
+    else{
+        stopSvgPan_05nuo = true;
+    }
+}
+
+function svgPan_05nuo(svg){
+    const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue("left"));
+    const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
+    const width = window.innerWidth;
+
+    let target;
+
+    let totalDistance = svgLeft + svgTranslateX_05nuo + svgPrevTranslateX_05nuo;
+    if((svgPanDir_05nuo > 0) && (totalDistance >= -1) 
+    || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width + 1)) ){
+        svgPanDir_05nuo *= -1;
+        svgTranslateX_05nuo = 0;
+        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? 0.001 : 0.0012;
+    }
+    console.log(svgPanDir_05nuo);
+
+    if(svgPanDir_05nuo > 0){
+        target = 0 - svgLeft - svgTranslateX_05nuo;
+    }
+    else{
+        target = (svgWidth - width) - svgTranslateX_05nuo;
+    }
+
+    let move =  target * svgPanSpeed_05nuo * svgPanDir_05nuo;
+    svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
+    svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
+    svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
+}
+
+function svgPanAnimate_05nuo(){
+    if(!stopSvgPan_05nuo){
+        svgPan_05nuo(svg_05nuo);
+        cancelAnimationFrame(svgPanAnim_05nuo);
+        svgPanAnim_05nuo = requestAnimFrame(svgPanAnimate_05nuo);
+    }
+    else{
+        cancelAnimationFrame(svgPanAnim_05nuo);
+    }
+}
+
+function svgStopPan_05nuo(svg){
+    const speed = 0.05;
+    let target = 0;
+    let move = (target - svgPrevTranslateX_05nuo) * speed; 
+
+    svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
+    svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
+    svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
+}
+
+function svgStopPanAnimate_05nuo(){
+    let svgLeft = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("left"));
+    if(Math.abs((svgLeft + svgTranslateX_05nuo) - svgLeft) > 0.1){
+        svgStopPan_05nuo(svg_05nuo);
+        cancelAnimationFrame(svgPanAnim_05nuo);
+        svgPanAnim_05nuo = requestAnimFrame(svgStopPanAnimate_05nuo);
+    }
+    else{
+        cancelAnimationFrame(svgPanAnim_05nuo);
+    }
+}
+
+const svgPanStartCheck = function(){
+    requestTimeout(()=>{
+        svgPanCheck_05uo(svg_05nuo);
+        if(!stopSvgPan_05nuo){
+            cancelAnimationFrame(svgPanAnim_05nuo);
+            svgPanAnim_05nuo = requestAnimFrame(svgPanAnimate_05nuo);
+        }
+        else{
+            cancelAnimationFrame(svgPanAnim_05nuo);
+            requestTimeout(()=>{
+                svgPanAnim_05nuo = requestAnimFrame(svgStopPanAnimate_05nuo);
+            }, 50);
+        }
+    }, 60);
+}
+
+
+/************* title text rotate animation ***************/
 let titleAnim_05nuo;
 const titleAnimInterval_05nuo = 2300;
 let titleRotationL_05nuo = 0

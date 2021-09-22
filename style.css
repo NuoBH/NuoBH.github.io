@@ -36,18 +36,18 @@ html,body{
 }
 
 #header-title-05nuo{
-    --title-padding-left-05nuo: 2.5%;
     --title-size-05nuo: 35px;
     position: relative;
     display: block;
     box-sizing: border-box;
-    width: 100%;
+    width: 37.5%;
     text-align: center;
-    padding:0 4% 0 0%;
-    margin: 2% 0% 2.5% 0%;
-    padding-left: var(--title-padding-left-05nuo);
-    border-radius: 20px;
-    float:left;
+    padding: 2.7% 0% 2.5% 0%;
+    border-radius: 0 0 20px 20px;
+    float:center;
+
+    background:rgba(85, 184, 141, 0.65);
+    border: white inset 2px;
 
     font-family: 'Work Sans', sans-serif;
     color: white;
