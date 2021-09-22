@@ -355,7 +355,7 @@ function svgPan_05nuo(svg, deltaTime){
     || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width + 1)) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
-        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? 0.1 : 0.15;
+        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (100 / 800 * width / 1000) : (150 / 800 * width / 1000);
     }
     console.log(svgPanDir_05nuo);
 
