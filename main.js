@@ -326,9 +326,9 @@ window.addEventListener("resize", responsiveFunc_05nuo);
 let svgTranslateX_05nuo = 0;
 let svgPrevTranslateX_05nuo = 0;
 let svgPanAnim_05nuo = undefined;
-let svgPanAnimCurtime_05nuo = undefined;
+let svgPanAnimLastTime_05nuo = undefined;
 let svgPanDir_05nuo = 1;
-let svgPanSpeed_05nuo = 0.0015;
+let svgPanSpeed_05nuo = 0.015;
 let stopSvgPan_05nuo = true;
 
 function svgPanCheck_05uo(svg){
@@ -343,7 +343,7 @@ function svgPanCheck_05uo(svg){
     }
 }
 
-function svgPan_05nuo(svg){
+function svgPan_05nuo(svg, deltaTime){
     const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue("left"));
     const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
     const width = window.innerWidth;
@@ -355,7 +355,7 @@ function svgPan_05nuo(svg){
     || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width + 1)) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
-        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? 0.001 : 0.0012;
+        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? 0.1 : 0.15;
     }
     console.log(svgPanDir_05nuo);
 
@@ -366,42 +366,58 @@ function svgPan_05nuo(svg){
         target = (svgWidth - width) - svgTranslateX_05nuo;
     }
 
-    let move =  target * svgPanSpeed_05nuo * svgPanDir_05nuo;
+    let move =  target * svgPanSpeed_05nuo * svgPanDir_05nuo * deltaTime;
     svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
     svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
     svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
 }
 
-function svgPanAnimate_05nuo(){
+function svgPanAnimate_05nuo(timestamp){
+    if(svgPanAnimLastTime_05nuo == undefined){
+        svgPanAnimLastTime_05nuo = timestamp;
+    }
+
+    let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
+
     if(!stopSvgPan_05nuo){
-        svgPan_05nuo(svg_05nuo);
+        svgPan_05nuo(svg_05nuo, deltaTime);
         cancelAnimationFrame(svgPanAnim_05nuo);
         svgPanAnim_05nuo = requestAnimFrame(svgPanAnimate_05nuo);
+        svgPanAnimLastTime_05nuo = timestamp;
     }
     else{
         cancelAnimationFrame(svgPanAnim_05nuo);
+        svgPanAnimLastTime_05nuo = undefined;
     }
 }
 
-function svgStopPan_05nuo(svg){
-    const speed = 0.05;
+function svgStopPan_05nuo(svg, deltaTime){
+    const speed = 0.7;
     let target = 0;
-    let move = (target - svgPrevTranslateX_05nuo) * speed; 
+    let move = (target - svgPrevTranslateX_05nuo) * speed * deltaTime; 
 
     svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
     svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
     svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
 }
 
-function svgStopPanAnimate_05nuo(){
+function svgStopPanAnimate_05nuo(timestamp){
+    if(svgPanAnimLastTime_05nuo == undefined){
+        svgPanAnimLastTime_05nuo = timestamp;
+    }
+
+    let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
+
     let svgLeft = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("left"));
     if(Math.abs((svgLeft + svgTranslateX_05nuo) - svgLeft) > 0.1){
-        svgStopPan_05nuo(svg_05nuo);
+        svgStopPan_05nuo(svg_05nuo, deltaTime);
         cancelAnimationFrame(svgPanAnim_05nuo);
         svgPanAnim_05nuo = requestAnimFrame(svgStopPanAnimate_05nuo);
+        svgPanAnimLastTime_05nuo = timestamp;
     }
     else{
         cancelAnimationFrame(svgPanAnim_05nuo);
+        svgPanAnimLastTime_05nuo = undefined;
     }
 }
 
@@ -421,6 +437,52 @@ const svgPanStartCheck = function(){
     }, 60);
 }
 
+let vis = (function(){
+    var stateKey, 
+        eventKey, 
+        keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+    };
+    for (stateKey in keys) {
+        if (stateKey in document) {
+            eventKey = keys[stateKey];
+            break;
+        }
+    }
+    return function(c) {
+        if (c) document.addEventListener(eventKey, c);
+        return !document[stateKey];
+    }
+  })();
+  // check if current tab is active or not
+vis(function(){
+    if(vis() == false) {
+    // tab not focused
+        svgPanAnimLastTime_05nuo = undefined;
+    }
+});
+
+let notIE = (document.documentMode === undefined),
+    isChromium = window.chrome;
+if (notIE && !isChromium) {
+    // checks for Firefox and other  NON IE Chrome versions
+    $(window).on("focusout", function () {
+    // blur
+    svgPanAnimLastTime_05nuo = undefined;
+    });
+} 
+else {
+    // checks for IE and Chromium versions
+    // bind blur event
+    window.addEventListener("blur", function () {
+    // blur
+    LASTNOWscroll = undefined;
+    LASTNOWscrollV = undefined;
+    });
+}
 
 /************* title text rotate animation ***************/
 let titleAnim_05nuo;
