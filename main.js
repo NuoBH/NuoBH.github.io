@@ -192,7 +192,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         w = w / 2.25;
         let marginLeft = (width - w) / 1.9;
         headerTitle.style.width = `${w}px` 
-        headerTitle.style.background = "rgba(66, 185, 134, 0.65)";
+        headerTitle.style.background = "rgba(66, 185, 134, 0.83)";
         headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(36, 36, 36, 0.5)";
         headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
@@ -335,7 +335,7 @@ let svgPrevTranslateX_05nuo = 0;
 let svgPanAnim_05nuo = undefined;
 let svgPanAnimLastTime_05nuo = undefined;
 let svgPanDir_05nuo = 1;
-let svgPanSpeed_05nuo = 0.015;
+let svgPanSpeed_05nuo = 0.012;
 let stopSvgPan_05nuo = true;
 
 function svgPanCheck_05uo(svg){
@@ -362,9 +362,8 @@ function svgPan_05nuo(svg, deltaTime){
     || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width + 1)) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
-        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (100 / 800 * width / 1000) : (150 / 800 * width / 1000);
+        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (95 / 800 * width / 1000) : (120 / 800 * width / 1000);
     }
-    console.log(svgPanDir_05nuo);
 
     if(svgPanDir_05nuo > 0){
         target = 0 - svgLeft - svgTranslateX_05nuo;
@@ -499,6 +498,8 @@ let titleRotationR_05nuo = 0
 let currentTitleRotation_05nuo = 0;
 let hasResetTransitionTitleAnim_05nuo = true;
 let currentTimeTitleAnim_05nuo = undefined;
+const interactiveCubeChildren1 = interactiveText_05nuo.children;
+const interactiveCubeChildren2 = interactiveText2_05nuo.children;
 
 function titleRotate_05nuo(timestamp){
     if(currentTimeTitleAnim_05nuo == undefined){
@@ -539,6 +540,15 @@ function titleRotate_05nuo(timestamp){
 }
 
 titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
+
+
+requestTimeout(()=>{
+    let d = document.getElementById("institution-panel-05nuo");
+    d.classList.remove("svg-clip-path-05nuo");
+    d.classList.add("path2");
+
+
+}, 1000);
 
 /**scroll controls */
 // let svgTranslateY_05nuo = 0;
