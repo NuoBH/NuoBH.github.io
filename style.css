@@ -17,7 +17,7 @@ html,body{
 
 .full-header-05nuo{
     position: relative;
-    background: linear-gradient(180deg, rgb(86, 187, 143) 5%, rgba(255,255,255,1) 75%);
+    background: linear-gradient(180deg, rgb(41, 143, 99) 15%, rgba(255,255,255,1) 85%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -26,12 +26,12 @@ html,body{
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(86, 187, 143) 20%, rgba(255,255,255,1) 100%);
+        background: linear-gradient(180deg, rgb(41, 143, 99) 20%, rgba(255,255,255,1) 100%);
     }
 }
 @media only screen and (max-height:400px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(86, 187, 143) 25%, rgba(255,255,255,1) 120%);
+        background: linear-gradient(180deg, rgb(41, 143, 99) 25%, rgba(255,255,255,1) 120%);
     }
 }
 
@@ -46,12 +46,16 @@ html,body{
     border-radius: 0 0 20px 20px;
     float:center;
 
-    background:rgba(85, 184, 141, 0.65);
+    background:rgba(66, 185, 134, 0.65);
+    box-shadow: inset 0px 0px 30px rgba(36, 36, 36, 0.5);
     border: 2px solid white;
 
     font-family: 'Work Sans', sans-serif;
     color: white;
     font-weight: normal;
+
+    transform: translateY(-100%);
+    transition: transform 1s ease;
 }
 
 #header-title-05nuo .large-title-05nuo{

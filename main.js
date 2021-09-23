@@ -176,6 +176,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
     if(width < widthLimit_05nuo && width < height){
         headerTitle.style.width = "100%";
         headerTitle.style.background = "none";
+        headerTitle.style.boxShadow = "none";
         headerTitle.style.border = "none";
         headerTitle.style.textAlign="left";
         headerTitle.style.margin="0% 0% 0% 5%";
@@ -191,7 +192,8 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         w = w / 2.25;
         let marginLeft = (width - w) / 1.9;
         headerTitle.style.width = `${w}px` 
-        headerTitle.style.background = "rgba(85, 184, 141, 0.65)";
+        headerTitle.style.background = "rgba(66, 185, 134, 0.65)";
+        headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(36, 36, 36, 0.5)";
         headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
         headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
@@ -320,6 +322,11 @@ requestTimeout(responsiveFunc_05nuo, 0);
 requestTimeout(responsiveFunc_05nuo, 50);
 
 window.addEventListener("resize", responsiveFunc_05nuo);
+document.addEventListener('DOMContentLoaded', ()=>{
+    requestTimeout(()=>{
+        headerTitle_05nuo.style.transform = "translateY(0)";
+    }, 200);
+});
 
 
 /********** svg pan ******************** */
@@ -554,19 +561,4 @@ titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 //     }
 
 // }, eventListenerOption_05nuo);
-// let disableScroll = false;
-// window.addEventListener("wheel", function(e){
-//     if(window.scrollY + window.innerHeight >= document.body.clientHeight - 1){
-//         disableScroll = true;
-//     }
-// })
-
-// document.body.addEventListener("scroll", () => {
-//     if(window.scrollY + window.innerHeight >= document.body.clientHeight - 1){
-//         disableScroll = true;
-//     }
-//     if(disableScroll){
-//         toggleScroll_05nuo.disableScroll();
-//     }
-// }, eventListenerOption_05nuo)
 
