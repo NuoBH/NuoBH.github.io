@@ -192,8 +192,8 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         w = w / 2.25;
         let marginLeft = (width - w) / 1.9;
         headerTitle.style.width = `${w}px` 
-        headerTitle.style.background = "rgba(66, 185, 134, 0.83)";
-        headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(36, 36, 36, 0.5)";
+        headerTitle.style.background = "rgba(103, 182, 13, 0.8)";
+        headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(255, 255, 255, 0.5)";
         headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
         headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
@@ -256,20 +256,15 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     const height = window.innerHeight;
 
     let w = window.innerWidth;
-    let h = height;
+    let h;
     let top;
     let left;
     let svgW;
-    // let svgH;
+    let svgH;
 
     if(width < widthLimit_05nuo && width < height){
-        svgW = ( h - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95 * 1.604;
-
-        // svgW = w * svgWRatioV_05nuo;
-        // if(svgW < minSVGW_V_05nuo){
-        //     svgW = minSVGW_V_05nuo;
-        // }
-        // svgH = svgW / 1.604;
+        svgH = ( h - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
+        svgW = svgH * 1.604;
 
         top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
         left = (svgW - w) / -2;
@@ -279,11 +274,13 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         if(svgW < minSVGW_H_05nuo){
             svgW = minSVGW_H_05nuo;
         }
-        // svgH = svgW / 1.604;
+        svgH = svgW / 1.604;
 
         top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
         left = (w - svgW) / 2;
     }
+
+    h = ( svgH + top ) * 1.05;
 
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;

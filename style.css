@@ -17,7 +17,7 @@ html,body{
 
 .full-header-05nuo{
     position: relative;
-    background: linear-gradient(180deg, rgb(41, 143, 99) 15%, rgba(255,255,255,1) 85%);
+    background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(255, 255, 255) 85%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -26,12 +26,12 @@ html,body{
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(41, 143, 99) 20%, rgba(255,255,255,1) 100%);
+        background: linear-gradient(180deg, rgb(145, 192, 69) 20%, rgba(255,255,255,1) 100%);
     }
 }
 @media only screen and (max-height:400px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(41, 143, 99) 25%, rgba(255,255,255,1) 120%);
+        background: linear-gradient(180deg, rgb(145, 192, 69) 25%, rgba(255,255,255,1) 100%);
     }
 }
 
@@ -46,8 +46,8 @@ html,body{
     border-radius: 0 0 20px 20px;
     float:center;
 
-    background:rgba(66, 185, 134, 0.83);
-    box-shadow: inset 0px 0px 30px rgba(36, 36, 36, 0.5);
+    background:rgba(103, 182, 13, 0.8);
+    box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.5);
     border: 2px solid white;
 
     font-family: 'Work Sans', sans-serif;
@@ -61,7 +61,7 @@ html,body{
 #header-title-05nuo .large-title-05nuo{
     font-size: 45px; 
     font-weight: 600;
-    text-shadow: 0px 0px 30px rgb(255, 255, 255);
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
 }
 
 #header-title-05nuo h1{
@@ -136,7 +136,7 @@ html,body{
     -webkit-backface-visibility: hidden;
     color: white;
     border: 1px solid white;
-    text-shadow: 0px 0px 30px rgb(255, 255, 255);
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
 }
 
 /* cube 1 */
