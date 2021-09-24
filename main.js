@@ -192,7 +192,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         w = w / 2.25;
         let marginLeft = (width - w) / 1.9;
         headerTitle.style.width = `${w}px` 
-        headerTitle.style.background = "rgba(103, 182, 13, 0.8)";
+        headerTitle.style.background = "rgba(106, 185, 16, 0.775)";
         headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(255, 255, 255, 0.5)";
         headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
@@ -263,7 +263,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     let svgH;
 
     if(width < widthLimit_05nuo && width < height){
-        svgH = ( h - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
+        svgH = ( height - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
         svgW = svgH * 1.604;
 
         top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
@@ -307,24 +307,6 @@ function responsiveTitle_05nuo(){
     responsiveInteractiveText_05nuo();
 }
 
-const responsiveFunc_05nuo = function(){
-    responsiveTitle_05nuo();
-    resizeHero_05nuo();
-
-    requestTimeout(responsiveInteractiveText_05nuo, 20);
-    svgPanStartCheck(svg_05nuo);
-}
-
-requestTimeout(responsiveFunc_05nuo, 0);
-requestTimeout(responsiveFunc_05nuo, 50);
-
-window.addEventListener("resize", responsiveFunc_05nuo);
-document.addEventListener('DOMContentLoaded', ()=>{
-    requestTimeout(()=>{
-        headerTitle_05nuo.style.transform = "translateY(0)";
-    }, 200);
-});
-
 
 /********** svg pan ******************** */
 let svgTranslateX_05nuo = 0;
@@ -334,6 +316,7 @@ let svgPanAnimLastTime_05nuo = undefined;
 let svgPanDir_05nuo = 1;
 let svgPanSpeed_05nuo = 0.012;
 let stopSvgPan_05nuo = true;
+let canCheckSvgPan_05nuo = true;
 
 function svgPanCheck_05uo(svg){
     const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
@@ -356,7 +339,7 @@ function svgPan_05nuo(svg, deltaTime){
 
     let totalDistance = svgLeft + svgTranslateX_05nuo + svgPrevTranslateX_05nuo;
     if((svgPanDir_05nuo > 0) && (totalDistance >= -1) 
-    || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width + 1)) ){
+    || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width * 0.95)) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
         svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (95 / 800 * width / 1000) : (120 / 800 * width / 1000);
@@ -372,7 +355,12 @@ function svgPan_05nuo(svg, deltaTime){
     let move =  target * svgPanSpeed_05nuo * svgPanDir_05nuo * deltaTime;
     svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
     svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
-    svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
+
+    let matrix = window.getComputedStyle(svg).getPropertyValue("transform");
+    let matrixSplits = matrix.split(',');
+    let ty = parseFloat(matrixSplits[matrixSplits.length - 1]);
+
+    svg.style.setProperty(`transform`, `translateX(${svgTranslateX_05nuo}px) translateY(${ty}px)`);
 }
 
 function svgPanAnimate_05nuo(timestamp){
@@ -425,7 +413,7 @@ function svgStopPanAnimate_05nuo(timestamp){
 }
 
 const svgPanStartCheck = function(){
-    requestTimeout(()=>{
+    if(canCheckSvgPan_05nuo){
         svgPanCheck_05uo(svg_05nuo);
         if(!stopSvgPan_05nuo){
             cancelAnimationFrame(svgPanAnim_05nuo);
@@ -435,57 +423,106 @@ const svgPanStartCheck = function(){
             cancelAnimationFrame(svgPanAnim_05nuo);
             requestTimeout(()=>{
                 svgPanAnim_05nuo = requestAnimFrame(svgStopPanAnimate_05nuo);
-            }, 50);
-        }
-    }, 60);
-}
-
-let vis = (function(){
-    var stateKey, 
-        eventKey, 
-        keys = {
-                hidden: "visibilitychange",
-                webkitHidden: "webkitvisibilitychange",
-                mozHidden: "mozvisibilitychange",
-                msHidden: "msvisibilitychange"
-    };
-    for (stateKey in keys) {
-        if (stateKey in document) {
-            eventKey = keys[stateKey];
-            break;
+            }, 10);
         }
     }
-    return function(c) {
-        if (c) document.addEventListener(eventKey, c);
-        return !document[stateKey];
+    else{
+        cancelAnimationFrame(svgPanAnim_05nuo);
     }
-  })();
-  // check if current tab is active or not
-vis(function(){
-    if(vis() == false) {
-    // tab not focused
-        svgPanAnimLastTime_05nuo = undefined;
-    }
-});
-
-let notIE = (document.documentMode === undefined),
-    isChromium = window.chrome;
-if (notIE && !isChromium) {
-    // checks for Firefox and other  NON IE Chrome versions
-    window.addEventListener("focusout", function () {
-    // blur
-    svgPanAnimLastTime_05nuo = undefined;
-    });
-} 
-else {
-    // checks for IE and Chromium versions
-    // bind blur event
-    window.addEventListener("blur", function () {
-    // blur
-    LASTNOWscroll = undefined;
-    LASTNOWscrollV = undefined;
-    });
 }
+
+/**************scroll control svg *************** */
+const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
+let svgScrollState_05nuo = 0;
+let lastScrollTarget_05nuo = 0;
+let curScrollMove_05nuo = 0;
+
+let lastScrollSVGLerpTime_05nuo = undefined;
+let scrollLerpAnim_05nuo = undefined;
+let svgScrollLerpSpeed = 0.1;
+
+function scrollSvg_05nuo(){
+    let startSvgScroll_05nuo;
+    let endSvgScroll_05nuo;
+    let startPosY_05nuo;
+    let targetPosY_05nuo;
+
+    if(svgScrollState_05nuo == 0){
+        startSvgScroll_05nuo = fullHeader_05nuo.offsetHeight * 0.4;
+        endSvgScroll_05nuo = institutionPanel_05nuo.offsetTop;
+        startPosY_05nuo = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("top"));
+        targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
+    }
+
+    let scrollY = window.scrollY;
+    if(window.scrollY < startSvgScroll_05nuo){
+        scrollY = startSvgScroll_05nuo;
+    }
+    else if(window.scrollY > endSvgScroll_05nuo){
+        scrollY = endSvgScroll_05nuo;
+    }
+
+    // if(window.scrollY >= startSvgScroll_05nuo && window.scrollY <= endSvgScroll_05nuo){
+    lastScrollTarget_05nuo = (scrollY - startSvgScroll_05nuo) * (targetPosY_05nuo - startPosY_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
+
+    let b = endSvgScroll_05nuo - startSvgScroll_05nuo;
+    let c = scrollY - startSvgScroll_05nuo;
+
+    // if(Math.abs(startPosY_05nuo + curScrollMove_05nuo - targetPosY_05nuo) > 1){
+        cancelAnimationFrame(scrollLerpAnim_05nuo);
+        scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
+    // }
+    // else{
+    //     cancelAnimationFrame(scrollLerpAnim_05nuo);
+    //     lastScrollSVGLerpTime_05nuo = undefined;
+    // }
+    // }
+    
+}
+
+let lastSetSvgPosLeft_05nuo = 0;
+let curSvgPosLeftMove_05nuo = 0;
+let setSvgLeftLerpAnim_05nuo = undefined;
+let lastSetSvgLeftLerpTime = undefined;
+let setSvgLeftLerpSpeed = 0.2;
+
+function setSvgPosLeft_05nuo(startScroll, endScroll){
+    let startPosX = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("left"));
+    let targetPosX = window.innerWidth * 0.15;
+
+    lastSetSvgPosLeft_05nuo = (window.scrollY - startSvgScroll) / (endScroll - startScroll) * (targetPosX - startPosX);
+
+    if(Math.abs(startPosX + curSvgPosLeftMove_05nuo - targetPosX) > 1){
+
+    }
+}
+
+function setSvgPosLeftLerp_05nuo(timestamp){
+
+}
+
+function scrollSvgLerp_05nuo(timestamp){
+    if(lastScrollSVGLerpTime_05nuo == undefined){
+        lastScrollSVGLerpTime_05nuo = timestamp;
+    }
+
+    let deltaTime = (timestamp - lastScrollSVGLerpTime_05nuo) / 1000;
+
+    curScrollMove_05nuo = curScrollMove_05nuo + (lastScrollTarget_05nuo - curScrollMove_05nuo) * (1 - Math.pow(svgScrollLerpSpeed, deltaTime));
+
+    let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
+    let matrixSplits = matrix.split(',');
+    let tx = parseFloat(matrixSplits[matrixSplits.length - 2]);
+
+    svg_05nuo.style.setProperty("transform", `translateX(${tx}px) translateY(${curScrollMove_05nuo}px)`);
+
+    lastScrollSVGLerpTime_05nuo = timestamp;
+
+    cancelAnimationFrame(scrollLerpAnim_05nuo);
+    scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
+}
+
+window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
 
 /************* title text rotate animation ***************/
 let titleAnim_05nuo;
@@ -536,17 +573,76 @@ function titleRotate_05nuo(timestamp){
     titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 }
 
-titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
+/*************** prevent choppy anim after focus out**************** */
 
+let vis = (function(){
+    var stateKey, 
+        eventKey, 
+        keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+    };
+    for (stateKey in keys) {
+        if (stateKey in document) {
+            eventKey = keys[stateKey];
+            break;
+        }
+    }
+    return function(c) {
+        if (c) document.addEventListener(eventKey, c);
+        return !document[stateKey];
+    }
+  })();
+  // check if current tab is active or not
+vis(function(){
+    if(vis() == false) {
+    // tab not focused
+        svgPanAnimLastTime_05nuo = undefined;
+        lastScrollSVGLerpTime_05nuo = undefined;
+    }
+});
 
-requestTimeout(()=>{
-    let d = document.getElementById("institution-panel-05nuo");
-    d.classList.remove("svg-clip-path-05nuo");
-    d.classList.add("path2");
+let notIE = (document.documentMode === undefined),
+    isChromium = window.chrome;
+if (notIE && !isChromium) {
+    // checks for Firefox and other  NON IE Chrome versions
+    window.addEventListener("focusout", function () {
+    // blur
+    svgPanAnimLastTime_05nuo = undefined;
+    lastScrollSVGLerpTime_05nuo = undefined;
+    });
+} 
+else {
+    // checks for IE and Chromium versions
+    // bind blur event
+    window.addEventListener("blur", function () {
+    // blur
+    svgPanAnimLastTime_05nuo = undefined;
+    lastScrollSVGLerpTime_05nuo = undefined;
+    });
+}
 
+/****************start ************ */
+const responsiveFunc_05nuo = function(){
+    responsiveTitle_05nuo();
+    resizeHero_05nuo();
 
-}, 1000);
+    requestTimeout(responsiveInteractiveText_05nuo, 20);
+    svgPanStartCheck(svg_05nuo);
+    titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
+}
 
+requestTimeout(responsiveFunc_05nuo, 0);
+requestTimeout(responsiveFunc_05nuo, 50);
+
+window.addEventListener("resize", responsiveFunc_05nuo);
+document.addEventListener('DOMContentLoaded', ()=>{
+    requestTimeout(()=>{
+        headerTitle_05nuo.style.transform = "translateY(0)";
+    }, 200);
+});
 /**scroll controls */
 // let svgTranslateY_05nuo = 0;
 // window.addEventListener("wheel", function(e){

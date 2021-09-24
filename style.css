@@ -22,7 +22,7 @@ html,body{
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    /* overflow: hidden; */
+    z-index: 1;
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
@@ -46,7 +46,7 @@ html,body{
     border-radius: 0 0 20px 20px;
     float:center;
 
-    background:rgba(103, 182, 13, 0.8);
+    background:rgba(106, 185, 16, 0.8);
     box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.5);
     border: 2px solid white;
 
@@ -61,7 +61,7 @@ html,body{
 #header-title-05nuo .large-title-05nuo{
     font-size: 45px; 
     font-weight: 600;
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
 }
 
 #header-title-05nuo h1{
@@ -189,11 +189,12 @@ html,body{
     width: 53%;
     left: calc(47% - max(3.35%, 28px));
     top: 0;
+    transform: translateX(0) translateY(0);
     transition: left 1s ease, top 1s ease, clip-path 1s ease;
 }
 
 .svg-clip-path-05nuo{
-    clip-path: inset(1% round 1%);
+    clip-path: inset(0% round 0%);
 }
 
 .path2{
