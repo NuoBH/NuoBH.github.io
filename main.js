@@ -112,7 +112,15 @@ class ToggleScroll_05nuo{
 }
 
 const toggleScroll_05nuo = new ToggleScroll_05nuo();
-/****************************************** */
+
+function lerp_05nuo(v1, v2, speed, delta){
+    return v1 + (v2 - v1) * (1 - Math.pow(speed, delta));
+}
+
+/************************************************************************************************************* 
+ ***************************** responsive feature for svg, title div and texts ******************************* 
+ ************************************************************************************************************* 
+*/
 
 const interactiveText_05nuo = document.getElementById("interactive-text-05nuo");
 const interactiveText2_05nuo = document.getElementById("interactive-text2-05nuo");
@@ -132,6 +140,9 @@ const minSVGW_V_05nuo = 575;
 const minSVGW_H_05nuo = 1170;
 const svgWRatioH_05nuo = 0.75;
 const svgWRatioV_05nuo = 1.1;
+
+let svg_height_05nuo = 0;
+let svg_width_05nuo = 0;
 
 function responsiveInteractivText_05nuo(text, placeholder){
     let posX = placeholder.offsetLeft;
@@ -282,6 +293,9 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
 
     h = ( svgH + top ) * 1.05;
 
+    svg_height_05nuo = svgH;
+    svg_width_05nuo = svgW;
+
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
     svg.style.width = `${svgW}px`;
@@ -308,7 +322,10 @@ function responsiveTitle_05nuo(){
 }
 
 
-/********** svg pan ******************** */
+/************************************************************************************************************ 
+ * ****************************************** svg pan *******************************************************
+ * **********************************************************************************************************
+*/
 let svgTranslateX_05nuo = 0;
 let svgPrevTranslateX_05nuo = 0;
 let svgPanAnim_05nuo = undefined;
@@ -318,6 +335,7 @@ let svgPanSpeed_05nuo = 0.012;
 let stopSvgPan_05nuo = true;
 let canCheckSvgPan_05nuo = true;
 
+//check svg width to know if need to pan svg translate x
 function svgPanCheck_05uo(svg){
     const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
     const width = window.innerWidth;
@@ -330,6 +348,7 @@ function svgPanCheck_05uo(svg){
     }
 }
 
+//set svg pan direction, translateX target and check to switch direction 
 function svgPan_05nuo(svg, deltaTime){
     const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue("left"));
     const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
@@ -363,8 +382,9 @@ function svgPan_05nuo(svg, deltaTime){
     svg.style.setProperty(`transform`, `translateX(${svgTranslateX_05nuo}px) translateY(${ty}px)`);
 }
 
+//animate svg pan through request animation
 function svgPanAnimate_05nuo(timestamp){
-    if(svgPanAnimLastTime_05nuo == undefined){
+    if(svgPanAnimLastTime_05nuo === undefined){
         svgPanAnimLastTime_05nuo = timestamp;
     }
 
@@ -382,6 +402,7 @@ function svgPanAnimate_05nuo(timestamp){
     }
 }
 
+//set svg to pan back to original pos if pan is stopped
 function svgStopPan_05nuo(svg, deltaTime){
     const speed = 0.7;
     let target = 0;
@@ -392,8 +413,9 @@ function svgStopPan_05nuo(svg, deltaTime){
     svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
 }
 
+//animate svg to pan back through request animation
 function svgStopPanAnimate_05nuo(timestamp){
-    if(svgPanAnimLastTime_05nuo == undefined){
+    if(svgPanAnimLastTime_05nuo === undefined){
         svgPanAnimLastTime_05nuo = timestamp;
     }
 
@@ -412,6 +434,7 @@ function svgStopPanAnimate_05nuo(timestamp){
     }
 }
 
+//the function to call to start check/initiate/stop svg pan
 const svgPanStartCheck = function(){
     if(canCheckSvgPan_05nuo){
         svgPanCheck_05uo(svg_05nuo);
@@ -431,77 +454,147 @@ const svgPanStartCheck = function(){
     }
 }
 
-/**************scroll control svg *************** */
+/* ************************************************************************************************************
+*****************************************scroll control svg ***************************************************
+*************************************************************************************************************** 
+*/
+
+const svg_scroll_bg_05nuo = document.getElementById("scroll-bg-05nuo");
+const svg_bg_gradient_05nuo = document.getElementById('scroll-bg-gradient-05nuo');
 const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
+//svg scroll animation
 let svgScrollState_05nuo = 0;
 let lastScrollTarget_05nuo = 0;
-let lastClipAnimSeek_05nuo = 0;
 let curScrollMove_05nuo = 0;
-let curClipAnimSeek_05nuo = 0;
 
+//clip path animation
+let curClipAnimSeek_05nuo = 0;
+let lastClipAnimSeek_05nuo = 0;
+
+//svg scroll background gradient values
+let svg_hide_scroll_bg_05nuo = true;
+let svg_bg_gradient_y2_05nuo = 200;
+let svg_bg_gradient_y1_05nuo = 0;
+let svg_bg_gradient_factor_05nuo = 100;
+
+//svgScroll lerp values
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
-let svgScrollLerpSpeed = 0.1;
+let svgScrollLerpSpeed_05nuo = 0.1;
 
+//scrollY lerp values
+// let curScrollY_05nuo = 0;
+// let lastScrollY_05nuo = 0;
+// let lastScrollYLerpTime_05nuo = undefined;
+// let scrollYLerpAnim_05nuo = undefined;
+// let scrollYLerpSpeed_05nuo = 0.01;
+
+// //timer for detecting end of scrolling event
+// let post_scroll_timer_05nuo = undefined;
+
+//set start, end scroll animation position and scroll animation targets
 function scrollSvg_05nuo(){
+
     let startSvgScroll_05nuo;
     let endSvgScroll_05nuo;
     let startPosY_05nuo;
     let targetPosY_05nuo;
 
     if(svgScrollState_05nuo == 0){
-        startSvgScroll_05nuo = fullHeader_05nuo.offsetHeight * 0.4;
-        endSvgScroll_05nuo = institutionPanel_05nuo.offsetTop;
+        startSvgScroll_05nuo = fullHeader_05nuo.offsetHeight * 0.3;
+        endSvgScroll_05nuo = institutionPanel_05nuo.offsetTop * 0.75;
         startPosY_05nuo = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("top"));
-        targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
+        targetPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
     }
 
-    let scrollY = window.scrollY;
-    if(window.scrollY < startSvgScroll_05nuo){
-        scrollY = startSvgScroll_05nuo;
-    }
-    else if(window.scrollY > endSvgScroll_05nuo){
-        scrollY = endSvgScroll_05nuo;
+    //set scrollY values
+    let getScrollY = function(){
+        let scrollY = window.scrollY;
+        if(window.scrollY < startSvgScroll_05nuo){
+            scrollY = startSvgScroll_05nuo;
+        }
+        else if(window.scrollY > endSvgScroll_05nuo){
+            scrollY = endSvgScroll_05nuo;
+        }
+        return scrollY;
     }
 
-    let scrollPercent = (scrollY - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
+    lastScrollY_05nuo = getScrollY();
+
+    //show and hide svg scroll bg
+    {
+        if(!svg_hide_scroll_bg_05nuo && window.scrollY < startSvgScroll_05nuo){
+            requestTimeout(()=>{
+                if(!svg_hide_scroll_bg_05nuo && window.scrollY < startSvgScroll_05nuo){
+                    svg_hide_scroll_bg_05nuo = true;
+                    svg_scroll_bg_05nuo.style.opacity = "0";
+                }
+            }, 1000);
+        }
+        else if(svg_hide_scroll_bg_05nuo && window.scrollY >= startSvgScroll_05nuo && window.scrollY < endSvgScroll_05nuo){
+            svg_hide_scroll_bg_05nuo = false;
+            svg_scroll_bg_05nuo.style.opacity = "1";
+        }
+        else if(!svg_hide_scroll_bg_05nuo && window.scrollY >= endSvgScroll_05nuo){
+            requestTimeout(()=>{
+                if(!svg_hide_scroll_bg_05nuo && window.scrollY >= endSvgScroll_05nuo){
+                    svg_hide_scroll_bg_05nuo = true;
+                    svg_scroll_bg_05nuo.style.opacity = "0";
+                }
+            }, 1000);
+        }
+    }
+
+    let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
+    //scroll svg translateY
     lastScrollTarget_05nuo = scrollPercent * (targetPosY_05nuo - startPosY_05nuo);
+    //scroll animate svg clip path
     lastClipAnimSeek_05nuo = scrollPercent;
+
+    //change gradient pos y1 y2 values
+    let gradient_y1 = svg_bg_gradient_y1_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
+    let gradient_y2 = svg_bg_gradient_y2_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
+    svg_bg_gradient_05nuo.setAttribute("y1", `${gradient_y1}%`);
+    svg_bg_gradient_05nuo.setAttribute("y2", `${gradient_y2}%`);
+    
+    // cancelAnimationFrame(scrollYLerpAnim_05nuo);
+    // scrollYLerpAnim_05nuo = requestAnimFrame(scrollYLerp_05nuo);        
 
     cancelAnimationFrame(scrollLerpAnim_05nuo);
     scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
 }
 
-let lastSetSvgPosLeft_05nuo = 0;
-let curSvgPosLeftMove_05nuo = 0;
-let setSvgLeftLerpAnim_05nuo = undefined;
-let lastSetSvgLeftLerpTime = undefined;
-let setSvgLeftLerpSpeed = 0.2;
+// //lerp scroll Y
+// function scrollYLerp_05nuo(timestamp){
+//     if(lastScrollYLerpTime_05nuo === undefined){
+//         lastScrollYLerpTime_05nuo = timestamp;
+//     }
 
-function setSvgPosLeft_05nuo(startScroll, endScroll){
-    let startPosX = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("left"));
-    let targetPosX = window.innerWidth * 0.15;
+//     let deltaTime = (timestamp - lastScrollYLerpTime_05nuo) / 1000;
+//     lastScrollYLerpTime_05nuo = timestamp;
 
-    lastSetSvgPosLeft_05nuo = (window.scrollY - startSvgScroll) / (endScroll - startScroll) * (targetPosX - startPosX);
+//     curScrollY_05nuo = lerp_05nuo(curScrollY_05nuo, lastScrollY_05nuo, scrollYLerpSpeed_05nuo, deltaTime);
 
-    if(Math.abs(startPosX + curSvgPosLeftMove_05nuo - targetPosX) > 1){
+//     if(Math.abs(curScrollY_05nuo - lastScrollY_05nuo) <= 0.1){
+//         cancelAnimationFrame(scrollYLerpAnim_05nuo);
+//     }
+//     else{
+//         cancelAnimationFrame(scrollYLerpAnim_05nuo);
+//         scrollYLerpAnim_05nuo = requestAnimFrame(scrollYLerp_05nuo);        
+//     }
+// }
 
-    }
-}
-
-function setSvgPosLeftLerp_05nuo(timestamp){
-
-}
-
+//lerp svg translateY and clip path animtion
 function scrollSvgLerp_05nuo(timestamp){
-    if(lastScrollSVGLerpTime_05nuo == undefined){
+    if(lastScrollSVGLerpTime_05nuo === undefined){
         lastScrollSVGLerpTime_05nuo = timestamp;
     }
 
     let deltaTime = (timestamp - lastScrollSVGLerpTime_05nuo) / 1000;
+    lastScrollSVGLerpTime_05nuo = timestamp;
 
-    curScrollMove_05nuo = curScrollMove_05nuo + (lastScrollTarget_05nuo - curScrollMove_05nuo) * (1 - Math.pow(svgScrollLerpSpeed, deltaTime));
-    curClipAnimSeek_05nuo = curClipAnimSeek_05nuo + (lastClipAnimSeek_05nuo - curClipAnimSeek_05nuo) * (1 - Math.pow(svgScrollLerpSpeed, deltaTime));
+    curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
+    curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
 
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
@@ -510,10 +603,15 @@ function scrollSvgLerp_05nuo(timestamp){
     svg_05nuo.style.setProperty("transform", `translateX(${tx}px) translateY(${curScrollMove_05nuo}px)`);
     svg_05nuo.style.setProperty("--animation-seek-05nuo", curClipAnimSeek_05nuo);
 
-    lastScrollSVGLerpTime_05nuo = timestamp;
-
-    cancelAnimationFrame(scrollLerpAnim_05nuo);
-    scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
+    
+    if(Math.abs(curScrollMove_05nuo - lastScrollTarget_05nuo) <= 0.1 && 
+    Math.abs(curClipAnimSeek_05nuo - lastClipAnimSeek_05nuo) <= 0.1){
+        cancelAnimationFrame(scrollLerpAnim_05nuo);
+    }
+    else{
+        cancelAnimationFrame(scrollLerpAnim_05nuo);
+        scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
+    }
 }
 
 window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
