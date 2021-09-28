@@ -467,6 +467,9 @@ let svgScrollState_05nuo = 0;
 let lastScrollTarget_05nuo = 0;
 let curScrollMove_05nuo = 0;
 
+//scrollY values
+let lastScrollY_05nuo = 0;
+
 //clip path animation
 let curClipAnimSeek_05nuo = 0;
 let lastClipAnimSeek_05nuo = 0;
@@ -481,16 +484,6 @@ let svg_bg_gradient_factor_05nuo = 100;
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
 let svgScrollLerpSpeed_05nuo = 0.1;
-
-//scrollY lerp values
-// let curScrollY_05nuo = 0;
-// let lastScrollY_05nuo = 0;
-// let lastScrollYLerpTime_05nuo = undefined;
-// let scrollYLerpAnim_05nuo = undefined;
-// let scrollYLerpSpeed_05nuo = 0.01;
-
-// //timer for detecting end of scrolling event
-// let post_scroll_timer_05nuo = undefined;
 
 //set start, end scroll animation position and scroll animation targets
 function scrollSvg_05nuo(){
@@ -555,34 +548,11 @@ function scrollSvg_05nuo(){
     let gradient_y1 = svg_bg_gradient_y1_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
     let gradient_y2 = svg_bg_gradient_y2_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
     svg_bg_gradient_05nuo.setAttribute("y1", `${gradient_y1}%`);
-    svg_bg_gradient_05nuo.setAttribute("y2", `${gradient_y2}%`);
-    
-    // cancelAnimationFrame(scrollYLerpAnim_05nuo);
-    // scrollYLerpAnim_05nuo = requestAnimFrame(scrollYLerp_05nuo);        
+    svg_bg_gradient_05nuo.setAttribute("y2", `${gradient_y2}%`);       
 
     cancelAnimationFrame(scrollLerpAnim_05nuo);
     scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
 }
-
-// //lerp scroll Y
-// function scrollYLerp_05nuo(timestamp){
-//     if(lastScrollYLerpTime_05nuo === undefined){
-//         lastScrollYLerpTime_05nuo = timestamp;
-//     }
-
-//     let deltaTime = (timestamp - lastScrollYLerpTime_05nuo) / 1000;
-//     lastScrollYLerpTime_05nuo = timestamp;
-
-//     curScrollY_05nuo = lerp_05nuo(curScrollY_05nuo, lastScrollY_05nuo, scrollYLerpSpeed_05nuo, deltaTime);
-
-//     if(Math.abs(curScrollY_05nuo - lastScrollY_05nuo) <= 0.1){
-//         cancelAnimationFrame(scrollYLerpAnim_05nuo);
-//     }
-//     else{
-//         cancelAnimationFrame(scrollYLerpAnim_05nuo);
-//         scrollYLerpAnim_05nuo = requestAnimFrame(scrollYLerp_05nuo);        
-//     }
-// }
 
 //lerp svg translateY and clip path animtion
 function scrollSvgLerp_05nuo(timestamp){
@@ -615,7 +585,6 @@ function scrollSvgLerp_05nuo(timestamp){
 }
 
 window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
-
 /************* title text rotate animation ***************/
 let titleAnim_05nuo;
 const titleAnimInterval_05nuo = 2300;
