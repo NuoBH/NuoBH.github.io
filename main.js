@@ -435,7 +435,9 @@ const svgPanStartCheck = function(){
 const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
 let svgScrollState_05nuo = 0;
 let lastScrollTarget_05nuo = 0;
+let lastClipAnimSeek_05nuo = 0;
 let curScrollMove_05nuo = 0;
+let curClipAnimSeek_05nuo = 0;
 
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
@@ -462,22 +464,12 @@ function scrollSvg_05nuo(){
         scrollY = endSvgScroll_05nuo;
     }
 
-    // if(window.scrollY >= startSvgScroll_05nuo && window.scrollY <= endSvgScroll_05nuo){
-    lastScrollTarget_05nuo = (scrollY - startSvgScroll_05nuo) * (targetPosY_05nuo - startPosY_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
+    let scrollPercent = (scrollY - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
+    lastScrollTarget_05nuo = scrollPercent * (targetPosY_05nuo - startPosY_05nuo);
+    lastClipAnimSeek_05nuo = scrollPercent;
 
-    let b = endSvgScroll_05nuo - startSvgScroll_05nuo;
-    let c = scrollY - startSvgScroll_05nuo;
-
-    // if(Math.abs(startPosY_05nuo + curScrollMove_05nuo - targetPosY_05nuo) > 1){
-        cancelAnimationFrame(scrollLerpAnim_05nuo);
-        scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
-    // }
-    // else{
-    //     cancelAnimationFrame(scrollLerpAnim_05nuo);
-    //     lastScrollSVGLerpTime_05nuo = undefined;
-    // }
-    // }
-    
+    cancelAnimationFrame(scrollLerpAnim_05nuo);
+    scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
 }
 
 let lastSetSvgPosLeft_05nuo = 0;
@@ -509,12 +501,14 @@ function scrollSvgLerp_05nuo(timestamp){
     let deltaTime = (timestamp - lastScrollSVGLerpTime_05nuo) / 1000;
 
     curScrollMove_05nuo = curScrollMove_05nuo + (lastScrollTarget_05nuo - curScrollMove_05nuo) * (1 - Math.pow(svgScrollLerpSpeed, deltaTime));
+    curClipAnimSeek_05nuo = curClipAnimSeek_05nuo + (lastClipAnimSeek_05nuo - curClipAnimSeek_05nuo) * (1 - Math.pow(svgScrollLerpSpeed, deltaTime));
 
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
     let tx = parseFloat(matrixSplits[matrixSplits.length - 2]);
 
     svg_05nuo.style.setProperty("transform", `translateX(${tx}px) translateY(${curScrollMove_05nuo}px)`);
+    svg_05nuo.style.setProperty("--animation-seek-05nuo", curClipAnimSeek_05nuo);
 
     lastScrollSVGLerpTime_05nuo = timestamp;
 

@@ -17,7 +17,7 @@ html,body{
 
 .full-header-05nuo{
     position: relative;
-    background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(255, 255, 255) 85%);
+    background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(253, 233, 211) 100%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -56,6 +56,8 @@ html,body{
 
     transform: translateY(-100%);
     transition: transform 1s ease;
+
+    overflow: hidden;    
 }
 
 #header-title-05nuo .large-title-05nuo{
@@ -184,21 +186,49 @@ html,body{
 }
     
 #header-svg-05nuo{
+    --animation-seek-05nuo: 0;
     position: absolute;
     display: block;
     width: 53%;
     left: calc(47% - max(3.35%, 28px));
     top: 0;
     transform: translateX(0) translateY(0);
-    transition: left 1s ease, top 1s ease, clip-path 1s ease;
+    transition: left 1s ease, top 1s ease;
 }
 
 .svg-clip-path-05nuo{
-    clip-path: inset(0% round 0%);
+    clip-path: inset(0% 0% 0% 0%);
+    animation: svg-clip-anim-05nuo 10s cubic-bezier(.77,-0.33,.37,1.37);
+    animation-play-state: paused;
+    animation-fill-mode: both;
+    animation-delay: calc(var(--animation-seek-05nuo)*-10s);
 }
 
-.path2{
-    clip-path: inset(10% round 5%);
+.svg-clip-left-05nuo{
+    clip-path: inset(0% 67% 0% 3%);
+}
+
+.svg-clip-middle-05nuo{
+    clip-path: inset(0% 34% 0% 36%);
+}
+
+.svg-clip-right-05nuo{
+    clip-path: inset(0% 2% 0% 72%);
+}
+
+@keyframes svg-clip-anim-05nuo{
+    from{
+        clip-path: inset(0% 0% 0% 0%);
+    }
+
+    to{
+        clip-path: inset(0% 67% 0% 3%);
+    }
+}
+
+#scroll-bg-05nuo{
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 /***************  */
