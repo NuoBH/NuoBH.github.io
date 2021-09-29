@@ -200,6 +200,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         headerTitle.style.border = "none";
         headerTitle.style.textAlign="left";
         headerTitle.style.margin="0% 0% 0% 5%";
+        inBtwTitle.innerHTML = "<br> Should Be <br>";
     }
     else{
         let w = 0;
@@ -217,6 +218,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
         headerTitle.style.border = "2px solid white";
         headerTitle.style.textAlign="center";
         headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
+        inBtwTitle.innerHTML = "<br> Should Be <br>";
     }
 }
 
