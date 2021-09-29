@@ -64,54 +64,53 @@ function testBrowserSupportPassive_05nuo(){
 const supportPassive_05nuo = testBrowserSupportPassive_05nuo();
 const eventListenerOption_05nuo = supportPassive_05nuo ? { passive: false } : false;
 
-class ToggleScroll_05nuo{
-    constructor(){
-        this.hasDisabled = false;
-        // left: 37, up: 38, right: 39, down: 40,
-        // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-        this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
+// class ToggleScroll_05nuo{
+//     constructor(){
+//         this.hasDisabled = false;
+//         // left: 37, up: 38, right: 39, down: 40,
+//         // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+//         this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
         
-        this.wheelOpt = supportPassive_05nuo ? { passive: false } : false;
-        this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-    }
+//         this.wheelOpt = supportPassive_05nuo ? { passive: false } : false;
+//         this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+//     }
 
-    preventDefault(e) {
-        e.preventDefault();
-        window.scrollTo(0, fullHeader_05nuo.offsetHeight + fullHeader_05nuo.offsetTop);
-    }
+//     preventDefault(e) {
+//         e.preventDefault();
+//         window.scrollTo(0, fullHeader_05nuo.offsetHeight + fullHeader_05nuo.offsetTop);
+//     }
       
-    preventDefaultForScrollKeys(e) {
-        if (this.keys[e.keyCode]) {
-            preventDefault(e);
-            window.scrollTo(0, fullHeader_05nuo.offsetHeight + fullHeader_05nuo.offsetTop);
-            return false;
-        }
-    }
+//     preventDefaultForScrollKeys(e) {
+//         if (this.keys[e.keyCode]) {
+//             preventDefault(e);
+//             window.scrollTo(0, fullHeader_05nuo.offsetHeight + fullHeader_05nuo.offsetTop);
+//             return false;
+//         }
+//     }
       
-    // call this to Disable
-    disableScroll() {
-        if(!this.hasDisabled){
-            window.addEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
-            window.addEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
-            window.addEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
-            window.addEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
-            this.hasDisabled = true;
-        }
-    }
+//     // call this to Disable
+//     disableScroll() {
+//         if(!this.hasDisabled){
+//             window.addEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
+//             window.addEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
+//             window.addEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
+//             window.addEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
+//             this.hasDisabled = true;
+//         }
+//     }
     
-    // call this to Enable
-    enableScroll() {
-        if(this.hasDisabled){
-            window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
-            window.removeEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); 
-            window.removeEventListener('touchmove', this.preventDefault, this.wheelOpt);
-            window.removeEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
-            this.hasDisabled = false;
-        }
-    }
-}
-
-const toggleScroll_05nuo = new ToggleScroll_05nuo();
+//     // call this to Enable
+//     enableScroll() {
+//         if(this.hasDisabled){
+//             window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
+//             window.removeEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); 
+//             window.removeEventListener('touchmove', this.preventDefault, this.wheelOpt);
+//             window.removeEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
+//             this.hasDisabled = false;
+//         }
+//     }
+// }
+// const toggleScroll_05nuo = new ToggleScroll_05nuo();
 
 function lerp_05nuo(v1, v2, speed, delta){
     return v1 + (v2 - v1) * (1 - Math.pow(speed, delta));
@@ -136,14 +135,22 @@ const fullHeader_05nuo = svg_05nuo.parentElement;
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
-const minSVGW_V_05nuo = 575;
+// svg width height ratio & min width in responsive mode
+// const minSVGW_V_05nuo = 575;
 const minSVGW_H_05nuo = 1170;
 const svgWRatioH_05nuo = 0.75;
-const svgWRatioV_05nuo = 1.1;
+// const svgWRatioV_05nuo = 1.1;
 
+//store svg width, height, left, top values after resize
 let svg_height_05nuo = 0;
 let svg_width_05nuo = 0;
+let svg_left_05nuo = 0;
+let svg_top_05nuo = 0;
 
+//detect if svg is in scroll mode
+let isSvgScroll_05nuo = false;
+
+// set cube rotate text responsively
 function responsiveInteractivText_05nuo(text, placeholder){
     let posX = placeholder.offsetLeft;
     let posY = placeholder.offsetTop;
@@ -165,6 +172,7 @@ function responsiveInteractivText_05nuo(text, placeholder){
     }
 }
 
+//set cube rotate text line height responsively
 function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
     if(Math.abs(p1.offsetTop - p2.offsetTop) >= 1){
         let y = p2.offsetTop + p2.offsetHeight * 0.2;
@@ -181,6 +189,7 @@ function responsiveInteractiveTextLineHeight_05nuo(text1, p1, text2, p2){
     }
 }
 
+//set static title responsively
 function responsiveHeaderTitle(headerTitle, inBtwTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -211,6 +220,7 @@ function responsiveHeaderTitle(headerTitle, inBtwTitle){
     }
 }
 
+//set title font size responsively
 function responsiveTitleFont(headerTitle, mainTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -266,35 +276,66 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    let w = window.innerWidth;
+    let w = width;
     let h;
     let top;
     let left;
     let svgW;
     let svgH;
 
-    if(width < widthLimit_05nuo && width < height){
-        svgH = ( height - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
-        svgW = svgH * 1.604;
+    //before svg is in scroll mode(this will always be run first when refreshed)
+    if(!isSvgScroll_05nuo){
+        if(width < widthLimit_05nuo && width < height){
+            svgH = ( height - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
+            svgW = svgH * 1.604;
 
-        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
-        left = (svgW - w) / -2;
-    }
-    else{
-        svgW = w * svgWRatioH_05nuo;
-        if(svgW < minSVGW_H_05nuo){
-            svgW = minSVGW_H_05nuo;
+            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
+            left = (svgW - w) / -2;
         }
-        svgH = svgW / 1.604;
+        else{
+            svgW = w * svgWRatioH_05nuo;
+            if(svgW < minSVGW_H_05nuo){
+                svgW = minSVGW_H_05nuo;
+            }
+            svgH = svgW / 1.604;
 
-        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
-        left = (w - svgW) / 2;
+            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
+            left = (w - svgW) / 2;
+        }
+        h = ( svgH + top ) * 1.05;
     }
-
-    h = ( svgH + top ) * 1.05;
+    //after svg is in scroll
+    else{
+        if(width < widthLimit_05nuo && width < height){
+            svgW = w * 0.95;
+            svgH = svgW / 1.604;
+            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
+        }
+        else{
+            svgW = w * 0.55;
+            if(svgW < 900){
+                svgW = 900;
+            }
+            svgH = svgW / 1.604;
+            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
+        }
+        //set svg left in scroll mode based on scroll state
+        let state = svgScrollTriggerPoints_05nuo.scrollState;
+        if(state === 0){
+            left = w * 0.15;
+        }
+        else if(state === 1){
+            left = (w - 2 * svgW) / 2
+        }
+        else if(state === 2){
+            left = (w - svgW) * 0.85;
+        }
+    }
 
     svg_height_05nuo = svgH;
     svg_width_05nuo = svgW;
+    svg_left_05nuo = left;
+    svg_top_05nuo = top;
 
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
@@ -331,13 +372,13 @@ let svgPrevTranslateX_05nuo = 0;
 let svgPanAnim_05nuo = undefined;
 let svgPanAnimLastTime_05nuo = undefined;
 let svgPanDir_05nuo = 1;
-let svgPanSpeed_05nuo = 0.012;
+let svgPanSpeed_05nuo = 0.12;
 let stopSvgPan_05nuo = true;
 let canCheckSvgPan_05nuo = true;
 
 //check svg width to know if need to pan svg translate x
-function svgPanCheck_05uo(svg){
-    const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
+function svgPanCheck_05uo(){
+    const svgWidth = svg_width_05nuo;
     const width = window.innerWidth;
 
     if(svgWidth >= width * 1.15){
@@ -350,8 +391,8 @@ function svgPanCheck_05uo(svg){
 
 //set svg pan direction, translateX target and check to switch direction 
 function svgPan_05nuo(svg, deltaTime){
-    const svgLeft = parseFloat(window.getComputedStyle(svg).getPropertyValue("left"));
-    const svgWidth = parseFloat(window.getComputedStyle(svg).getPropertyValue("width"));
+    const svgLeft = svg_left_05nuo;
+    const svgWidth = svg_width_05nuo;
     const width = window.innerWidth;
 
     let target;
@@ -361,7 +402,7 @@ function svgPan_05nuo(svg, deltaTime){
     || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width * 0.95)) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
-        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (95 / 800 * width / 1000) : (120 / 800 * width / 1000);
+        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (100 / 800 * width / 1000) : (150 / 800 * width / 1000);
     }
 
     if(svgPanDir_05nuo > 0){
@@ -410,7 +451,11 @@ function svgStopPan_05nuo(svg, deltaTime){
 
     svgTranslateX_05nuo = svgPrevTranslateX_05nuo + move;
     svgPrevTranslateX_05nuo = svgTranslateX_05nuo;
-    svg.style.transform = `translateX(${svgTranslateX_05nuo}px)`;
+
+    let matrix = window.getComputedStyle(svg).getPropertyValue("transform");
+    let matrixSplits = matrix.split(',');
+    let ty = parseFloat(matrixSplits[matrixSplits.length - 1]);
+    svg.style.transform = `translateX(${svgTranslateX_05nuo}px) translateY(${ty}px)`;
 }
 
 //animate svg to pan back through request animation
@@ -421,7 +466,7 @@ function svgStopPanAnimate_05nuo(timestamp){
 
     let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
 
-    let svgLeft = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("left"));
+    const svgLeft = svg_left_05nuo;
     if(Math.abs((svgLeft + svgTranslateX_05nuo) - svgLeft) > 0.1){
         svgStopPan_05nuo(svg_05nuo, deltaTime);
         cancelAnimationFrame(svgPanAnim_05nuo);
@@ -437,7 +482,7 @@ function svgStopPanAnimate_05nuo(timestamp){
 //the function to call to start check/initiate/stop svg pan
 const svgPanStartCheck = function(){
     if(canCheckSvgPan_05nuo){
-        svgPanCheck_05uo(svg_05nuo);
+        svgPanCheck_05uo();
         if(!stopSvgPan_05nuo){
             cancelAnimationFrame(svgPanAnim_05nuo);
             svgPanAnim_05nuo = requestAnimFrame(svgPanAnimate_05nuo);
@@ -451,6 +496,9 @@ const svgPanStartCheck = function(){
     }
     else{
         cancelAnimationFrame(svgPanAnim_05nuo);
+        requestTimeout(()=>{
+            svgPanAnim_05nuo = requestAnimFrame(svgStopPanAnimate_05nuo);
+        }, 10);
     }
 }
 
@@ -459,11 +507,39 @@ const svgPanStartCheck = function(){
 *************************************************************************************************************** 
 */
 
-const svg_scroll_bg_05nuo = document.getElementById("scroll-bg-05nuo");
-const svg_bg_gradient_05nuo = document.getElementById('scroll-bg-gradient-05nuo');
-const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
+const svgScrollBg_05nuo = document.getElementById("scroll-bg-05nuo");
+const svgBgGradient_05nuo = document.getElementById('scroll-bg-gradient-05nuo');
+const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
 //svg scroll animation
-let svgScrollState_05nuo = 0;
+const svgScrollTriggerPoints_05nuo = {
+    start1: 0,
+    end1: 0,
+    start2: 0,
+    end2: 0,
+    start3: 0,
+    end3: 0,
+    init: function(s1, e1, s2, e2, s3, e3){
+        this.start1 = s1;
+        this.end1 = e1;
+        this.start2 = s2;
+        this.end2 = e2;
+        this.start3 = s3;
+        this.end3 = e3;
+    },
+    scrollState: 0,
+    updateScrollState: function(scrollY){
+        if(scrollY < this.start2){
+            this.scrollState = 0;
+        }
+        else if(scrollY >= this.start2 && scrollY < this.start3){
+            this.scrollState = 1;
+        }
+        else if(scrollY >= this.start3){
+            this.scrollState = 2;
+        }
+    }
+};
+
 let lastScrollTarget_05nuo = 0;
 let curScrollMove_05nuo = 0;
 
@@ -475,29 +551,70 @@ let curClipAnimSeek_05nuo = 0;
 let lastClipAnimSeek_05nuo = 0;
 
 //svg scroll background gradient values
-let svg_hide_scroll_bg_05nuo = true;
-let svg_bg_gradient_y2_05nuo = 200;
-let svg_bg_gradient_y1_05nuo = 0;
-let svg_bg_gradient_factor_05nuo = 100;
+let svgHideScrollBg_05nuo = true;
+let svgBgGradientY2_05nuo = 200;
+let svgBgGradientY1_05nuo = 0;
+let svgBgGradientFactor_05nuo = 100;
 
 //svgScroll lerp values
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
 let svgScrollLerpSpeed_05nuo = 0.1;
 
+//svgScroll timer for detecting end of scrolling events
+let svgScrollTimer_05nuo = undefined;
+
 //set start, end scroll animation position and scroll animation targets
 function scrollSvg_05nuo(){
+    //init start and end points
+    svgScrollTriggerPoints_05nuo.init(
+        fullHeader_05nuo.offsetHeight * 0.3, enterprisePanel_05nuo.offsetTop * 0.75,
+        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, 1000,
+        1100, 2000);
 
+    svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
+    let state = svgScrollTriggerPoints_05nuo.scrollState;
+        console.log(state);
+    //get start end points and start target pos based on scroll state
     let startSvgScroll_05nuo;
     let endSvgScroll_05nuo;
     let startPosY_05nuo;
     let targetPosY_05nuo;
 
-    if(svgScrollState_05nuo == 0){
-        startSvgScroll_05nuo = fullHeader_05nuo.offsetHeight * 0.3;
-        endSvgScroll_05nuo = institutionPanel_05nuo.offsetTop * 0.75;
-        startPosY_05nuo = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue("top"));
-        targetPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+    if(state === 0){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start1;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
+        startPosY_05nuo = svg_top_05nuo;
+        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+    }
+    else if(state === 1){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start2;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
+        startPosY_05nuo = svg_top_05nuo;
+        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+    }
+    else if(state === 2){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start3;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
+        startPosY_05nuo = svg_top_05nuo;
+        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+    }
+
+    //detect if svg is in scroll mode (scrollY is larger than the begin scroll point)
+    {
+        //get the very beginning pos value where svg starts to scroll
+        if(window.scrollY >= svgScrollTriggerPoints_05nuo.start1){
+            isSvgScroll_05nuo = true;
+            canCheckSvgPan_05nuo = false;
+            resizeHero_05nuo();
+            svgPanStartCheck(svg_05nuo);
+        }
+        else{
+            isSvgScroll_05nuo = false;
+            canCheckSvgPan_05nuo = true;
+            resizeHero_05nuo();
+            svgPanStartCheck(svg_05nuo);
+        }
     }
 
     //set scrollY values
@@ -516,26 +633,28 @@ function scrollSvg_05nuo(){
 
     //show and hide svg scroll bg
     {
-        if(!svg_hide_scroll_bg_05nuo && window.scrollY < startSvgScroll_05nuo){
+        if(!svgHideScrollBg_05nuo && window.scrollY < startSvgScroll_05nuo){
             requestTimeout(()=>{
-                if(!svg_hide_scroll_bg_05nuo && window.scrollY < startSvgScroll_05nuo){
-                    svg_hide_scroll_bg_05nuo = true;
-                    svg_scroll_bg_05nuo.style.opacity = "0";
+                if(!svgHideScrollBg_05nuo && window.scrollY < startSvgScroll_05nuo){
+                    svgHideScrollBg_05nuo = true;
+                    svgScrollBg_05nuo.style.opacity = "0";
                 }
             }, 1000);
         }
-        else if(svg_hide_scroll_bg_05nuo && window.scrollY >= startSvgScroll_05nuo && window.scrollY < endSvgScroll_05nuo){
-            svg_hide_scroll_bg_05nuo = false;
-            svg_scroll_bg_05nuo.style.opacity = "1";
+        else if(svgHideScrollBg_05nuo && window.scrollY >= startSvgScroll_05nuo && window.scrollY < endSvgScroll_05nuo){
+            svgHideScrollBg_05nuo = false;
+            svgScrollBg_05nuo.style.opacity = "1";
         }
-        else if(!svg_hide_scroll_bg_05nuo && window.scrollY >= endSvgScroll_05nuo){
+        else if(!svgHideScrollBg_05nuo && window.scrollY >= endSvgScroll_05nuo){
             requestTimeout(()=>{
-                if(!svg_hide_scroll_bg_05nuo && window.scrollY >= endSvgScroll_05nuo){
-                    svg_hide_scroll_bg_05nuo = true;
-                    svg_scroll_bg_05nuo.style.opacity = "0";
+                if(!svgHideScrollBg_05nuo && window.scrollY >= endSvgScroll_05nuo){
+                    svgHideScrollBg_05nuo = true;
+                    svgScrollBg_05nuo.style.opacity = "0";
                 }
             }, 1000);
         }
+
+
     }
 
     let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
@@ -545,13 +664,22 @@ function scrollSvg_05nuo(){
     lastClipAnimSeek_05nuo = scrollPercent;
 
     //change gradient pos y1 y2 values
-    let gradient_y1 = svg_bg_gradient_y1_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
-    let gradient_y2 = svg_bg_gradient_y2_05nuo - svg_bg_gradient_factor_05nuo * scrollPercent;
-    svg_bg_gradient_05nuo.setAttribute("y1", `${gradient_y1}%`);
-    svg_bg_gradient_05nuo.setAttribute("y2", `${gradient_y2}%`);       
+    let gradient_y1 = svgBgGradientY1_05nuo - svgBgGradientFactor_05nuo * scrollPercent;
+    let gradient_y2 = svgBgGradientY2_05nuo - svgBgGradientFactor_05nuo * scrollPercent;
+    svgBgGradient_05nuo.setAttribute("y1", `${gradient_y1}%`);
+    svgBgGradient_05nuo.setAttribute("y2", `${gradient_y2}%`); 
 
     cancelAnimationFrame(scrollLerpAnim_05nuo);
     scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
+
+    // //detect end of scroll events
+    // if(svgScrollTimer_05nuo != undefined){
+    //     clearTimeout(svgScrollTimer_05nuo);
+    // }
+
+    // svgScrollTimer_05nuo = setTimeout(()=>{
+    //     resizeHero_05nuo();
+    // }, 100);
 }
 
 //lerp svg translateY and clip path animtion
@@ -584,8 +712,10 @@ function scrollSvgLerp_05nuo(timestamp){
     }
 }
 
-window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
-/************* title text rotate animation ***************/
+/* ********************************************************************************************************
+************************************** title text rotate animation ****************************************
+***********************************************************************************************************/
+
 let titleAnim_05nuo;
 const titleAnimInterval_05nuo = 2300;
 let titleRotationL_05nuo = 0
@@ -634,7 +764,9 @@ function titleRotate_05nuo(timestamp){
     titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 }
 
-/*************** prevent choppy anim after focus out**************** */
+/* ********************************************************************************************************
+*********************************** prevent choppy anim after focus out ***********************************
+*********************************************************************************************************** */
 
 let vis = (function(){
     var stateKey, 
@@ -685,7 +817,11 @@ else {
     });
 }
 
-/****************start ************ */
+
+/* *******************************************************************************************************
+*************************************************start ***************************************************
+***********************************************************************************************************/
+
 const responsiveFunc_05nuo = function(){
     responsiveTitle_05nuo();
     resizeHero_05nuo();
@@ -703,26 +839,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
     requestTimeout(()=>{
         headerTitle_05nuo.style.transform = "translateY(0)";
     }, 200);
+    window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
 });
-/**scroll controls */
-// let svgTranslateY_05nuo = 0;
-// window.addEventListener("wheel", function(e){
-//     const svgTop = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('top'));
-//     const svgHeight = parseFloat(window.getComputedStyle(svg_05nuo).getPropertyValue('height'));
-//     let svgMidPointPos = svgTop + svgHeight/2 + svgTranslateY_05nuo;
-//     let distance = svgMidPointPos - window.innerHeight/2;
-//     console.log(`${svgMidPointPos}, ${window.innerHeight}`)
-//     if(Math.abs(distance) > 30){
-//         let direction = 1;
-//         if(distance > 0){
-//             direction *= -1;
-//         }
-//         if(e.deltaY > 0){
-//             let move = e.deltaY * direction * 0.1;
-//             svgTranslateY_05nuo += move;
-//             svg_05nuo.style.transform = `translateY(${svgTranslateY_05nuo}px)`;
-//         }
-//     }
-
-// }, eventListenerOption_05nuo);
-

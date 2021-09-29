@@ -193,7 +193,7 @@ html,body{
     left: calc(47% - max(3.35%, 28px));
     top: 0;
     transform: translateX(0) translateY(0);
-    transition: left 1s ease, top 1s ease;
+    transition: left 1s ease, top 1s ease, width 0.5s ease, height 0.5s ease;
 }
 
 .svg-clip-path-05nuo{
@@ -224,7 +224,7 @@ html,body{
 
     100%{
         /* clip-path: inset(0% 67% 0% 3%); */
-        clip-path: polygon(3% 0%, 33% 0%, 33% 90%, 3% 100%);
+        clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
     }
 }
 
@@ -234,10 +234,9 @@ html,body{
 }
 
 /***************  */
-#institution-panel-05nuo{
+#enterprise-panel-05nuo{
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 105vh;
     background: linear-gradient(180deg, rgba(253,233,211,1) 0%, rgba(76,48,237,1) 28%);
-    transition: all 1s cubic-bezier(1, -1, 0, 2);
 }
