@@ -130,7 +130,7 @@ const mainTitle_05nuo = document.getElementById("main-title-05nuo");
 const inBtwTitle_05nuo = document.getElementById("in-btw-title-05nuo");
 
 const svg_05nuo = document.getElementById("header-svg-05nuo");
-const fullHeader_05nuo = svg_05nuo.parentElement;
+const fullHeader_05nuo = document.getElementById("header-container-05nuo");
 
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
@@ -308,27 +308,28 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     else{
         if(width < widthLimit_05nuo && width < height){
             svgW = w * 0.95;
+            if(svgW > 470){
+                svgW = 470;
+            }
             svgH = svgW / 1.604;
+
             top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
         }
         else{
             svgW = w * 0.55;
-            if(svgW < 900){
-                svgW = 900;
-            }
             svgH = svgW / 1.604;
             top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
         }
         //set svg left in scroll mode based on scroll state
         let state = svgScrollTriggerPoints_05nuo.scrollState;
         if(state === 0){
-            left = w * 0.15;
+            left = w * 0.05;
         }
         else if(state === 1){
             left = (w - 2 * svgW) / 2
         }
         else if(state === 2){
-            left = (w - svgW) * 0.85;
+            left = (w - svgW) * 0.95;
         }
     }
 
@@ -561,8 +562,54 @@ let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
 let svgScrollLerpSpeed_05nuo = 0.1;
 
-//svgScroll timer for detecting end of scrolling events
-let svgScrollTimer_05nuo = undefined;
+let hasReduceSvgOnScroll_05nuo = false;
+
+//get svg scroll start end positions and targets based on state
+function getScrollStartEndTargets(state){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    let startSvgScroll_05nuo;
+    let endSvgScroll_05nuo;
+    let startPosY_05nuo;
+    let targetPosY_05nuo;
+    
+    if(state === 0){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start1;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
+        startPosY_05nuo = svg_top_05nuo;
+        if(width < widthLimit_05nuo && width < height){
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
+        }
+        else{
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+        }
+    }
+    else if(state === 1){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start2;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
+        startPosY_05nuo = svg_top_05nuo;
+        if(width < widthLimit_05nuo && width < height){
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
+        }
+        else{
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+        }
+    }
+    else if(state === 2){
+        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start3;
+        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
+        startPosY_05nuo = svg_top_05nuo;
+        if(width < widthLimit_05nuo && width < height){
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
+        }
+        else{
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+        }
+    }
+
+    return {startSvgScroll_05nuo, endSvgScroll_05nuo, startPosY_05nuo, targetPosY_05nuo}
+}
 
 //set start, end scroll animation position and scroll animation targets
 function scrollSvg_05nuo(){
@@ -575,45 +622,32 @@ function scrollSvg_05nuo(){
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
         console.log(state);
-    //get start end points and start target pos based on scroll state
-    let startSvgScroll_05nuo;
-    let endSvgScroll_05nuo;
-    let startPosY_05nuo;
-    let targetPosY_05nuo;
 
-    if(state === 0){
-        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start1;
-        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
-        startPosY_05nuo = svg_top_05nuo;
-        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
-    }
-    else if(state === 1){
-        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start2;
-        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
-        startPosY_05nuo = svg_top_05nuo;
-        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
-    }
-    else if(state === 2){
-        startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start3;
-        endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
-        startPosY_05nuo = svg_top_05nuo;
-        targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
-    }
+    //get start end points and start target pos based on scroll state
+    let {startSvgScroll_05nuo, endSvgScroll_05nuo, startPosY_05nuo, targetPosY_05nuo} = getScrollStartEndTargets(state);
+
 
     //detect if svg is in scroll mode (scrollY is larger than the begin scroll point)
     {
         //get the very beginning pos value where svg starts to scroll
-        if(window.scrollY >= svgScrollTriggerPoints_05nuo.start1){
+        if(!isSvgScroll_05nuo && window.scrollY >= svgScrollTriggerPoints_05nuo.start1){
             isSvgScroll_05nuo = true;
             canCheckSvgPan_05nuo = false;
-            resizeHero_05nuo();
             svgPanStartCheck(svg_05nuo);
         }
-        else{
+        else if(isSvgScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.start1){
             isSvgScroll_05nuo = false;
             canCheckSvgPan_05nuo = true;
             resizeHero_05nuo();
             svgPanStartCheck(svg_05nuo);
+        }
+
+        if(!hasReduceSvgOnScroll_05nuo && window.scrollY >= svgScrollTriggerPoints_05nuo.end1 * 0.8){
+            hasReduceSvgOnScroll_05nuo = true;
+            resizeHero_05nuo();
+        }
+        else if(hasReduceSvgOnScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.end1 * 0.8){
+            hasReduceSvgOnScroll_05nuo = false;
         }
     }
 
@@ -639,7 +673,7 @@ function scrollSvg_05nuo(){
                     svgHideScrollBg_05nuo = true;
                     svgScrollBg_05nuo.style.opacity = "0";
                 }
-            }, 1000);
+            }, 600);
         }
         else if(svgHideScrollBg_05nuo && window.scrollY >= startSvgScroll_05nuo && window.scrollY < endSvgScroll_05nuo){
             svgHideScrollBg_05nuo = false;
@@ -651,10 +685,8 @@ function scrollSvg_05nuo(){
                     svgHideScrollBg_05nuo = true;
                     svgScrollBg_05nuo.style.opacity = "0";
                 }
-            }, 1000);
+            }, 600);
         }
-
-
     }
 
     let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
@@ -671,15 +703,6 @@ function scrollSvg_05nuo(){
 
     cancelAnimationFrame(scrollLerpAnim_05nuo);
     scrollLerpAnim_05nuo = requestAnimFrame(scrollSvgLerp_05nuo);
-
-    // //detect end of scroll events
-    // if(svgScrollTimer_05nuo != undefined){
-    //     clearTimeout(svgScrollTimer_05nuo);
-    // }
-
-    // svgScrollTimer_05nuo = setTimeout(()=>{
-    //     resizeHero_05nuo();
-    // }, 100);
 }
 
 //lerp svg translateY and clip path animtion
@@ -828,7 +851,7 @@ const responsiveFunc_05nuo = function(){
 
     requestTimeout(responsiveInteractiveText_05nuo, 20);
     svgPanStartCheck(svg_05nuo);
-    titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
+    scrollSvg_05nuo();
 }
 
 requestTimeout(responsiveFunc_05nuo, 0);
@@ -840,4 +863,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
         headerTitle_05nuo.style.transform = "translateY(0)";
     }, 200);
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
+    titleAnim_05nuo = requestAnimFrame(titleRotate_05nuo);
 });
