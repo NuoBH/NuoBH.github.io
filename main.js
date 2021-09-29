@@ -142,10 +142,10 @@ const svgWRatioH_05nuo = 0.75;
 // const svgWRatioV_05nuo = 1.1;
 
 //store svg width, height, left, top values after resize
-let svg_height_05nuo = 0;
-let svg_width_05nuo = 0;
-let svg_left_05nuo = 0;
-let svg_top_05nuo = 0;
+let svgHeight_05nuo = 0;
+let svgWidth_05nuo = 0;
+let svgLeft_05nuo = 0;
+let svgTop_05nuo = 0;
 
 //detect if svg is in scroll mode
 let isSvgScroll_05nuo = false;
@@ -335,10 +335,10 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         }
     }
 
-    svg_height_05nuo = svgH;
-    svg_width_05nuo = svgW;
-    svg_left_05nuo = left;
-    svg_top_05nuo = top;
+    svgHeight_05nuo = svgH;
+    svgWidth_05nuo = svgW;
+    svgLeft_05nuo = left;
+    svgTop_05nuo = top;
 
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
@@ -381,7 +381,7 @@ let canCheckSvgPan_05nuo = true;
 
 //check svg width to know if need to pan svg translate x
 function svgPanCheck_05uo(){
-    const svgWidth = svg_width_05nuo;
+    const svgWidth = svgWidth_05nuo;
     const width = window.innerWidth;
 
     if(svgWidth >= width * 1.15){
@@ -394,8 +394,8 @@ function svgPanCheck_05uo(){
 
 //set svg pan direction, translateX target and check to switch direction 
 function svgPan_05nuo(svg, deltaTime){
-    const svgLeft = svg_left_05nuo;
-    const svgWidth = svg_width_05nuo;
+    const svgLeft = svgLeft_05nuo;
+    const svgWidth = svgWidth_05nuo;
     const width = window.innerWidth;
 
     let target;
@@ -469,7 +469,7 @@ function svgStopPanAnimate_05nuo(timestamp){
 
     let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
 
-    const svgLeft = svg_left_05nuo;
+    const svgLeft = svgLeft_05nuo;
     if(Math.abs((svgLeft + svgTranslateX_05nuo) - svgLeft) > 0.1){
         svgStopPan_05nuo(svg_05nuo, deltaTime);
         cancelAnimationFrame(svgPanAnim_05nuo);
@@ -579,34 +579,34 @@ function getScrollStartEndTargets(state){
     if(state === 0){
         startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start1;
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
-        startPosY_05nuo = svg_top_05nuo;
+        startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
             targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
     else if(state === 1){
         startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start2;
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
-        startPosY_05nuo = svg_top_05nuo;
+        startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
             targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
     else if(state === 2){
         startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start3;
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
-        startPosY_05nuo = svg_top_05nuo;
+        startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
             targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svg_height_05nuo) / 2;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
 
