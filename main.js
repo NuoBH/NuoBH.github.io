@@ -326,7 +326,6 @@ function responsiveEnterprisePanel(panel){
 
     let h = height + transitText_05nuo.offsetHeight * 1.5;
     panel.style.setProperty("height", `${h}px`);
-    console.log(transitText_05nuo.offsetHeight)
 }
 
 function responsiveRotateText_05nuo(){
@@ -602,7 +601,6 @@ function scrollSvg_05nuo(){
 
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
-        console.log(state);
 
     //get start end points and start target pos based on scroll state
     let {startSvgScroll_05nuo, endSvgScroll_05nuo, startPosY_05nuo, targetPosY_05nuo} = getScrollStartEndTargets(state);
@@ -696,7 +694,10 @@ function scrollSvgLerp_05nuo(timestamp){
     lastScrollSVGLerpTime_05nuo = timestamp;
 
     curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
-    curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
+    // curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
+    curClipAnimSeek_05nuo = lastClipAnimSeek_05nuo;
+
+    console.log(curClipAnimSeek_05nuo)
 
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
