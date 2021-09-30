@@ -124,32 +124,53 @@ function responsiveTransitRotText_05nuo(text, placeholder){
 function responsiveHeaderTitle(headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
+    const subtitle = headerTitle.children.item(1);
     if(width < widthLimit_05nuo && width < height){
-        headerTitle.style.width = "100%";
-        headerTitle.style.background = "none";
-        headerTitle.style.boxShadow = "none";
-        headerTitle.style.border = "none";
-        headerTitle.style.textAlign="left";
-        headerTitle.style.margin="0% 0% 0% 5%";
+        headerTitle.style.setProperty("flex-direction", "column");
+        headerTitle.style.setProperty("gap", "5px");
+        subtitle.style.setProperty("width", "100%");
+        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
+        headerTitle.children.item(0).style.setProperty("font-size", "65px");
+        if(width < 750){
+            headerTitle.children.item(0).style.setProperty("font-size", "55px");
+            subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
+        }
     }
     else{
-        // let w = 0;
+        headerTitle.style.setProperty("flex-direction", "row");
+        let gapsize = 150 / 1920 * width;
+        if(gapsize <= 75){
+            gapsize = 75;
+        }
+        headerTitle.style.setProperty("gap", `${gapsize}px`);
+        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");;
+        headerTitle.children.item(0).style.setProperty("font-size", "70px");
 
-        // w = width * svgWRatioH_05nuo;
-        // if(w < minSVGW_H_05nuo){
-        //     w = minSVGW_H_05nuo;
-        // }
+        if(width < 1500){
+            subtitle.style.setProperty("width", "100%");
+        }
+        else{
+            subtitle.style.setProperty("width", "65%");
+        }
 
-        // w = w / 2.25;
-        // let marginLeft = (width - w) / 1.9;
-        // headerTitle.style.width = `${w}px` 
-        headerTitle.style.width = `100%` 
-        // headerTitle.style.background = "rgba(106, 185, 16, 0.775)";
-        // headerTitle.style.boxShadow = "inset 0px 0px 30px rgba(255, 255, 255, 0.5)";
-        // headerTitle.style.border = "2px solid white";
-        headerTitle.style.textAlign="left";
-        // headerTitle.style.margin=`-1% 2.5% 0% ${marginLeft}px`;
-        // headerTitle.style.margin="0% 0% 0% 5%";
+        if(width < 880){
+            // subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo)*0.8)");
+            headerTitle.style.setProperty("flex-direction", "column");
+            headerTitle.style.setProperty("gap", "5px");
+        }
+    }
+
+    if(width < 500){
+        subtitle.children.item(0).innerHTML = "";
+        subtitle.children.item(2).innerHTML = "Manage your Continuing Education Without doing any of the Admin Work";
+        subtitle.children.item(2).style.setProperty("text-align", "left");
+        subtitle.children.item(2).style.setProperty("padding-right", "3%");
+    }
+    else{
+        subtitle.children.item(0).innerHTML = "Manage your Continuing Education";
+        subtitle.children.item(2).innerHTML = "Without doing any of the Admin Work";
+        subtitle.children.item(2).style.setProperty("text-align", "right");
+        subtitle.children.item(2).style.setProperty("padding-right", "0");
     }
 }
 
@@ -200,7 +221,7 @@ function responsiveFonts(headerContainer){
         else{
             if(width < widthLimit_05nuo && width >= 600){
                 headerContainer.style.setProperty("--title-size-05nuo", "26px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "30px");
+                headerContainer.style.setProperty("--large-title-size-05nuo", "29px");
             }
             else if(width < 600 && width >= 400){
                 headerContainer.style.setProperty("--title-size-05nuo", "23px");
@@ -245,8 +266,6 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
         if(width < widthLimit_05nuo && width < height){
             svgH = ( height - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
             svgW = svgH * 1.604;
-
-            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
             left = (svgW - w) / -2;
         }
         else{
@@ -255,11 +274,10 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
                 svgW = minSVGW_H_05nuo;
             }
             svgH = svgW / 1.604;
-
-            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
             left = (w - svgW) / 2;
         }
-        h = ( svgH + top ) * 1.05;
+        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.1;
+        h = svgH + top;
     }
     //after svg is in scroll
     else{
@@ -578,7 +596,7 @@ function getScrollStartEndTargets(state){
 function scrollSvg_05nuo(){
     //init start and end points
     svgScrollTriggerPoints_05nuo.init(
-        fullHeader_05nuo.offsetHeight * 0.45, enterprisePanel_05nuo.offsetTop * 0.95,
+        svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.95,
         enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, 1000,
         1100, 2000);
 
@@ -828,9 +846,20 @@ requestTimeout(responsiveFunc_05nuo, 50);
 
 window.addEventListener("resize", responsiveFunc_05nuo);
 document.addEventListener('DOMContentLoaded', ()=>{
+    //start animation for titles
     requestTimeout(()=>{
         headerTitle_05nuo.style.transform = "translateY(0)";
+        requestTimeout(()=>{
+            const titleItems = mainTitle_05nuo.children;
+            for(let i = 0; i < titleItems.length; i ++){
+                let delay = 2 + i/10 * 2;
+                titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 10s ease ${delay}s infinite normal both`);
+            }
+            mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 10s ease 1.9s infinite normal both");
+        }, 1000);
     }, 200);
+    //start listen to scroll events
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
+    //start transit text cube roate animation
     titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
 });
