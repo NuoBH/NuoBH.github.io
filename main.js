@@ -130,9 +130,9 @@ function responsiveHeaderTitle(headerTitle){
         headerTitle.style.setProperty("gap", "5px");
         subtitle.style.setProperty("width", "100%");
         subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        headerTitle.children.item(0).style.setProperty("font-size", "65px");
+        headerTitle.children.item(0).style.setProperty("font-size", "55px");
         if(width < 750){
-            headerTitle.children.item(0).style.setProperty("font-size", "55px");
+            headerTitle.children.item(0).style.setProperty("font-size", "45px");
             subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
         }
     }
