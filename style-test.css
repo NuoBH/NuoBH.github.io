@@ -515,13 +515,16 @@ html,body{
     width: 53%;
     left: calc(47% - max(3.35%, 28px));
     top: 0;
+    padding: 0;
+    margin:0;
     transform: translateX(0) translateY(0);
     transition: left 1s ease, top 1s ease, width 0.5s ease, height 0.5s ease;
 }
+#header-svg-05nuo svg{
+    height:100%;
+}
 
 .svg-clip-path-05nuo{
-    -webkit-clip-path: inset(0% 0% 0% 0%);
-            clip-path: inset(0% 0% 0% 0%);
     /* animation: svg-clip-anim-05nuo 1s ease; */
     -webkit-animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
             animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
