@@ -81,20 +81,33 @@ html,body{
 
 #main-title-05nuo .item1-05nuo{
     transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0s 1 normal both;
+    -webkit-animation: letter-drop-05nuo 0.8s ease 0s 1 normal both;
+            animation: letter-drop-05nuo 0.8s ease 0s 1 normal both;
     
 }
 #main-title-05nuo .item2-05nuo{
     transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.15s 1 normal both;
+    -webkit-animation: letter-drop-05nuo 0.8s ease 0.15s 1 normal both;
+            animation: letter-drop-05nuo 0.8s ease 0.15s 1 normal both;
 }
 #main-title-05nuo .item3-05nuo{
     transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.3s 1 normal both;
+    -webkit-animation: letter-drop-05nuo 0.8s ease 0.3s 1 normal both;
+            animation: letter-drop-05nuo 0.8s ease 0.3s 1 normal both;
 }
 #main-title-05nuo .item4-05nuo{
     transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.45s 1 normal both;
+    -webkit-animation: letter-drop-05nuo 0.8s ease 0.45s 1 normal both;
+            animation: letter-drop-05nuo 0.8s ease 0.45s 1 normal both;
+}
+
+@-webkit-keyframes letter-drop-05nuo{
+    0%{
+        transform: translate(-100%,-150%) scale(3); 
+    }
+    100%{
+        transform: translate(0, 0) scale(1); 
+    }
 }
 
 @keyframes letter-drop-05nuo{
@@ -103,6 +116,24 @@ html,body{
     }
     100%{
         transform: translate(0, 0) scale(1); 
+    }
+}
+
+@-webkit-keyframes letter-slide-05nuo{
+    0%{
+        transform: translateX(0) scale(1);
+    }
+    10%{
+        transform: translateX(50%) scale(1.2);
+    }
+    50%{
+        transform: translateX(50%) scale(1.2);
+    }
+    60%{
+        transform: translateX(0) scale(1);
+    }
+    100%{
+        transform: translateX(0) scale(1);
     }
 }
 
@@ -125,6 +156,23 @@ html,body{
 }
 
 /* used on main-title-05nuo (h1 of header title)*/
+@-webkit-keyframes acea-slide-05nuo{
+    0%{
+        transform: translateX(0);
+    }
+    10%{
+        transform: translateX(-12%);
+    }
+    50%{
+        transform: translateX(-12%);
+    }
+    60%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(0);
+    } 
+}
 @keyframes acea-slide-05nuo{
     0%{
         transform: translateX(0);
@@ -160,7 +208,8 @@ html,body{
 }
 
 #header-title-05nuo h2 .sub-item1-05nuo{
-    animation: subtitle-intro1-05nuo 0.8s ease 1.2s 1 normal both;
+    -webkit-animation: subtitle-intro1-05nuo 0.8s ease 1.2s 1 normal both;
+            animation: subtitle-intro1-05nuo 0.8s ease 1.2s 1 normal both;
 }
 #header-title-05nuo h2 .sub-item2-05nuo{
     width: 100%;
@@ -168,16 +217,40 @@ html,body{
     background:white;
     border-radius: 100%;
     transform-origin: left;
-    animation: line-slide-05nuo 10s ease 3.2s infinite normal both;
+    -webkit-animation: line-slide-05nuo 10s ease 3.2s infinite normal both;
+            animation: line-slide-05nuo 10s ease 3.2s infinite normal both;
 }
 #header-title-05nuo h2 .sub-item3-05nuo{
     text-align: right;
-    animation: subtitle-intro2-05nuo 0.8s ease 1.2s 1 normal both;
+    -webkit-animation: subtitle-intro2-05nuo 0.8s ease 1.2s 1 normal both;
+            animation: subtitle-intro2-05nuo 0.8s ease 1.2s 1 normal both;
+}
+
+@-webkit-keyframes subtitle-intro1-05nuo{
+    0%{
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }
 
 @keyframes subtitle-intro1-05nuo{
     0%{
         transform: translateY(50%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes subtitle-intro2-05nuo{
+    0%{
+        transform: translateY(-50%);
         opacity: 0;
     }
     100%{
@@ -195,6 +268,54 @@ html,body{
         transform: translateY(0%);
         opacity: 1;
     }
+}
+
+@-webkit-keyframes line-slide-05nuo{
+    0%{
+        transform: scaleX(0);
+        transform-origin: left;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    }
+    5%{
+        transform: scaleX(1);
+        transform-origin: left;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
+    5.5%{
+        transform: scaleX(1);
+        transform-origin: right;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
+    10%{
+        transform: scaleX(0);
+        transform-origin: right;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    }
+    50%{
+        transform: scaleX(0);
+        transform-origin: right;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    }
+    55%{
+        transform: scaleX(1);
+        transform-origin: right;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
+    56%{
+        transform: scaleX(1);
+        transform-origin: left;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
+    61%{
+        transform: scaleX(0);
+        transform-origin: left;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    }
+    100%{
+        transform: scaleX(0);
+        transform-origin: left;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    } 
 }
 
 @keyframes line-slide-05nuo{
@@ -290,7 +411,10 @@ html,body{
 
 .placeholder-05nuo{
     opacity: 0;
-    user-select: none; 
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none; 
     position: absolute;
 }
 
@@ -396,34 +520,57 @@ html,body{
 }
 
 .svg-clip-path-05nuo{
-    clip-path: inset(0% 0% 0% 0%);
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+            clip-path: inset(0% 0% 0% 0%);
     /* animation: svg-clip-anim-05nuo 1s ease; */
-    animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
-    animation-play-state: paused;
-    animation-fill-mode: both;
-    animation-delay: calc(var(--animation-seek-05nuo)*-1s);
+    -webkit-animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+            animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+    -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+    -webkit-animation-delay: calc(var(--animation-seek-05nuo)*-1s);
+            animation-delay: calc(var(--animation-seek-05nuo)*-1s);
 }
 
 .svg-clip-left-05nuo{
-    clip-path: inset(0% 67% 0% 3%);
+    -webkit-clip-path: inset(0% 67% 0% 3%);
+            clip-path: inset(0% 67% 0% 3%);
 }
 
 .svg-clip-middle-05nuo{
-    clip-path: inset(0% 34% 0% 36%);
+    -webkit-clip-path: inset(0% 34% 0% 36%);
+            clip-path: inset(0% 34% 0% 36%);
 }
 
 .svg-clip-right-05nuo{
-    clip-path: inset(0% 2% 0% 72%);
+    -webkit-clip-path: inset(0% 2% 0% 72%);
+            clip-path: inset(0% 2% 0% 72%);
 }
 
-@keyframes svg-clip-anim-05nuo{
+@-webkit-keyframes svg-clip-anim-05nuo{
     0%{
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 
     100%{
         /* clip-path: inset(0% 67% 0% 3%); */
-        clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+        -webkit-clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+                clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+    }
+}
+
+@keyframes svg-clip-anim-05nuo{
+    0%{
+        -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    100%{
+        /* clip-path: inset(0% 67% 0% 3%); */
+        -webkit-clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+                clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
     }
 }
 
