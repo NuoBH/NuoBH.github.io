@@ -2,6 +2,7 @@ html,body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    isolation: isolate;
 }
 
 .fusion-page-title-bar{
@@ -16,6 +17,9 @@ html,body{
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 .full-header-05nuo{
+    --title-size-05nuo: 35px;
+    --large-title-size-05nuo: 40px;
+    --Max-title-size-05nuo: 47px;
     position: relative;
     background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(253, 233, 211) 100%);
     display: block;
@@ -36,37 +40,83 @@ html,body{
 }
 
 #header-title-05nuo{
-    --title-size-05nuo: 35px;
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 30px;
     box-sizing: border-box;
-    width: 37.5%;
-    text-align: center;
-    padding: 3% 0% 2.5% 0%;
+    width: 100%;
+    text-align: left;
+    padding: 3% 3% 2.5% 3%;
     border-radius: 0 0 20px 20px;
     float:center;
 
-    background:rgba(106, 185, 16, 0.8);
+    /* background:rgba(106, 185, 16, 0.8);
     box-shadow: inset 0px 0px 30px rgba(255, 255, 255, 0.5);
-    border: 2px solid white;
+    border: 2px solid white; */
 
     font-family: 'Work Sans', sans-serif;
     color: white;
     font-weight: normal;
 
     transform: translateY(-100%);
-    transition: transform 1s ease, width 0.25s ease, height 0.25s ease;
-
-    overflow: hidden;    
-}
-
-#header-title-05nuo .large-title-05nuo{
-    font-size: 45px; 
-    font-weight: 600;
-    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
+    transition: transform 1s ease, width 0.25s ease, height 0.25s ease; 
 }
 
 #header-title-05nuo h1{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-size: 70px; 
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
+}
+
+#header-title-05nuo h2{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-size: var(--title-size-05nuo);
+    line-height: calc(var(--title-size-05nuo) * 2);
+    font-weight: normal;
+    color:white;
+}
+
+#transit-text-05nuo{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+
+    box-sizing: border-box;
+
+    width: 100%;
+    margin: 0;
+    margin-top:60%;
+    padding: 0 3% 1% 3%;
+    
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    font-weight: normal;
+    text-align: left;
+}
+#transit-text-05nuo .inner-flex-05nuo{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px
+}
+
+#transit-text-05nuo .large-title-05nuo{
+    font-size: var(--large-title-size-05nuo); 
+    font-weight: 600;
+}
+#transit-text-05nuo h1{
+    position: relative;
     margin: 0;
     padding: 0;
     font-size: var(--title-size-05nuo);
@@ -75,39 +125,27 @@ html,body{
     font-family: 'Work Sans', sans-serif;
     color: white;
     font-weight: normal;
+    text-shadow: 0px 0px 10px rgba(26, 23, 212, 0.7);
 }
 
-#header-title-05nuo h2{
-    margin: 2% 0 0 0;
-    padding: 0;
-    font-family: 'Lato', sans-serif;
-    font-size: calc(var(--title-size-05nuo)*0.815);
-    font-weight: normal;
-    color:white;
-}
-
-
-#placeholder-05nuo{
+.placeholder-05nuo{
     opacity: 0;
-    user-select: none;
-}
-
-#placeholder2-05nuo{
-    opacity: 0;
-    user-select: none;
+    user-select: none; 
+    position: absolute;
 }
 
 .cube-text-05nuo{
     --face-height-05nuo: 0;
     --transform-transition-time-05nuo: 1s;
-    position: absolute;
+    position: relative;
     display: block;
     box-sizing: border-box;
 
     font-size: var(--title-size-05nuo);
     font-weight: 400;
     text-align: center;
-
+    
+    height: var(--face-height-05nuo);
     perspective-origin: center;
     transform-style: preserve-3d;
     transform-origin: calc(var(--face-height-05nuo) / 2) calc(var(--face-height-05nuo) / 2) 0;
@@ -115,12 +153,12 @@ html,body{
     transition: transform var(--transform-transition-time-05nuo) ease-in-out, left 0.15s ease, top 0.15s ease;
 }
 
-#interactive-text-05nuo{
+#transit-rotate-text-05nuo{
     --cube-rotate-05nuo: 0deg;
     transform: rotateX(var(--cube-rotate-05nuo));
-
 }
-#interactive-text2-05nuo{
+
+#transit-rotate-text2-05nuo{
     --cube-rotate2-05nuo: 0deg;
     transform: rotateX(var(--cube-rotate2-05nuo));
 }
@@ -138,49 +176,50 @@ html,body{
     -webkit-backface-visibility: hidden;
     color: white;
     border: 1px solid white;
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0px 0px 12px rgba(26, 23, 212, 0.5);
+    box-shadow: inset 0px 0px 8px rgba(26, 23, 212, 0.3);
 }
 
 /* cube 1 */
 
-#interactive-text-05nuo .text-scrollFront-05nuo{
+.text-scrollFront-05nuo{
     transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text-05nuo .text-scrollTop-05nuo{
+.text-scrollTop-05nuo{
     transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text-05nuo .text-scrollBottom-05nuo{
+.text-scrollBottom-05nuo{
     transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text-05nuo .text-scrollBack-05nuo{
+.text-scrollBack-05nuo{
     transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
 /*cube 2*/
 
-#interactive-text2-05nuo .text-scrollFront-05nuo{
+.text-scrollFront-05nuo{
     transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text2-05nuo .text-scrollTop-05nuo{
+.text-scrollTop-05nuo{
     transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text2-05nuo .text-scrollBottom-05nuo{
+.text-scrollBottom-05nuo{
     transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
 
-#interactive-text2-05nuo .text-scrollBack-05nuo{
+.text-scrollBack-05nuo{
     transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
@@ -237,6 +276,6 @@ html,body{
 #enterprise-panel-05nuo{
     position: relative;
     width: 100vw;
-    height: 105vh;
+    height: 120vh;
     background: linear-gradient(180deg, rgba(253,233,211,1) 0%, rgba(76,48,237,1) 28%);
 }
