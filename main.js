@@ -316,6 +316,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     container.style.width = `${w}px`;  
     container.style.height = `${h}px`;
     svg.style.width = `${svgW}px`;
+    svg.style.height = `${svgH}px`;
     svg.style.top = `${top}px`;
     svg.style.left = `${left}px`;
 }
