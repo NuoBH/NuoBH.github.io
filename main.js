@@ -694,10 +694,10 @@ function scrollSvgLerp_05nuo(timestamp){
     lastScrollSVGLerpTime_05nuo = timestamp;
 
     curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
-    // curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
-    curClipAnimSeek_05nuo = lastClipAnimSeek_05nuo;
+    curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
 
-    console.log(curClipAnimSeek_05nuo)
+    let clipPath = window.getComputedStyle(svg_05nuo).getPropertyValue("clip-path");
+    console.log(clipPath);
 
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
@@ -706,6 +706,13 @@ function scrollSvgLerp_05nuo(timestamp){
     svg_05nuo.style.setProperty("transform", `translateX(${tx}px) translateY(${curScrollMove_05nuo}px)`);
     svg_05nuo.style.setProperty("--animation-seek-05nuo", curClipAnimSeek_05nuo);
 
+    {
+        svg_05nuo.style.setProperty("clip-path", "none");
+        svg_05nuo.style.setProperty("-webkit-clip-path", "none");
+        svg_05nuo.offsetWidth;
+        svg_05nuo.style.setProperty("clip-path", `${clipPath}`);
+        svg_05nuo.style.setProperty("-webkit-clip-path", `${clipPath}`);
+    }
     
     if(Math.abs(curScrollMove_05nuo - lastScrollTarget_05nuo) <= 0.1 && 
     Math.abs(curClipAnimSeek_05nuo - lastClipAnimSeek_05nuo) <= 0.1){
