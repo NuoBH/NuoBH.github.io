@@ -83,6 +83,8 @@ const transitRotTextPlaceholder2_05nuo = document.getElementById("placeholder4-0
 
 const transitMainText_05nuo = document.getElementById("transit-main-text-05nuo");
 
+const signInButton_05nuo = document.getElementById("sign-in-05nuo");
+
 const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = document.getElementById("header-container-05nuo");
 
@@ -103,6 +105,8 @@ let svgTop_05nuo = 0;
 
 //detect if svg is in scroll mode
 let isSvgScroll_05nuo = false;
+//detect if title is in scroll
+let isTitleScroll_05nuo = false;
 
 // set cube rotate text responsively
 function responsiveTransitRotText_05nuo(text, placeholder){
@@ -130,11 +134,24 @@ function responsiveHeaderTitle(headerTitle){
         headerTitle.style.setProperty("gap", "5px");
         subtitle.style.setProperty("width", "100%");
         subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        headerTitle.children.item(0).style.setProperty("font-size", "50px");
-        if(width < 750){
-            headerTitle.children.item(0).style.setProperty("font-size", "40px");
-            subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
+        mainTitle_05nuo.style.setProperty("font-size", "50px");
+        subtitle.style.setProperty("display", "flex");
+        headerTitle.style.setProperty("mix-blend-mode", "normal");
+
+        if(isTitleScroll_05nuo){
+            mainTitle_05nuo.style.setProperty("font-size", "25px");
+            subtitle.style.setProperty("display", "none");
+            headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
+
+        if(width < 750){
+            mainTitle_05nuo.style.setProperty("font-size", "40px");
+            subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
+            if(isTitleScroll_05nuo){
+                mainTitle_05nuo.style.setProperty("font-size", "20px");
+            }
+        }
+
     }
     else{
         headerTitle.style.setProperty("flex-direction", "row");
@@ -143,8 +160,10 @@ function responsiveHeaderTitle(headerTitle){
             gapsize = 75;
         }
         headerTitle.style.setProperty("gap", `${gapsize}px`);
-        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");;
-        headerTitle.children.item(0).style.setProperty("font-size", "55px");
+        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
+        mainTitle_05nuo.style.setProperty("font-size", "55px");
+        subtitle.style.setProperty("display", "flex");
+        headerTitle.style.setProperty("mix-blend-mode", "normal");
 
         if(width < 1500){
             subtitle.style.setProperty("width", "100%");
@@ -157,6 +176,12 @@ function responsiveHeaderTitle(headerTitle){
             // subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo)*0.8)");
             headerTitle.style.setProperty("flex-direction", "column");
             headerTitle.style.setProperty("gap", "5px");
+        }
+
+        if(isTitleScroll_05nuo){
+            mainTitle_05nuo.style.setProperty("font-size", "27px");
+            subtitle.style.setProperty("display", "none");
+            headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
     }
 
@@ -261,10 +286,12 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     let svgW;
     let svgH;
 
+    let titleHeight = isTitleScroll_05nuo ? headerTitle.offsetHeight * 2 : headerTitle.offsetHeight;
+
     //before svg is in scroll mode(this will always be run first when refreshed)
     if(!isSvgScroll_05nuo){
         if(width < widthLimit_05nuo && width < height){
-            svgH = ( height - headerTitle.offsetHeight - headerTitle.offsetTop ) * 0.95;
+            svgH = ( height - titleHeight - headerTitle.offsetTop ) * 0.95;
             svgW = svgH * 1.604;
             left = (svgW - w) / -2;
         }
@@ -276,7 +303,8 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
             svgH = svgW / 1.604;
             left = (w - svgW) / 2;
         }
-        top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.1;
+        top = (titleHeight + headerTitle.offsetTop) * 1.15;
+        console.log(titleHeight);
         h = svgH + top;
     }
     //after svg is in scroll
@@ -288,12 +316,12 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
             }
             svgH = svgW / 1.604;
 
-            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 1.2;
+            top = (titleHeight + headerTitle.offsetTop) * 1.2;
         }
         else{
             svgW = w * 0.55;
             svgH = svgW / 1.604;
-            top = (headerTitle.offsetHeight + headerTitle.offsetTop) * 0.5;
+            top = (titleHeight + headerTitle.offsetTop) * 0.5;
         }
         //set svg left in scroll mode based on scroll state
         let state = svgScrollTriggerPoints_05nuo.scrollState;
@@ -321,7 +349,24 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
     svg.style.left = `${left}px`;
 }
 
-function responsiveEnterprisePanel(panel){
+//responsive feature for sign in button
+function responsiveSignInButton_05nuo(button){
+    const width = window.innerWidth;
+    let w = svgWidth_05nuo / 3 * 0.3;
+    if(w <= 72){
+        w = 72;
+    }
+    let marginLeft = (width - w) /2;
+    let marginTop = fullHeader_05nuo.offsetHeight / 1.75 - w;
+    let paddingTop = (w - button.children.item(1).offsetHeight) / 2;
+    button.style.setProperty("width", `${w}px`);
+    button.style.setProperty("height", `${w}px`);
+    button.style.setProperty("margin-left", `${marginLeft}px`);
+    button.style.setProperty("margin-top", `${marginTop}px`);
+    button.style.setProperty("padding-top", `${paddingTop}px`);
+}
+
+function responsiveEnterprisePanel_05nuo(panel){
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -343,6 +388,54 @@ function responsiveTitle_05nuo(){
     responsiveFonts(fullHeader_05nuo);
     responsiveRotateText_05nuo();
 }
+
+/*************************************************************************************************
+ * ********************************** transition for button, in between texts**************************
+ * ***************************************************************************************************
+ */
+let hasHideSignInButton_05nuo = true;
+
+function signInButtonAppear_05nuo(){
+    signInButton_05nuo.style.setProperty("animation", "none");
+    signInButton_05nuo.style.setProperty("animation", "button-rotate-down-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
+}
+
+function signInButtonDisappear_05nuo(){
+    signInButton_05nuo.style.setProperty("animation", "none");
+    signInButton_05nuo.style.setProperty("animation", "button-rotate-up-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
+}
+
+function showHideSignInButton_05nuo(){
+    if(isTitleScroll_05nuo){
+        if(hasHideSignInButton_05nuo){
+            signInButtonAppear_05nuo();
+            hasHideSignInButton_05nuo = false;
+        }
+    }
+    else{
+        if(!hasHideSignInButton_05nuo){
+            signInButtonDisappear_05nuo();
+            hasHideSignInButton_05nuo = true;
+        }
+    }
+}
+
+function signInButtonOnHover_05nuo(){
+    signInButton_05nuo.style.setProperty("box-shadow", "0 0 20px rgb(243, 237, 149), inset 0 0 15px rgba(114, 146, 44, 0.75)");
+}
+
+function signInButtonOffHover_05nuo(){
+    signInButton_05nuo.style.setProperty("box-shadow", "none");
+}
+
+function setButtonHoverEffects_05nuo(){
+    signInButton_05nuo.addEventListener("mouseenter", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
+    signInButton_05nuo.addEventListener("touchstart", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
+    signInButton_05nuo.addEventListener("mouseleave", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
+    signInButton_05nuo.addEventListener("touchend", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
+}
+
+
 
 
 /************************************************************************************************************ 
@@ -545,9 +638,6 @@ let svgScrollLerpSpeed_05nuo = 0.1;
 
 let hasReduceSvgOnScroll_05nuo = false;
 
-//for safari clip path aniamtio compatibility
-let svgClipPathSafari = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
-
 //get svg scroll start end positions and targets based on state
 function getScrollStartEndTargets(state){
     const width = window.innerWidth;
@@ -623,11 +713,15 @@ function scrollSvg_05nuo(){
             canCheckSvgPan_05nuo = true;
             resizeHero_05nuo();
             svgPanStartCheck(svg_05nuo);
+            responsiveSignInButton_05nuo(signInButton_05nuo);
+            responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
         }
 
         if(!hasReduceSvgOnScroll_05nuo && window.scrollY >= svgScrollTriggerPoints_05nuo.end1 * 0.8){
             hasReduceSvgOnScroll_05nuo = true;
             resizeHero_05nuo();
+            responsiveSignInButton_05nuo(signInButton_05nuo);
+            responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
         }
         else if(hasReduceSvgOnScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.end1 * 0.8){
             hasReduceSvgOnScroll_05nuo = false;
@@ -700,9 +794,6 @@ function scrollSvgLerp_05nuo(timestamp){
     curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
     curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
 
-    svgClipPathSafari = window.getComputedStyle(svg_05nuo).getPropertyValue("clip-path");
-    console.log(svgClipPathSafari);
-
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
     let tx = parseFloat(matrixSplits[matrixSplits.length - 2]);
@@ -720,18 +811,29 @@ function scrollSvgLerp_05nuo(timestamp){
     }
 }
 
-let setSvgClipPathAnim = undefined;
-function setSvgClipPathSafari_05nuo(){
-    svg_05nuo.style.setProperty("clip-path", "none");
-    svg_05nuo.style.setProperty("-webkit-clip-path", "none");
-    svg_05nuo.offsetWidth;
-    svg_05nuo.style.setProperty("clip-path", `${svgClipPathSafari}`);
-    svg_05nuo.style.setProperty("-webkit-clip-path", `${svgClipPathSafari}`);
-    cancelAnimationFrame(setSvgClipPathAnim)
-    setSvgClipPathAnim = requestAnimFrame(setSvgClipPathSafari_05nuo);
+
+function scrollTitle_05nuo(){
+    let scrollY = window.scrollY;
+    if(scrollY >= headerTitle_05nuo.offsetHeight){
+        isTitleScroll_05nuo = true;
+        responsiveHeaderTitle(headerTitle_05nuo);
+        resizeHero_05nuo();
+        headerTitle_05nuo.style.setProperty("transform", `translateY(${scrollY}px)`)
+    }
+    else{
+        isTitleScroll_05nuo = false;
+        responsiveHeaderTitle(headerTitle_05nuo);
+        resizeHero_05nuo();
+        headerTitle_05nuo.style.setProperty("transform", `translateY(0)`)
+    }
 }
 
-setSvgClipPathAnim = requestAnimFrame(setSvgClipPathSafari_05nuo);
+function scrollFunc_05nuo(){
+    window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
+    window.addEventListener("scroll", scrollTitle_05nuo, eventListenerOption_05nuo);
+    window.addEventListener("scroll", showHideSignInButton_05nuo, eventListenerOption_05nuo);
+}
+
 /* ********************************************************************************************************
 ************************************** cube text rotate animation ****************************************
 ***********************************************************************************************************/
@@ -849,33 +951,40 @@ else {
 const responsiveFunc_05nuo = function(){
     responsiveTitle_05nuo();
     resizeHero_05nuo();
+    responsiveSignInButton_05nuo(signInButton_05nuo);
     responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
-    responsiveEnterprisePanel(enterprisePanel_05nuo);
+    responsiveRotateText_05nuo();
 
-    requestTimeout(responsiveRotateText_05nuo, 20);
+    responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
 }
 
-requestTimeout(responsiveFunc_05nuo, 0);
-requestTimeout(responsiveFunc_05nuo, 50);
-
-window.addEventListener("resize", responsiveFunc_05nuo);
-document.addEventListener('DOMContentLoaded', ()=>{
-    //start animation for titles
+const startTitleAnim_05nuo = function(){
     requestTimeout(()=>{
-        headerTitle_05nuo.style.transform = "translateY(0)";
+        headerTitle_05nuo.style.setProperty("transform", "translateY(0)");
         requestTimeout(()=>{
             const titleItems = mainTitle_05nuo.children;
             for(let i = 0; i < titleItems.length; i ++){
                 let delay = 2 + i/10 * 2;
-                titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 10s ease ${delay}s infinite normal both`);
+                titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 7s ease ${delay}s infinite normal both`);
             }
-            mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 10s ease 1.9s infinite normal both");
+            mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 7s ease 1.9s infinite normal both");
+            headerTitle_05nuo.style.setProperty("transition", "transform 0.1s ease");
         }, 1000);
     }, 200);
+}
+
+requestTimeout(responsiveFunc_05nuo, 0);
+requestTimeout(responsiveFunc_05nuo, 100);
+
+window.addEventListener("resize", responsiveFunc_05nuo);
+document.addEventListener('DOMContentLoaded', ()=>{
+    //start animation for titles
+    startTitleAnim_05nuo();
     //start listen to scroll events
-    window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
+    scrollFunc_05nuo();
     //start transit text cube roate animation
     titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
+    setButtonHoverEffects_05nuo()
 });

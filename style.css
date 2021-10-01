@@ -50,8 +50,7 @@ html,body{
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: 3% 4% 2.5% 5%;
-    border-radius: 0 0 20px 20px;
+    padding: 2.5% 4% 2.3% 5%;
     float:center;
 
     font-family: 'Work Sans', sans-serif;
@@ -59,10 +58,12 @@ html,body{
     font-weight: normal;
 
     transform: translateY(-100%);
-    transition: transform 0.5s ease, width 0.25s ease, height 0.25s ease; 
+    transition: transform 0.5s ease;
+
+    mix-blend-mode: normal;
 }
 
-#header-title-05nuo h1{
+#header-title-05nuo a{
     position: relative;
     display:flex;
     flex-direction: row;
@@ -72,11 +73,13 @@ html,body{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-size: 60px; 
+    font-size: 60px;
+    text-decoration: none;
     font-weight: 600;
     font-family: 'Work Sans', sans-serif;
     color: white;
     text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.55);
+    user-select: none;
 }
 
 #main-title-05nuo .item1-05nuo{
@@ -160,7 +163,7 @@ html,body{
 }
 
 #header-title-05nuo h2 .sub-item1-05nuo{
-    animation: subtitle-intro1-05nuo 0.8s ease 1.2s 1 normal both;
+    animation: subtitle-intro1-05nuo 0.5s ease 0.75s 1 normal both;
 }
 #header-title-05nuo h2 .sub-item2-05nuo{
     width: 100%;
@@ -168,11 +171,11 @@ html,body{
     background:white;
     border-radius: 100%;
     transform-origin: left;
-    animation: line-slide-05nuo 10s ease 3.2s infinite normal both;
+    animation: line-slide-05nuo 7s ease 3.2s infinite normal both;
 }
 #header-title-05nuo h2 .sub-item3-05nuo{
     text-align: right;
-    animation: subtitle-intro2-05nuo 0.8s ease 1.2s 1 normal both;
+    animation: subtitle-intro2-05nuo 0.5s ease 0.75s 1 normal both;
 }
 
 @keyframes subtitle-intro1-05nuo{
@@ -208,12 +211,12 @@ html,body{
         transform-origin: left;
         box-shadow: 0 0 10px rgba(255, 255, 255, 1);
     }
-    5.5%{
+    6%{
         transform: scaleX(1);
         transform-origin: right;
         box-shadow: 0 0 10px rgba(255, 255, 255, 1);
     }
-    10%{
+    11%{
         transform: scaleX(0);
         transform-origin: right;
         box-shadow: 0 0 0px rgba(255, 255, 255, 1);
@@ -228,12 +231,12 @@ html,body{
         transform-origin: right;
         box-shadow: 0 0 10px rgba(255, 255, 255, 1);
     }
-    56%{
+    56.5%{
         transform: scaleX(1);
         transform-origin: left;
         box-shadow: 0 0 10px rgba(255, 255, 255, 1);
     }
-    61%{
+    62%{
         transform: scaleX(0);
         transform-origin: left;
         box-shadow: 0 0 0px rgba(255, 255, 255, 1);
@@ -244,6 +247,116 @@ html,body{
         box-shadow: 0 0 0px rgba(255, 255, 255, 1);
     } 
 }
+
+
+#sign-in-05nuo{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 10%;
+
+    font-size: 25px;
+    font-family: "Lato", sans-serif;
+    color:white;
+
+    text-align:center;
+    background:rgb(145, 192, 69);
+    border-radius: 50% 50%;
+    box-shadow: none;
+
+    transform-style: preserve-3d;
+    transform: perspective(600px) rotateX(90deg);
+    animation: none;
+    transition: box-shadow 0.25s ease;
+}
+
+@keyframes button-rotate-down-05nuo{
+    from{
+        transform: perspective(600px) rotateX(90deg) rotateY(-30deg) translate(-25%, -50%);
+        opacity: 0;
+    }
+    to{
+        transform: perspective(600px) rotateX(0deg) rotateY(0deg) translate(0, 0);
+        opacity: 1;
+    }
+}
+@keyframes button-rotate-up-05nuo{
+    from{
+        transform: perspective(600px) rotateX(0deg) rotateY(0deg) translate(0, 0);
+        opacity: 1;
+    }
+    to{
+        transform: perspective(600px) rotateX(90deg) rotateY(-30deg) translate(-25%, -50%);
+        opacity: 0;
+    }
+}
+@media only screen and (max-width: 600px){
+    #sign-in-05nuo{
+        font-size: 20px;
+    }
+}
+
+#sign-in-05nuo p{
+    position: relative;
+    display: block;
+    padding:0;
+    margin:0;
+    text-shadow: 0 0 5px rgba(252, 255, 224, 0.2);
+}
+#button-word1-05nuo{
+    position: relative;
+    display: block;
+    padding: 0;
+    margin:0;
+    animation: button-word-wave-05nuo 5s cubic-bezier(.22,.95,.43,.98) 3.6s infinite normal both;
+}
+#button-word2-05nuo{
+    position: relative;
+    display: block;
+    padding: 0;
+    margin:0;
+    animation: button-word-wave2-05nuo 5s cubic-bezier(.22,.95,.43,.98) 4s infinite normal both;
+}
+@keyframes button-word-wave-05nuo{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.175);
+    }
+    55%{
+        transform: scale(1.175);
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+@keyframes button-word-wave2-05nuo{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.175);
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+#button-svg-bg-05nuo{
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+}
+
+
 
 #transit-text-05nuo{
     position: relative;
@@ -263,6 +376,7 @@ html,body{
     color: white;
     font-weight: normal;
     text-align: left;
+    transition: margin 0.3s ease;
 }
 #transit-text-05nuo .inner-flex-05nuo{
     display: flex;
@@ -384,6 +498,56 @@ html,body{
     opacity: 1;
 }
     
+#svg-bg-05nuo{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.bg-svg-path-05nuo{
+    fill: none;
+    fill-opacity: 0;
+    stroke: rgba(252, 255, 224, 0.6);
+    stroke-width: calc(3.75 / 1920 * 100vw);
+    stroke-linecap: square;
+    stroke-dasharray: 500 2300;
+    filter: blur(2.2px);
+}
+#bg-path1-05nuo{
+    stroke-dasharray: 1500 4500;
+    animation: stroke-offset-05nuo 7s linear 3.05s infinite normal both;
+}
+#bg-path2-05nuo{
+    stroke-dasharray: 1450 4500;
+    animation: stroke-offset-05nuo 7s linear 3.65s infinite normal both;
+}
+#bg-path3-05nuo{
+    stroke-dasharray: 1650 4500;
+    animation: stroke-offset-05nuo 7s linear 4.35s infinite normal both;
+}
+#bg-path4-05nuo{
+    stroke-dasharray: 1600 4500;
+    animation: stroke-offset-05nuo 7s linear 4.125s infinite normal both;
+}
+#bg-path5-05nuo{
+    stroke-dasharray: 1400 4500;
+    animation: stroke-offset-05nuo 7s linear 4.9s infinite normal both;
+}
+
+@keyframes stroke-offset-05nuo{
+    0%{
+        stroke-dashoffset: 1650;
+    }
+    50%{
+        stroke-dashoffset: -4500;
+    }
+    100%{
+        stroke-dashoffset: -4500;
+    }
+}
+
 #header-svg-05nuo{
     --animation-seek-05nuo: 0;
     position: absolute;
