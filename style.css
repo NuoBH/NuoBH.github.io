@@ -497,6 +497,14 @@ html,body{
     transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
 }
+
+#transit-text-flex1-05nuo{
+
+}
+#transit-text-flex2-05nuo{
+
+}
+
     
 #svg-bg-05nuo{
     position:absolute;
@@ -581,9 +589,16 @@ html,body{
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 
-    100%{
-        /* clip-path: inset(0% 67% 0% 3%); */
+    33%{
+        clip-path: polygon(72% 0%, 100% 0%, 100% 100%, 72% 93%);
+    }
+
+    66%{
         clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+    }
+
+    100%{
+        clip-path: polygon(37% 0%, 68% 0%, 68% 100%, 37% 100%);
     }
 }
 
@@ -598,4 +613,18 @@ html,body{
     width: 100vw;
     height: 120vh;
     background: linear-gradient(180deg, rgba(253,233,211,1) 0%, rgba(76,48,237,1) 28%);
+}
+
+#institution-panel-05nuo{
+    position: relative;
+    width: 100vw;
+    height: 120vh;
+    background: linear-gradient(180deg, rgba(76,48,237,1) 0%, rgb(255, 218, 150) 30%);
+}
+
+#association-panel-05nuo{
+    position: relative;
+    width: 100vw;
+    height: 120vh;
+    background: linear-gradient(180deg, rgba(255, 218, 150, 1) 0%, rgba(76,48,237,1) 28%);
 }

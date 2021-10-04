@@ -68,6 +68,30 @@ function lerp_05nuo(v1, v2, speed, delta){
     return v1 + (v2 - v1) * (1 - Math.pow(speed, delta));
 }
 
+function getScrollbarWidth_05nuo() {
+
+    // Creating invisible container
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+}
+
+const scrollBarWidth_05nuo = getScrollbarWidth_05nuo();
+
 /************************************************************************************************************* 
  ***************************** responsive feature for svg, title div and texts ******************************* 
  ************************************************************************************************************* 
@@ -275,7 +299,7 @@ function responsiveFonts(headerContainer){
 }
 
 //make svg and its container responsive in horizontal mode
-function responsiveSVG_05nuo(container, svg, headerTitle){
+function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -304,7 +328,6 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
             left = (w - svgW) / 2;
         }
         top = (titleHeight + headerTitle.offsetTop) * 1.15;
-        console.log(titleHeight);
         h = svgH + top;
     }
     //after svg is in scroll
@@ -324,15 +347,16 @@ function responsiveSVG_05nuo(container, svg, headerTitle){
             top = (titleHeight + headerTitle.offsetTop) * 0.5;
         }
         //set svg left in scroll mode based on scroll state
-        let state = svgScrollTriggerPoints_05nuo.scrollState;
         if(state === 0){
-            left = w * 0.05;
+            let dist = w - scrollBarWidth_05nuo - svgW;
+            left = dist - 120 / 1920 * w;
         }
         else if(state === 1){
-            left = (w - 2 * svgW) / 2
+            left = w * 0.05;
         }
         else if(state === 2){
-            left = (w - svgW) * 0.95;
+            let dist = w - scrollBarWidth_05nuo - svgW;
+            left = dist / 2;
         }
     }
 
@@ -379,8 +403,11 @@ function responsiveRotateText_05nuo(){
     responsiveTransitRotText_05nuo(transitRotText2_05nuo, transitRotTextPlaceholder2_05nuo);
 }
 
-function resizeHero_05nuo(){
-    responsiveSVG_05nuo(fullHeader_05nuo, svg_05nuo, headerTitle_05nuo);
+function resizeHero_05nuo(state=0){
+    if(svgScrollTriggerPoints_05nuo){
+        state = svgScrollTriggerPoints_05nuo.scrollState;
+    }
+    responsiveSVG_05nuo(fullHeader_05nuo, svg_05nuo, headerTitle_05nuo,state);
 }
 
 function responsiveTitle_05nuo(){
@@ -585,6 +612,9 @@ const svgPanStartCheck = function(){
 const svgScrollBg_05nuo = document.getElementById("scroll-bg-05nuo");
 const svgBgGradient_05nuo = document.getElementById('scroll-bg-gradient-05nuo');
 const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
+const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
+const associationPanel_05nuo = document.getElementById("association-panel-05nuo");
+
 //svg scroll animation
 const svgScrollTriggerPoints_05nuo = {
     start1: 0,
@@ -664,10 +694,12 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
+            // startPosY_05nuo = enterprisePanel_05nuo.offsetTop + transitText_05nuo.offsetHeight * 1.7;
+            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
+            // startPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo + transitText_05nuo.offsetHeight*1.5) / 2;
+            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
     else if(state === 2){
@@ -675,10 +707,12 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
+            // startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 1.7;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
+            // startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + (associationPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
 
@@ -690,15 +724,14 @@ function scrollSvg_05nuo(){
     //init start and end points
     svgScrollTriggerPoints_05nuo.init(
         svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.95,
-        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, 1000,
-        1100, 2000);
+        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, institutionPanel_05nuo.offsetTop * 0.95,
+        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.55, associationPanel_05nuo.offsetTop);
 
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
 
     //get start end points and start target pos based on scroll state
     let {startSvgScroll_05nuo, endSvgScroll_05nuo, startPosY_05nuo, targetPosY_05nuo} = getScrollStartEndTargets(state);
-
 
     //detect if svg is in scroll mode (scrollY is larger than the begin scroll point)
     {
@@ -711,7 +744,6 @@ function scrollSvg_05nuo(){
         else if(isSvgScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.start1){
             isSvgScroll_05nuo = false;
             canCheckSvgPan_05nuo = true;
-            resizeHero_05nuo();
             svgPanStartCheck(svg_05nuo);
             responsiveSignInButton_05nuo(signInButton_05nuo);
             responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
@@ -719,7 +751,6 @@ function scrollSvg_05nuo(){
 
         if(!hasReduceSvgOnScroll_05nuo && window.scrollY >= svgScrollTriggerPoints_05nuo.end1 * 0.8){
             hasReduceSvgOnScroll_05nuo = true;
-            resizeHero_05nuo();
             responsiveSignInButton_05nuo(signInButton_05nuo);
             responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
         }
@@ -727,6 +758,7 @@ function scrollSvg_05nuo(){
             hasReduceSvgOnScroll_05nuo = false;
         }
     }
+    resizeHero_05nuo();
 
     //set scrollY values
     let getScrollY = function(){
@@ -768,9 +800,20 @@ function scrollSvg_05nuo(){
 
     let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
     //scroll svg translateY
-    lastScrollTarget_05nuo = scrollPercent * (targetPosY_05nuo - startPosY_05nuo);
+    let p;
+    if(state == 1){
+        p = institutionPanel_05nuo.offsetTop / (targetPosY_05nuo - startPosY_05nuo);
+    }
+    else if(state == 2){
+        p = associationPanel_05nuo.offsetTop / (targetPosY_05nuo - startPosY_05nuo)
+    }
+    else{
+        p = 0;
+    }
+    let translatePercent = scrollPercent < p ? p : scrollPercent; 
+    lastScrollTarget_05nuo = translatePercent * (targetPosY_05nuo - startPosY_05nuo);
     //scroll animate svg clip path
-    lastClipAnimSeek_05nuo = scrollPercent;
+    lastClipAnimSeek_05nuo = scrollPercent / 3 + state / 3;
 
     //change gradient pos y1 y2 values
     let gradient_y1 = svgBgGradientY1_05nuo - svgBgGradientFactor_05nuo * scrollPercent;
@@ -814,7 +857,7 @@ function scrollSvgLerp_05nuo(timestamp){
 
 function scrollTitle_05nuo(){
     let scrollY = window.scrollY;
-    if(scrollY >= headerTitle_05nuo.offsetHeight){
+    if(scrollY >= headerTitle_05nuo.offsetHeight * 0.65){
         isTitleScroll_05nuo = true;
         responsiveHeaderTitle(headerTitle_05nuo);
         resizeHero_05nuo();
