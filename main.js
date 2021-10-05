@@ -211,13 +211,13 @@ function responsiveHeaderTitle(headerTitle){
 
     if(width < 500){
         subtitle.children.item(0).innerHTML = "";
-        subtitle.children.item(2).innerHTML = "Manage your Continuing Education Without doing any of the Admin Work";
+        subtitle.children.item(2).innerHTML = "Manage your Continuing Education without any of the Admin Work";
         subtitle.children.item(2).style.setProperty("text-align", "left");
         subtitle.children.item(2).style.setProperty("padding-right", "3%");
     }
     else{
         subtitle.children.item(0).innerHTML = "Manage your Continuing Education";
-        subtitle.children.item(2).innerHTML = "Without doing any of the Admin Work";
+        subtitle.children.item(2).innerHTML = "Without any of the Admin Work";
         subtitle.children.item(2).style.setProperty("text-align", "right");
         subtitle.children.item(2).style.setProperty("padding-right", "0");
     }
@@ -342,7 +342,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             top = (titleHeight + headerTitle.offsetTop) * 1.2;
         }
         else{
-            svgW = w * 0.55;
+            svgW = w * 0.67;
             svgH = svgW / 1.604;
             top = (titleHeight + headerTitle.offsetTop) * 0.5;
         }
@@ -656,9 +656,9 @@ let lastClipAnimSeek_05nuo = 0;
 
 //svg scroll background gradient values
 let svgHideScrollBg_05nuo = true;
-let svgBgGradientY2_05nuo = 200;
+let svgBgGradientY2_05nuo = 400;
 let svgBgGradientY1_05nuo = 0;
-let svgBgGradientFactor_05nuo = 100;
+let svgBgGradientFactor_05nuo = 300;
 
 //svgScroll lerp values
 let lastScrollSVGLerpTime_05nuo = undefined;
@@ -722,7 +722,7 @@ function scrollSvg_05nuo(){
     svgScrollTriggerPoints_05nuo.init(
         svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.95,
         enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, institutionPanel_05nuo.offsetTop * 0.95,
-        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.55, associationPanel_05nuo.offsetTop);
+        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.55, associationPanel_05nuo.offsetTop * 0.95);
 
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
@@ -818,8 +818,8 @@ function scrollSvg_05nuo(){
     lastClipAnimSeek_05nuo = scrollPercent / 3 + state / 3;
 
     //change gradient pos y1 y2 values
-    let gradient_y1 = svgBgGradientY1_05nuo - svgBgGradientFactor_05nuo * scrollPercent;
-    let gradient_y2 = svgBgGradientY2_05nuo - svgBgGradientFactor_05nuo * scrollPercent;
+    let gradient_y1 = svgBgGradientY1_05nuo - svgBgGradientFactor_05nuo * lastClipAnimSeek_05nuo;
+    let gradient_y2 = svgBgGradientY2_05nuo - svgBgGradientFactor_05nuo * lastClipAnimSeek_05nuo;
     svgBgGradient_05nuo.setAttribute("y1", `${gradient_y1}%`);
     svgBgGradient_05nuo.setAttribute("y2", `${gradient_y2}%`); 
 
