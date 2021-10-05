@@ -99,15 +99,15 @@ const scrollBarWidth_05nuo = getScrollbarWidth_05nuo();
 const headerTitle_05nuo = document.getElementById("header-title-05nuo");
 const mainTitle_05nuo = document.getElementById("main-title-05nuo");
 
-const transitText_05nuo = document.getElementById("transit-text-05nuo");
-const transitRotText_05nuo = document.getElementById("transit-rotate-text-05nuo");
-const transitRotText2_05nuo = document.getElementById("transit-rotate-text2-05nuo");
-const transitRotTextPlaceholder_05nuo = document.getElementById("placeholder3-05nuo");
-const transitRotTextPlaceholder2_05nuo = document.getElementById("placeholder4-05nuo");
+// const transitText_05nuo = document.getElementById("transit-text-05nuo");
+// const transitRotText_05nuo = document.getElementById("transit-rotate-text-05nuo");
+// const transitRotText2_05nuo = document.getElementById("transit-rotate-text2-05nuo");
+// const transitRotTextPlaceholder_05nuo = document.getElementById("placeholder3-05nuo");
+// const transitRotTextPlaceholder2_05nuo = document.getElementById("placeholder4-05nuo");
 
-const transitMainText_05nuo = document.getElementById("transit-main-text-05nuo");
+// const transitMainText_05nuo = document.getElementById("transit-main-text-05nuo");
 
-const signInButton_05nuo = document.getElementById("sign-in-05nuo");
+// const signInButton_05nuo = document.getElementById("sign-in-05nuo");
 
 const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = document.getElementById("header-container-05nuo");
@@ -133,20 +133,20 @@ let isSvgScroll_05nuo = false;
 let isTitleScroll_05nuo = false;
 
 // set cube rotate text responsively
-function responsiveTransitRotText_05nuo(text, placeholder){
-    const hratio = 1.2;
-    const wratio = 1.1;
-    let width = placeholder.offsetWidth * wratio;
-    let height = placeholder.offsetHeight * hratio;
-    let paddingTop = (height - placeholder.offsetHeight) / 2;
+// function responsiveTransitRotText_05nuo(text, placeholder){
+//     const hratio = 1.2;
+//     const wratio = 1.1;
+//     let width = placeholder.offsetWidth * wratio;
+//     let height = placeholder.offsetHeight * hratio;
+//     let paddingTop = (height - placeholder.offsetHeight) / 2;
 
-    text.style.width = `${width}px`;
-    text.style.setProperty("--face-height-05nuo", `${height}px`);
+//     text.style.width = `${width}px`;
+//     text.style.setProperty("--face-height-05nuo", `${height}px`);
 
-    for(let i = 0; i < text.children.length; i++){
-        text.children.item(i).style.paddingTop = `${paddingTop}px`;
-    }
-}
+//     for(let i = 0; i < text.children.length; i++){
+//         text.children.item(i).style.paddingTop = `${paddingTop}px`;
+//     }
+// }
 
 //set static title responsively
 function responsiveHeaderTitle(headerTitle){
@@ -223,25 +223,25 @@ function responsiveHeaderTitle(headerTitle){
     }
 }
 
-function responsiveTransitText(transitText){
-    const prev = transitText.previousElementSibling;
-    const parent = transitText.parentElement;
-    let marginTop = parent.offsetHeight - (prev.offsetHeight + prev.offsetTop);
-    transitText.style.marginTop = `${marginTop}px`;
+// function responsiveTransitText(transitText){
+//     const prev = transitText.previousElementSibling;
+//     const parent = transitText.parentElement;
+//     let marginTop = parent.offsetHeight - (prev.offsetHeight + prev.offsetTop);
+//     transitText.style.marginTop = `${marginTop}px`;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    if(width < widthLimit_05nuo && width < height){
-        transitText.style.flexDirection = "column";
-        transitMainText_05nuo.innerHTML=`Continuing Education`;
-        transitRotText_05nuo.parentElement.style.flexWrap = "wrap";
-    }
-    else{
-        transitText.style.flexDirection = "row";
-        transitMainText_05nuo.innerHTML=`Continuing<span style="opacity: 0;">_</span>Education`;
-        transitRotText_05nuo.parentElement.style.flexWrap = "nowrap";
-    }
-}
+//     const width = window.innerWidth;
+//     const height = window.innerHeight;
+//     if(width < widthLimit_05nuo && width < height){
+//         transitText.style.flexDirection = "column";
+//         transitMainText_05nuo.innerHTML=`Continuing Education`;
+//         transitRotText_05nuo.parentElement.style.flexWrap = "wrap";
+//     }
+//     else{
+//         transitText.style.flexDirection = "row";
+//         transitMainText_05nuo.innerHTML=`Continuing<span style="opacity: 0;">_</span>Education`;
+//         transitRotText_05nuo.parentElement.style.flexWrap = "nowrap";
+//     }
+// }
 
 //set title font size responsively
 function responsiveFonts(headerContainer){
@@ -391,17 +391,16 @@ function responsiveSignInButton_05nuo(button){
 }
 
 function responsiveEnterprisePanel_05nuo(panel){
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    // const height = window.innerHeight;
 
-    let h = height + transitText_05nuo.offsetHeight * 1.5;
-    panel.style.setProperty("height", `${h}px`);
+    // let h = height + transitText_05nuo.offsetHeight * 1.5;
+    // panel.style.setProperty("height", `${h}px`);
 }
 
-function responsiveRotateText_05nuo(){
-    responsiveTransitRotText_05nuo(transitRotText_05nuo, transitRotTextPlaceholder_05nuo);
-    responsiveTransitRotText_05nuo(transitRotText2_05nuo, transitRotTextPlaceholder2_05nuo);
-}
+// function responsiveRotateText_05nuo(){
+//     responsiveTransitRotText_05nuo(transitRotText_05nuo, transitRotTextPlaceholder_05nuo);
+//     responsiveTransitRotText_05nuo(transitRotText2_05nuo, transitRotTextPlaceholder2_05nuo);
+// }
 
 function resizeHero_05nuo(state=0){
     if(svgScrollTriggerPoints_05nuo){
@@ -413,54 +412,54 @@ function resizeHero_05nuo(state=0){
 function responsiveTitle_05nuo(){
     responsiveHeaderTitle(headerTitle_05nuo);
     responsiveFonts(fullHeader_05nuo);
-    responsiveRotateText_05nuo();
+    // responsiveRotateText_05nuo();
 }
 
 /*************************************************************************************************
  * ********************************** transition for button, in between texts**************************
  * ***************************************************************************************************
  */
-let hasHideSignInButton_05nuo = true;
+// let hasHideSignInButton_05nuo = true;
 
-function signInButtonAppear_05nuo(){
-    signInButton_05nuo.style.setProperty("animation", "none");
-    signInButton_05nuo.style.setProperty("animation", "button-rotate-down-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
-}
+// function signInButtonAppear_05nuo(){
+//     signInButton_05nuo.style.setProperty("animation", "none");
+//     signInButton_05nuo.style.setProperty("animation", "button-rotate-down-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
+// }
 
-function signInButtonDisappear_05nuo(){
-    signInButton_05nuo.style.setProperty("animation", "none");
-    signInButton_05nuo.style.setProperty("animation", "button-rotate-up-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
-}
+// function signInButtonDisappear_05nuo(){
+//     signInButton_05nuo.style.setProperty("animation", "none");
+//     signInButton_05nuo.style.setProperty("animation", "button-rotate-up-05nuo 0.65s cubic-bezier(.25,-0.07,.67,1.84) 0s 1 normal both");
+// }
 
-function showHideSignInButton_05nuo(){
-    if(isTitleScroll_05nuo){
-        if(hasHideSignInButton_05nuo){
-            signInButtonAppear_05nuo();
-            hasHideSignInButton_05nuo = false;
-        }
-    }
-    else{
-        if(!hasHideSignInButton_05nuo){
-            signInButtonDisappear_05nuo();
-            hasHideSignInButton_05nuo = true;
-        }
-    }
-}
+// function showHideSignInButton_05nuo(){
+//     if(isTitleScroll_05nuo){
+//         if(hasHideSignInButton_05nuo){
+//             signInButtonAppear_05nuo();
+//             hasHideSignInButton_05nuo = false;
+//         }
+//     }
+//     else{
+//         if(!hasHideSignInButton_05nuo){
+//             signInButtonDisappear_05nuo();
+//             hasHideSignInButton_05nuo = true;
+//         }
+//     }
+// }
 
-function signInButtonOnHover_05nuo(){
-    signInButton_05nuo.style.setProperty("box-shadow", "0 0 20px rgb(243, 237, 149), inset 0 0 15px rgba(114, 146, 44, 0.75)");
-}
+// function signInButtonOnHover_05nuo(){
+//     signInButton_05nuo.style.setProperty("box-shadow", "0 0 20px rgb(243, 237, 149), inset 0 0 15px rgba(114, 146, 44, 0.75)");
+// }
 
-function signInButtonOffHover_05nuo(){
-    signInButton_05nuo.style.setProperty("box-shadow", "none");
-}
+// function signInButtonOffHover_05nuo(){
+//     signInButton_05nuo.style.setProperty("box-shadow", "none");
+// }
 
-function setButtonHoverEffects_05nuo(){
-    signInButton_05nuo.addEventListener("mouseenter", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
-    signInButton_05nuo.addEventListener("touchstart", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
-    signInButton_05nuo.addEventListener("mouseleave", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
-    signInButton_05nuo.addEventListener("touchend", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
-}
+// function setButtonHoverEffects_05nuo(){
+//     signInButton_05nuo.addEventListener("mouseenter", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
+//     signInButton_05nuo.addEventListener("touchstart", signInButtonOnHover_05nuo, eventListenerOption_05nuo);
+//     signInButton_05nuo.addEventListener("mouseleave", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
+//     signInButton_05nuo.addEventListener("touchend", signInButtonOffHover_05nuo, eventListenerOption_05nuo);
+// }
 
 
 
@@ -683,10 +682,12 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + transitText_05nuo.offsetHeight * 1.7;
+            // targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + transitText_05nuo.offsetHeight * 1.7;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 ;
         }
         else{
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo + transitText_05nuo.offsetHeight*1.5) / 2;
+            // targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo + transitText_05nuo.offsetHeight*1.5) / 2;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
     else if(state === 1){
@@ -694,11 +695,9 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            // startPosY_05nuo = enterprisePanel_05nuo.offsetTop + transitText_05nuo.offsetHeight * 1.7;
             targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            // startPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo + transitText_05nuo.offsetHeight*1.5) / 2;
             targetPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
@@ -707,11 +706,9 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            // startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 1.7;
             targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.1;
         }
         else{
-            // startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
             targetPosY_05nuo = associationPanel_05nuo.offsetTop + (associationPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
@@ -732,7 +729,7 @@ function scrollSvg_05nuo(){
 
     //get start end points and start target pos based on scroll state
     let {startSvgScroll_05nuo, endSvgScroll_05nuo, startPosY_05nuo, targetPosY_05nuo} = getScrollStartEndTargets(state);
-
+    resizeHero_05nuo();
     //detect if svg is in scroll mode (scrollY is larger than the begin scroll point)
     {
         //get the very beginning pos value where svg starts to scroll
@@ -744,21 +741,26 @@ function scrollSvg_05nuo(){
         else if(isSvgScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.start1){
             isSvgScroll_05nuo = false;
             canCheckSvgPan_05nuo = true;
-            svgPanStartCheck(svg_05nuo);
-            responsiveSignInButton_05nuo(signInButton_05nuo);
-            responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
+            requestTimeout(()=>{
+                if(!isSvgScroll_05nuo){
+                    svgPanStartCheck(svg_05nuo);
+                }
+            }, 300); 
+            resizeHero_05nuo();
+            // responsiveSignInButton_05nuo(signInButton_05nuo);
+            // responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
         }
 
         if(!hasReduceSvgOnScroll_05nuo && window.scrollY >= svgScrollTriggerPoints_05nuo.end1 * 0.8){
             hasReduceSvgOnScroll_05nuo = true;
-            responsiveSignInButton_05nuo(signInButton_05nuo);
-            responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
+            resizeHero_05nuo();
+            // responsiveSignInButton_05nuo(signInButton_05nuo);
+            // responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
         }
         else if(hasReduceSvgOnScroll_05nuo && window.scrollY < svgScrollTriggerPoints_05nuo.end1 * 0.8){
             hasReduceSvgOnScroll_05nuo = false;
         }
     }
-    resizeHero_05nuo();
 
     //set scrollY values
     let getScrollY = function(){
@@ -874,64 +876,64 @@ function scrollTitle_05nuo(){
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", scrollTitle_05nuo, eventListenerOption_05nuo);
-    window.addEventListener("scroll", showHideSignInButton_05nuo, eventListenerOption_05nuo);
+    // window.addEventListener("scroll", showHideSignInButton_05nuo, eventListenerOption_05nuo);
 }
 
 /* ********************************************************************************************************
 ************************************** cube text rotate animation ****************************************
 ***********************************************************************************************************/
 
-let titleAnim_05nuo;
-const titleAnimInterval_05nuo = 1700;
-let titleRotationL_05nuo = 0
-let titleRotationR_05nuo = 0
-let currentTitleRotation_05nuo = 0;
-let hasResetTransitionTitleAnim_05nuo = true;
-let currentTimeTitleAnim_05nuo = undefined;
+// let titleAnim_05nuo;
+// const titleAnimInterval_05nuo = 1700;
+// let titleRotationL_05nuo = 0
+// let titleRotationR_05nuo = 0
+// let currentTitleRotation_05nuo = 0;
+// let hasResetTransitionTitleAnim_05nuo = true;
+// let currentTimeTitleAnim_05nuo = undefined;
 
 
-function titleRotate_05nuo(text1, text2, timestamp){
-    currentTimeTitleAnim_05nuo = timestamp;
-    currentTitleRotation_05nuo = (currentTitleRotation_05nuo + 1) % 4;
+// function titleRotate_05nuo(text1, text2, timestamp){
+//     currentTimeTitleAnim_05nuo = timestamp;
+//     currentTitleRotation_05nuo = (currentTitleRotation_05nuo + 1) % 4;
 
-    //reset rotation degree without rendered transition
-    if(titleRotationL_05nuo >= 360){
-        text1.style.setProperty("--transform-transition-time-05nuo", "0s");
-        text2.style.setProperty("--transform-transition-time-05nuo", "0s");
-        titleRotationL_05nuo = titleRotationL_05nuo % 360;
-        titleRotationR_05nuo = titleRotationR_05nuo % 360;
-        text1.style.setProperty("--cube-rotate-05nuo", `${titleRotationL_05nuo}deg`);
-        text2.style.setProperty("--cube-rotate2-05nuo", `${titleRotationR_05nuo}deg`);
-        currentTimeTitleAnim_05nuo = timestamp - titleAnimInterval_05nuo + 10;
-        hasResetTransitionTitleAnim_05nuo = false;
-    }
-    else{
-        if(!hasResetTransitionTitleAnim_05nuo){
-            text1.style.setProperty("--transform-transition-time-05nuo", "1s");
-            text2.style.setProperty("--transform-transition-time-05nuo", "1s");
-            hasResetTransitionTitleAnim_05nuo = true;
-        }
-        titleRotationL_05nuo += 90;
-        titleRotationR_05nuo -= 90;
+//     //reset rotation degree without rendered transition
+//     if(titleRotationL_05nuo >= 360){
+//         text1.style.setProperty("--transform-transition-time-05nuo", "0s");
+//         text2.style.setProperty("--transform-transition-time-05nuo", "0s");
+//         titleRotationL_05nuo = titleRotationL_05nuo % 360;
+//         titleRotationR_05nuo = titleRotationR_05nuo % 360;
+//         text1.style.setProperty("--cube-rotate-05nuo", `${titleRotationL_05nuo}deg`);
+//         text2.style.setProperty("--cube-rotate2-05nuo", `${titleRotationR_05nuo}deg`);
+//         currentTimeTitleAnim_05nuo = timestamp - titleAnimInterval_05nuo + 10;
+//         hasResetTransitionTitleAnim_05nuo = false;
+//     }
+//     else{
+//         if(!hasResetTransitionTitleAnim_05nuo){
+//             text1.style.setProperty("--transform-transition-time-05nuo", "1s");
+//             text2.style.setProperty("--transform-transition-time-05nuo", "1s");
+//             hasResetTransitionTitleAnim_05nuo = true;
+//         }
+//         titleRotationL_05nuo += 90;
+//         titleRotationR_05nuo -= 90;
 
-        text1.style.setProperty("--cube-rotate-05nuo", `${titleRotationL_05nuo}deg`);
-        text2.style.setProperty("--cube-rotate2-05nuo", `${titleRotationR_05nuo}deg`);
-    }
-}
+//         text1.style.setProperty("--cube-rotate-05nuo", `${titleRotationL_05nuo}deg`);
+//         text2.style.setProperty("--cube-rotate2-05nuo", `${titleRotationR_05nuo}deg`);
+//     }
+// }
 
 
-function titleRotateAnimate_05nuo(timestamp){
-    if(currentTimeTitleAnim_05nuo == undefined){
-        currentTimeTitleAnim_05nuo = timestamp;
-    }
-    let elapse = timestamp - currentTimeTitleAnim_05nuo;
-    if(elapse >= titleAnimInterval_05nuo){
-        titleRotate_05nuo(transitRotText_05nuo, transitRotText2_05nuo, timestamp);
-    }
+// function titleRotateAnimate_05nuo(timestamp){
+//     if(currentTimeTitleAnim_05nuo == undefined){
+//         currentTimeTitleAnim_05nuo = timestamp;
+//     }
+//     let elapse = timestamp - currentTimeTitleAnim_05nuo;
+//     if(elapse >= titleAnimInterval_05nuo){
+//         titleRotate_05nuo(transitRotText_05nuo, transitRotText2_05nuo, timestamp);
+//     }
 
-    cancelAnimationFrame(titleAnim_05nuo);
-    titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
-}
+//     cancelAnimationFrame(titleAnim_05nuo);
+//     titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
+// }
 
 /* ********************************************************************************************************
 *********************************** prevent choppy anim after focus out ***********************************
@@ -994,9 +996,9 @@ else {
 const responsiveFunc_05nuo = function(){
     responsiveTitle_05nuo();
     resizeHero_05nuo();
-    responsiveSignInButton_05nuo(signInButton_05nuo);
-    responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
-    responsiveRotateText_05nuo();
+    // responsiveSignInButton_05nuo(signInButton_05nuo);
+    // responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
+    // responsiveRotateText_05nuo();
 
     responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
     svgPanStartCheck(svg_05nuo);
@@ -1028,6 +1030,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     //start listen to scroll events
     scrollFunc_05nuo();
     //start transit text cube roate animation
-    titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
-    setButtonHoverEffects_05nuo()
+    // titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
+    // setButtonHoverEffects_05nuo()
 });

@@ -21,7 +21,7 @@ html,body{
     --large-title-size-05nuo: 40px;
     --Max-title-size-05nuo: 47px;
     position: relative;
-    background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(253, 233, 211) 100%);
+    background: linear-gradient(180deg, rgb(145, 192, 69) 30%,rgb(209, 206, 218) 100%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -30,12 +30,12 @@ html,body{
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(145, 192, 69) 20%, rgb(253, 233, 211) 100%);
+        background: linear-gradient(180deg, rgb(145, 192, 69) 20%, rgb(209, 206, 218) 100%);
     }
 }
 @media only screen and (max-height:400px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(145, 192, 69) 25%, rgb(253, 233, 211) 100%);
+        background: linear-gradient(180deg, rgb(145, 192, 69) 25%, rgb(209, 206, 218) 100%);
     }
 }
 
@@ -54,7 +54,7 @@ html,body{
     float:center;
 
     font-family: 'Work Sans', sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: normal;
 
     transform: translateY(-100%);
@@ -77,7 +77,7 @@ html,body{
     text-decoration: none;
     font-weight: 600;
     font-family: 'Work Sans', sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
     text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.55);
     user-select: none;
 }
@@ -249,7 +249,7 @@ html,body{
 }
 
 
-#sign-in-05nuo{
+/* #sign-in-05nuo{
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -454,8 +454,6 @@ html,body{
     box-shadow: inset 0px 0px 8px rgba(26, 23, 212, 0.3);
 }
 
-/* cube 1 */
-
 .text-scrollFront-05nuo{
     transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
@@ -474,36 +472,7 @@ html,body{
 .text-scrollBack-05nuo{
     transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
     opacity: 1;
-}
-
-/*cube 2*/
-
-.text-scrollFront-05nuo{
-    transform: translateZ(calc(0.5 * var(--face-height-05nuo))); 
-    opacity: 1;
-}
-
-.text-scrollTop-05nuo{
-    transform: rotateX(90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
-    opacity: 1;
-}
-
-.text-scrollBottom-05nuo{
-    transform: rotateX(-90deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
-    opacity: 1;
-}
-
-.text-scrollBack-05nuo{
-    transform: rotateX(-180deg) translateZ(calc(0.5 * var(--face-height-05nuo))); 
-    opacity: 1;
-}
-
-#transit-text-flex1-05nuo{
-
-}
-#transit-text-flex2-05nuo{
-
-}
+} */
 
     
 #svg-bg-05nuo{
@@ -612,19 +581,19 @@ html,body{
     position: relative;
     width: 100vw;
     height: 120vh;
-    background: linear-gradient(180deg, rgba(253,233,211,1) 0%, rgba(76,48,237,1) 28%);
+    background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(85, 83, 207) 35%);
 }
 
 #institution-panel-05nuo{
     position: relative;
     width: 100vw;
     height: 120vh;
-    background: linear-gradient(180deg, rgba(76,48,237,1) 0%, rgb(255, 218, 150) 30%);
+    background: rgb(85, 83, 207);
 }
 
 #association-panel-05nuo{
     position: relative;
     width: 100vw;
     height: 120vh;
-    background: linear-gradient(180deg, rgba(255, 218, 150, 1) 0%, rgba(76,48,237,1) 28%);
+    background: rgb(85, 83, 207);
 }
