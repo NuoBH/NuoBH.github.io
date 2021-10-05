@@ -494,7 +494,7 @@ html,body{
 }
 #bg-path1-05nuo{
     stroke-dasharray: 1500 4500;
-    animation: stroke-offset-05nuo 6s linear 1.5s infinite normal both;
+    animation: stroke-offset-05nuo 6s linear 1.25s infinite normal both;
 }
 #bg-path2-05nuo{
     stroke-dasharray: 1450 4500;

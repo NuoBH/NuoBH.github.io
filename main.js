@@ -663,7 +663,7 @@ let svgBgGradientFactor_05nuo = 300;
 //svgScroll lerp values
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
-let svgScrollLerpSpeed_05nuo = 0.1;
+let svgScrollLerpSpeed_05nuo = 0.005;
 
 let hasReduceSvgOnScroll_05nuo = false;
 
@@ -720,9 +720,9 @@ function getScrollStartEndTargets(state){
 function scrollSvg_05nuo(){
     //init start and end points
     svgScrollTriggerPoints_05nuo.init(
-        svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.95,
-        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.55, institutionPanel_05nuo.offsetTop * 0.95,
-        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.55, associationPanel_05nuo.offsetTop * 0.95);
+        svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.8,
+        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.75, institutionPanel_05nuo.offsetTop * 0.8,
+        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.75, associationPanel_05nuo.offsetTop * 0.8);
 
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
@@ -784,7 +784,7 @@ function scrollSvg_05nuo(){
                     svgHideScrollBg_05nuo = true;
                     svgScrollBg_05nuo.style.opacity = "0";
                 }
-            }, 600);
+            }, 300);
         }
         else if(svgHideScrollBg_05nuo && window.scrollY >= startSvgScroll_05nuo && window.scrollY < endSvgScroll_05nuo){
             svgHideScrollBg_05nuo = false;
@@ -796,7 +796,7 @@ function scrollSvg_05nuo(){
                     svgHideScrollBg_05nuo = true;
                     svgScrollBg_05nuo.style.opacity = "0";
                 }
-            }, 600);
+            }, 300);
         }
     }
 
