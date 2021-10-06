@@ -116,10 +116,8 @@ const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
 // svg width height ratio & min width in responsive mode
-// const minSVGW_V_05nuo = 575;
 const minSVGW_H_05nuo = 1170;
 const svgWRatioH_05nuo = 0.75;
-// const svgWRatioV_05nuo = 1.1;
 
 //store svg width, height, left, top values after resize
 let svgHeight_05nuo = 0;
@@ -152,75 +150,72 @@ let isTitleScroll_05nuo = false;
 function responsiveHeaderTitle(headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const subtitle = headerTitle.children.item(1);
+    const sec1 = document.getElementById("title-sec1-05nuo");
+    const sec2 = document.getElementById("title-sec2-05nuo");
+    const subsec1 = document.getElementById("title-subsec1-05nuo");
+    const subsec2 = document.getElementById("title-subsec2-05nuo");
+    const subsec3 = document.getElementById("title-subsec3-05nuo");
+
     if(width < widthLimit_05nuo && width < height){
-        headerTitle.style.setProperty("flex-direction", "column");
-        headerTitle.style.setProperty("gap", "5px");
-        subtitle.style.setProperty("width", "100%");
-        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        mainTitle_05nuo.style.setProperty("font-size", "50px");
-        subtitle.style.setProperty("display", "flex");
+        mainTitle_05nuo.style.setProperty("font-size", "42px");
+        mainTitle_05nuo.style.setProperty("justify-content", "flex-start");
+        mainTitle_05nuo.style.setProperty("flex-direction", "column");
+        mainTitle_05nuo.style.setProperty("gap", "15px");
         headerTitle.style.setProperty("mix-blend-mode", "normal");
 
+        sec1.style.setProperty("gap", "5px");
+        sec1.style.setProperty("flex-direction", "column");
+        subsec1.style.setProperty("gap", "8px");
+        subsec1.style.setProperty("font-size", "30px");
+
+        sec2.style.setProperty("gap", "5px");
+        sec2.style.setProperty("flex-direction", "column");
+        subsec2.style.setProperty("justify-content", "flex-end");
+        subsec3.style.setProperty("justify-content", "flex-end");
+        subsec3.style.setProperty("font-size", "30px")
+
         if(isTitleScroll_05nuo){
-            mainTitle_05nuo.style.setProperty("font-size", "25px");
-            subtitle.style.setProperty("display", "none");
-            headerTitle.style.setProperty("mix-blend-mode", "difference");
+            // mainTitle_05nuo.style.setProperty("font-size", "12px");
+            // subtitle.style.setProperty("display", "none");
+            // headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
 
-        if(width < 750){
-            mainTitle_05nuo.style.setProperty("font-size", "40px");
-            subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
+        if(width < 650){
             if(isTitleScroll_05nuo){
-                mainTitle_05nuo.style.setProperty("font-size", "20px");
+                // mainTitle_05nuo.style.setProperty("font-size", "20px");
             }
         }
 
     }
     else{
-        headerTitle.style.setProperty("flex-direction", "row");
-        let gapsize = 150 / 1920 * width;
-        if(gapsize <= 75){
-            gapsize = 75;
-        }
-        headerTitle.style.setProperty("gap", `${gapsize}px`);
-        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        mainTitle_05nuo.style.setProperty("font-size", "55px");
-        subtitle.style.setProperty("display", "flex");
+        mainTitle_05nuo.style.setProperty("font-size", "45px");
+        mainTitle_05nuo.style.setProperty("justify-content", "center");
+        mainTitle_05nuo.style.setProperty("flex-direction", "row");
         headerTitle.style.setProperty("mix-blend-mode", "normal");
 
-        if(width < 1500){
-            subtitle.style.setProperty("width", "100%");
-        }
-        else{
-            subtitle.style.setProperty("width", "65%");
-        }
-
         if(width < 880){
-            // subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo)*0.8)");
-            headerTitle.style.setProperty("flex-direction", "column");
-            headerTitle.style.setProperty("gap", "5px");
+            mainTitle_05nuo.style.setProperty("font-size", "42px");
         }
 
-        if(isTitleScroll_05nuo){
-            mainTitle_05nuo.style.setProperty("font-size", "27px");
-            subtitle.style.setProperty("display", "none");
-            headerTitle.style.setProperty("mix-blend-mode", "difference");
-        }
+        // if(isTitleScroll_05nuo){
+        //     mainTitle_05nuo.style.setProperty("font-size", "15px");
+        //     subtitle.style.setProperty("display", "none");
+        //     headerTitle.style.setProperty("mix-blend-mode", "difference");
+        // }
     }
 
-    if(width < 500){
-        subtitle.children.item(0).innerHTML = "";
-        subtitle.children.item(2).innerHTML = "Manage your Continuing Education without any of the Admin Work";
-        subtitle.children.item(2).style.setProperty("text-align", "left");
-        subtitle.children.item(2).style.setProperty("padding-right", "3%");
-    }
-    else{
-        subtitle.children.item(0).innerHTML = "Manage your Continuing Education";
-        subtitle.children.item(2).innerHTML = "Without any of the Admin Work";
-        subtitle.children.item(2).style.setProperty("text-align", "right");
-        subtitle.children.item(2).style.setProperty("padding-right", "0");
-    }
+    // if(width < 500){
+    //     subtitle.children.item(0).innerHTML = "";
+    //     subtitle.children.item(2).innerHTML = "Manage Continuing Education <em>without</em> the Admin Work";
+    //     subtitle.children.item(2).style.setProperty("text-align", "left");
+    //     subtitle.children.item(2).style.setProperty("padding-right", "3%");
+    // }
+    // else{
+    //     subtitle.children.item(0).innerHTML = "Manage Continuing Education <em>without</em> the Admin Work";
+    //     subtitle.children.item(2).innerHTML = "";
+    //     subtitle.children.item(2).style.setProperty("text-align", "right");
+    //     subtitle.children.item(2).style.setProperty("padding-right", "0");
+    // }
 }
 
 // function responsiveTransitText(transitText){
@@ -1008,15 +1003,15 @@ const responsiveFunc_05nuo = function(){
 const startTitleAnim_05nuo = function(){
     requestTimeout(()=>{
         headerTitle_05nuo.style.setProperty("transform", "translateY(0)");
-        requestTimeout(()=>{
-            const titleItems = mainTitle_05nuo.children;
-            for(let i = 0; i < titleItems.length; i ++){
-                let delay = 2 + i/10 * 2;
-                titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 7s ease ${delay}s infinite normal both`);
-            }
-            mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 7s ease 1.9s infinite normal both");
-            headerTitle_05nuo.style.setProperty("transition", "transform 0.1s ease");
-        }, 1000);
+        // requestTimeout(()=>{
+        //     const titleItems = mainTitle_05nuo.children;
+        //     for(let i = 0; i < titleItems.length; i ++){
+        //         let delay = 2 + i/10 * 2;
+        //         titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 7s ease ${delay}s infinite normal both`);
+        //     }
+        //     mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 7s ease 1.9s infinite normal both");
+        //     headerTitle_05nuo.style.setProperty("transition", "transform 0.1s ease");
+        // }, 1000);
     }, 200);
 }
 
