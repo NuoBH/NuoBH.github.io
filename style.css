@@ -21,7 +21,7 @@ html,body{
     --large-title-size-05nuo: 40px;
     --Max-title-size-05nuo: 47px;
     position: relative;
-    background: linear-gradient(180deg, rgb(159, 201, 92) 30%,rgb(209, 206, 218) 100%);
+    background: linear-gradient(180deg, rgb(71,64,149) 30%,rgb(209, 206, 218) 100%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -41,105 +41,33 @@ html,body{
 
 #header-title-05nuo{
     position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 80px;
-
+    display: block;
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: 2.5% 4% 2.3% 5%;
-    float:center;
+    padding: max(2.5%, 40px) 4% 2.3% max(5%, 20px);
 
     font-family: 'Work Sans', sans-serif;
     color: rgb(255, 255, 255);
     font-weight: normal;
 
-    transform: translateY(-100%);
-    transition: transform 0.5s ease;
+    transition: transform 0.1s ease;
 
     mix-blend-mode: normal;
 }
 
-#header-title-05nuo a{
-    position: relative;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 5px;
-
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 60px;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Work Sans', sans-serif;
-    color: rgb(255, 255, 255);
-    text-shadow: 0px 0px 10px rgba(236, 236, 236, 0.55);
-    user-select: none;
-}
-
-#main-title-05nuo .item1-05nuo{
-    transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0s 1 normal both;
-    
-}
-#main-title-05nuo .item2-05nuo{
-    transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.15s 1 normal both;
-}
-#main-title-05nuo .item3-05nuo{
-    transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.3s 1 normal both;
-}
-#main-title-05nuo .item4-05nuo{
-    transform: translateY(-150%);
-    animation: letter-drop-05nuo 0.8s ease 0.45s 1 normal both;
-}
-
-@keyframes letter-drop-05nuo{
-    0%{
-        transform: translate(-100%,-150%) scale(3); 
-    }
-    100%{
-        transform: translate(0, 0) scale(1); 
-    }
-}
-
-@keyframes letter-slide-05nuo{
-    0%{
-        transform: translateX(0) scale(1);
-    }
-    10%{
-        transform: translateX(50%) scale(1.2);
-    }
     50%{
         transform: translateX(50%) scale(1.2);
     }
     60%{
-        transform: translateX(0) scale(1);
-    }
     100%{
         transform: translateX(0) scale(1);
-    }
-}
-
-/* used on main-title-05nuo (h1 of header title)*/
-@keyframes acea-slide-05nuo{
-    0%{
-        transform: translateX(0);
     }
     10%{
         transform: translateX(-12%);
     }
     50%{
         transform: translateX(-12%);
-    }
-    60%{
-        transform: translateX(0);
     }
     100%{
         transform: translateX(0);
@@ -149,11 +77,14 @@ html,body{
 #header-title-05nuo h2{
     position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 3px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
     box-sizing: border-box;
-    width: 65%;
     margin: 0;
+
     font-family: 'Work Sans', sans-serif;
     font-size: var(--large-title-size-05nuo);
     font-weight: normal;
@@ -163,22 +94,25 @@ html,body{
 }
 
 #header-title-05nuo h2 .sub-item1-05nuo{
-    animation: subtitle-intro1-05nuo 0.5s ease 0.75s 1 normal both;
+    animation: subtitle-intro-05nuo 0.6s ease 0.5s 1 normal both;
 }
-#header-title-05nuo h2 .sub-item2-05nuo{
-    width: 100%;
-    height: 3px;
-    background:rgb(247, 247, 247);
-    border-radius: 100%;
-    transform-origin: left;
-    animation: line-slide-05nuo 7s ease 3.2s infinite normal both;
+#header-title-05nuo h2 .sub-line-05nuo{
+    position: relative;
+    display:block;
+    height:100%;
+    width: 4px;
+
+    background:rgba(247, 247, 247, 1);
+    transform-origin: top;
 }
-#header-title-05nuo h2 .sub-item3-05nuo{
-    text-align: right;
-    animation: subtitle-intro2-05nuo 0.5s ease 0.75s 1 normal both;
+#title-line1-05nuo{
+    animation: line-slide-05nuo 3s ease 0s infinite normal both;
+}
+#title-line2-05nuo{
+    animation: line-slide2-05nuo 3s ease 0s infinite normal both;
 }
 
-@keyframes subtitle-intro1-05nuo{
+@keyframes subtitle-intro-05nuo{
     0%{
         transform: translateY(50%);
         opacity: 0;
@@ -189,62 +123,109 @@ html,body{
     }
 }
 
-@keyframes subtitle-intro2-05nuo{
+@keyframes line-slide-05nuo{
     0%{
-        transform: translateY(-50%);
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    }
+    12%{
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    }
+    25%{
+        transform: scaleY(0.5);
+        transform-origin: top;
+        opacity: 1;
+    }
+    28%{
+        transform: scaleY(0.5);
+        transform-origin: bottom;
+        opacity: 1;
+    }
+    38%{
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
+    }
+    45%{
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
+    }
+    50%{
+        transform: scaleY(0.5);
+        transform-origin: bottom;
+        opacity: 1;
+    }
+    57%{
+        transform: scaleY(0.5);
+        transform-origin: top;
+        opacity: 1;
+    }
+    65%{
+        transform: scaleY(0);
+        transform-origin: top;
         opacity: 0;
     }
     100%{
-        transform: translateY(0%);
-        opacity: 1;
-    }
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    } 
 }
 
-@keyframes line-slide-05nuo{
+@keyframes line-slide2-05nuo{
     0%{
-        transform: scaleX(0);
-        transform-origin: left;
-        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
     }
-    5%{
-        transform: scaleX(1);
-        transform-origin: left;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    12%{
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
     }
-    6%{
-        transform: scaleX(1);
-        transform-origin: right;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    25%{
+        transform: scaleY(0.5);
+        transform-origin: bottom;
+        opacity: 0.9;
     }
-    11%{
-        transform: scaleX(0);
-        transform-origin: right;
-        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    28%{
+        transform: scaleY(0.5);
+        transform-origin: top;
+        opacity: 0.9;
+    }
+    38%{
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    }
+    45%{
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
     }
     50%{
-        transform: scaleX(0);
-        transform-origin: right;
-        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+        transform: scaleY(0.5);
+        transform-origin: top;
+        opacity: 0.9;
     }
-    55%{
-        transform: scaleX(1);
-        transform-origin: right;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    57%{
+        transform: scaleY(0.5);
+        transform-origin: bottom;
+        opacity: 0.9;
     }
-    56.5%{
-        transform: scaleX(1);
-        transform-origin: left;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-    }
-    62%{
-        transform: scaleX(0);
-        transform-origin: left;
-        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+    65%{
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
     }
     100%{
-        transform: scaleX(0);
-        transform-origin: left;
-        box-shadow: 0 0 0px rgba(255, 255, 255, 1);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
     } 
 }
 
@@ -478,7 +459,7 @@ html,body{
     
 #svg-bg-05nuo{
     position:absolute;
-    width: 100%;
+    width: 100vmax;
     height: 100%;
     left: 0;
     top: 0;
@@ -487,7 +468,7 @@ html,body{
 .bg-svg-path-05nuo{
     fill: none;
     fill-opacity: 0;
-    stroke: rgba(252, 255, 224, 0.45);
+    stroke: rgba(252, 255, 224, 1);
     stroke-width: 6px;
     stroke-linecap: square;
     stroke-dasharray: 500 2300;
@@ -498,11 +479,11 @@ html,body{
 }
 #bg-path2-05nuo{
     stroke-dasharray: 1450 4500;
-    animation: stroke-offset-05nuo 6s linear 2.75s infinite normal both;
+    animation: stroke-offset-05nuo 6s linear 2.35s infinite normal both;
 }
 #bg-path3-05nuo{
     stroke-dasharray: 1650 4500;
-    animation: stroke-offset-05nuo 6s linear 3.25s infinite normal both;
+    animation: stroke-offset-05nuo 6s linear 2.9s infinite normal both;
 }
 #bg-path4-05nuo{
     stroke-dasharray: 1600 4500;
@@ -540,12 +521,23 @@ html,body{
 @keyframes stroke-offset-05nuo{
     0%{
         stroke-dashoffset: 1650;
+        stroke-width: 1px;
+        opacity: 0.05;
+    }
+    35%{
+        stroke-dashoffset: 100;
+        stroke-width: 9px;
+        opacity: 0.2;
     }
     70%{
         stroke-dashoffset: -4500;
+        stroke-width: 1px;
+        opacity: 0.05;
     }
     100%{
         stroke-dashoffset: -4500;
+        stroke-width: 1px;
+        opacity: 0.05;
     }
 }
 
@@ -605,19 +597,19 @@ html,body{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(84, 102, 202) 35%);
+    background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
 }
 
 #institution-panel-05nuo{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: rgb(84, 102, 202);
+    background: rgb(233, 234, 240);
 }
 
 #association-panel-05nuo{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(180deg, rgb(84, 102, 202) 0%, rgb(41, 53, 163) 80%);
+    background: linear-gradient(180deg, rgb(233, 234, 240) 0%, rgb(209, 206, 218) 80%);
 }

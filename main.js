@@ -97,7 +97,6 @@ const scrollBarWidth_05nuo = getScrollbarWidth_05nuo();
  ************************************************************************************************************* 
 */
 const headerTitle_05nuo = document.getElementById("header-title-05nuo");
-const mainTitle_05nuo = document.getElementById("main-title-05nuo");
 
 // const transitText_05nuo = document.getElementById("transit-text-05nuo");
 // const transitRotText_05nuo = document.getElementById("transit-rotate-text-05nuo");
@@ -152,74 +151,81 @@ let isTitleScroll_05nuo = false;
 function responsiveHeaderTitle(headerTitle){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const subtitle = headerTitle.children.item(1);
+    const subtitle = headerTitle.children.item(0);
+    const subtitleItem1 = subtitle.children.item(1);
+    const subtitleLine1 = subtitle.children.item(0);
+    const subtitleLine2 = subtitle.children.item(2);
+
     if(width < widthLimit_05nuo && width < height){
-        headerTitle.style.setProperty("flex-direction", "column");
-        headerTitle.style.setProperty("gap", "5px");
-        subtitle.style.setProperty("width", "100%");
-        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        mainTitle_05nuo.style.setProperty("font-size", "50px");
-        subtitle.style.setProperty("display", "flex");
         headerTitle.style.setProperty("mix-blend-mode", "normal");
 
+        subtitle.style.setProperty("display", "flex");
+        subtitleLine1.style.setProperty("width", "4px");
+        subtitle.style.setProperty("gap", "20px");
+        subtitle.style.setProperty("width", "100%");
+        subtitle.style.setProperty("font-size", "35px");
+        subtitle.style.setProperty("justify-content", "center");
+        subtitle.style.setProperty("text-align", "center");
+        subtitleItem1.innerHTML = "Manage Continuing Education<br><em>without</em> the Admin Work";
+        subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
+        subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
+        if(width < 680){
+            subtitle.style.setProperty("text-align", "left");
+            subtitleLine1.style.setProperty("width", "0");
+            subtitle.style.setProperty("gap", "15px");
+            subtitle.style.setProperty("justify-content", "flex-start");
+            subtitleItem1.innerHTML = "Manage<br><span id='ce-text-05nuo'>Continuing Education</span><br><em>without</em><br><span id='aw-text-05nuo'>the Admin Work</span>";
+            subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B<br>B</span>`;
+
+            const ceText = document.getElementById("ce-text-05nuo");
+            const awText = document.getElementById('aw-text-05nuo');
+
+            ceText.style.setProperty("font-size", "26px");
+            awText.style.setProperty("font-size", "26px");
+        }
+        
         if(isTitleScroll_05nuo){
-            mainTitle_05nuo.style.setProperty("font-size", "25px");
             subtitle.style.setProperty("display", "none");
             headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
-
-        if(width < 750){
-            mainTitle_05nuo.style.setProperty("font-size", "40px");
-            subtitle.style.setProperty("font-size", "var(--title-size-05nuo)");
-            if(isTitleScroll_05nuo){
-                mainTitle_05nuo.style.setProperty("font-size", "20px");
-            }
-        }
-
     }
     else{
-        headerTitle.style.setProperty("flex-direction", "row");
-        let gapsize = 150 / 1920 * width;
-        if(gapsize <= 75){
-            gapsize = 75;
-        }
-        headerTitle.style.setProperty("gap", `${gapsize}px`);
-        subtitle.style.setProperty("font-size", "var(--large-title-size-05nuo)");
-        mainTitle_05nuo.style.setProperty("font-size", "55px");
-        subtitle.style.setProperty("display", "flex");
         headerTitle.style.setProperty("mix-blend-mode", "normal");
 
-        if(width < 1500){
-            subtitle.style.setProperty("width", "100%");
-        }
-        else{
-            subtitle.style.setProperty("width", "65%");
-        }
+        subtitle.style.setProperty("justify-content", "center");
+        subtitle.style.setProperty("text-align", "center");
+        subtitle.style.setProperty("font-size", "45px");
+        subtitle.style.setProperty("display", "flex");      
+        subtitleLine1.style.setProperty("width", "4px");
+        subtitle.style.setProperty("gap", "20px");
 
-        if(width < 880){
-            // subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo)*0.8)");
+        if(width < 1370 && width >= 1250){
+            subtitle.style.setProperty("font-size", "37px");    
+        }
+        else if(width < 1250 && width >= 880){
+            subtitle.style.setProperty("font-size", "34px");    
+        }
+        else if(width < 880){
+            subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo) * 1.05)");
             headerTitle.style.setProperty("flex-direction", "column");
             headerTitle.style.setProperty("gap", "5px");
         }
 
+        if(width < widthLimit_05nuo){
+            subtitleItem1.innerHTML = "Manage Continuing Education<br><em>without</em> the Admin Work";
+            subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
+            subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
+        }
+        else{
+            subtitleItem1.innerHTML = "Manage Continuing Education <em>without</em> the Admin Work";
+            subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
+            subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
+        }
+
         if(isTitleScroll_05nuo){
-            mainTitle_05nuo.style.setProperty("font-size", "27px");
             subtitle.style.setProperty("display", "none");
             headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
-    }
-
-    if(width < 500){
-        subtitle.children.item(0).innerHTML = "";
-        subtitle.children.item(2).innerHTML = "Manage your Continuing Education without any of the Admin Work";
-        subtitle.children.item(2).style.setProperty("text-align", "left");
-        subtitle.children.item(2).style.setProperty("padding-right", "3%");
-    }
-    else{
-        subtitle.children.item(0).innerHTML = "Manage your Continuing Education";
-        subtitle.children.item(2).innerHTML = "Without any of the Admin Work";
-        subtitle.children.item(2).style.setProperty("text-align", "right");
-        subtitle.children.item(2).style.setProperty("padding-right", "0");
     }
 }
 
@@ -546,7 +552,7 @@ function svgPanAnimate_05nuo(timestamp){
 
 //set svg to pan back to original pos if pan is stopped
 function svgStopPan_05nuo(svg, deltaTime){
-    const speed = 0.7;
+    const speed = 1.5;
     let target = 0;
     let move = (target - svgPrevTranslateX_05nuo) * speed * deltaTime; 
 
@@ -693,22 +699,26 @@ function getScrollStartEndTargets(state){
     else if(state === 1){
         startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start2;
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
-        startPosY_05nuo = svgTop_05nuo;
+
         if(width < widthLimit_05nuo && width < height){
+            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
             targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
         }
         else{
+            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
             targetPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
     else if(state === 2){
         startSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.start3;
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
-        startPosY_05nuo = svgTop_05nuo;
+
         if(width < widthLimit_05nuo && width < height){
             targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.1;
+            startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
         }
         else{
+            startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
             targetPosY_05nuo = associationPanel_05nuo.offsetTop + (associationPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
         }
     }
@@ -720,9 +730,9 @@ function getScrollStartEndTargets(state){
 function scrollSvg_05nuo(){
     //init start and end points
     svgScrollTriggerPoints_05nuo.init(
-        svgTop_05nuo + svgHeight_05nuo * 0.35, enterprisePanel_05nuo.offsetTop * 0.8,
-        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.75, institutionPanel_05nuo.offsetTop * 0.8,
-        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.75, associationPanel_05nuo.offsetTop * 0.8);
+        svgTop_05nuo + svgHeight_05nuo * 0.15, enterprisePanel_05nuo.offsetTop*0.9,
+        enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.15, institutionPanel_05nuo.offsetTop*0.9,
+        institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.15, associationPanel_05nuo.offsetTop*0.9);
 
     svgScrollTriggerPoints_05nuo.updateScrollState(window.scrollY);
     let state = svgScrollTriggerPoints_05nuo.scrollState;
@@ -800,20 +810,8 @@ function scrollSvg_05nuo(){
         }
     }
 
-    let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo);
-    //scroll svg translateY
-    let p;
-    if(state == 1){
-        p = institutionPanel_05nuo.offsetTop / (targetPosY_05nuo - startPosY_05nuo);
-    }
-    else if(state == 2){
-        p = associationPanel_05nuo.offsetTop / (targetPosY_05nuo - startPosY_05nuo)
-    }
-    else{
-        p = 0;
-    }
-    let translatePercent = scrollPercent < p ? p : scrollPercent; 
-    lastScrollTarget_05nuo = translatePercent * (targetPosY_05nuo - startPosY_05nuo);
+    let scrollPercent = (lastScrollY_05nuo - startSvgScroll_05nuo) / (endSvgScroll_05nuo - startSvgScroll_05nuo); 
+    lastScrollTarget_05nuo = scrollPercent * (targetPosY_05nuo - startPosY_05nuo) + startPosY_05nuo - svgTop_05nuo;
     //scroll animate svg clip path
     lastClipAnimSeek_05nuo = scrollPercent / 3 + state / 3;
 
@@ -1006,18 +1004,14 @@ const responsiveFunc_05nuo = function(){
 }
 
 const startTitleAnim_05nuo = function(){
+    const subtitle = headerTitle_05nuo.children.item(0);
+    const subtitleLine1 = subtitle.children.item(0);
+    const subtitleLine2 = subtitle.children.item(2);
+
     requestTimeout(()=>{
-        headerTitle_05nuo.style.setProperty("transform", "translateY(0)");
-        requestTimeout(()=>{
-            const titleItems = mainTitle_05nuo.children;
-            for(let i = 0; i < titleItems.length; i ++){
-                let delay = 2 + i/10 * 2;
-                titleItems.item(i).style.setProperty("animation", `letter-slide-05nuo 7s ease ${delay}s infinite normal both`);
-            }
-            mainTitle_05nuo.style.setProperty("animation", "acea-slide-05nuo 7s ease 1.9s infinite normal both");
-            headerTitle_05nuo.style.setProperty("transition", "transform 0.1s ease");
-        }, 1000);
-    }, 200);
+        subtitleLine1.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
+        subtitleLine2.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
+    }, 1500);
 }
 
 requestTimeout(responsiveFunc_05nuo, 0);
