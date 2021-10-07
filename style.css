@@ -21,7 +21,7 @@ html,body{
     --large-title-size-05nuo: 40px;
     --Max-title-size-05nuo: 47px;
     position: relative;
-    background: linear-gradient(180deg, rgb(71,64,149) 30%,rgb(209, 206, 218) 100%);
+    background: linear-gradient(180deg, rgb(80, 86, 173) 30%,rgb(209, 206, 218) 100%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -30,12 +30,12 @@ html,body{
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(159, 201, 92) 20%, rgb(209, 206, 218) 100%);
+        background: linear-gradient(180deg, rgb(80, 86, 173) 20%, rgb(209, 206, 218) 100%);
     }
 }
 @media only screen and (max-height:400px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(159, 201, 92) 25%, rgb(209, 206, 218) 100%);
+        background: linear-gradient(180deg, rgb(80, 86, 173) 25%, rgb(209, 206, 218) 100%);
     }
 }
 
@@ -45,7 +45,7 @@ html,body{
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: max(2.5%, 40px) 4% 2.3% max(5%, 20px);
+    padding: max(2.5%, 20px) 4% 2.3% max(5%, 20px);
 
     font-family: 'Work Sans', sans-serif;
     color: rgb(255, 255, 255);
@@ -82,16 +82,16 @@ html,body{
     position: relative;
     display:block;
     height:100%;
-    width: 4px;
+    width: 5px;
 
     background:rgba(247, 247, 247, 1);
     transform-origin: top;
 }
 #title-line1-05nuo{
-    animation: line-slide-05nuo 3s ease 0s infinite normal both;
+    animation: line-slide-05nuo 3s ease 0s 1 normal both;
 }
 #title-line2-05nuo{
-    animation: line-slide2-05nuo 3s ease 0s infinite normal both;
+    animation: line-slide2-05nuo 3s ease 0s 1 normal both;
 }
 
 @keyframes subtitle-intro-05nuo{

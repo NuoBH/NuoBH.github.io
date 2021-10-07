@@ -172,7 +172,7 @@ function responsiveHeaderTitle(headerTitle){
         if(width < 680){
             subtitle.style.setProperty("text-align", "left");
             subtitleLine1.style.setProperty("width", "0");
-            subtitle.style.setProperty("gap", "15px");
+            subtitle.style.setProperty("gap", "5px");
             subtitle.style.setProperty("justify-content", "flex-start");
             subtitleItem1.innerHTML = "Manage<br><span id='ce-text-05nuo'>Continuing Education</span><br><em>without</em><br><span id='aw-text-05nuo'>the Admin Work</span>";
             subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B<br>B</span>`;
@@ -1011,7 +1011,7 @@ const startTitleAnim_05nuo = function(){
     requestTimeout(()=>{
         subtitleLine1.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
         subtitleLine2.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
-    }, 1500);
+    }, 1400);
 }
 
 requestTimeout(responsiveFunc_05nuo, 0);
