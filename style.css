@@ -56,24 +56,6 @@ html,body{
     mix-blend-mode: normal;
 }
 
-    50%{
-        transform: translateX(50%) scale(1.2);
-    }
-    60%{
-    100%{
-        transform: translateX(0) scale(1);
-    }
-    10%{
-        transform: translateX(-12%);
-    }
-    50%{
-        transform: translateX(-12%);
-    }
-    100%{
-        transform: translateX(0);
-    } 
-}
-
 #header-title-05nuo h2{
     position: relative;
     display: flex;
