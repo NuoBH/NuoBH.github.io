@@ -21,7 +21,7 @@ html,body{
     --large-title-size-05nuo: 40px;
     --Max-title-size-05nuo: 47px;
     position: relative;
-    background: linear-gradient(180deg, rgb(80, 86, 173) 30%,rgb(209, 206, 218) 100%);
+    background: linear-gradient(180deg, rgb(91, 97, 187) 30%,rgb(209, 206, 218) 100%);
     display: block;
     box-sizing: border-box;
     width: 100vw;
@@ -30,12 +30,12 @@ html,body{
 }
 @media only screen and (max-height:500px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(80, 86, 173) 20%, rgb(209, 206, 218) 100%);
+        background: linear-gradient(180deg, rgb(91, 97, 187) 20%, rgb(209, 206, 218) 100%);
     }
 }
 @media only screen and (max-height:400px){
     .full-header-05nuo{
-        background: linear-gradient(180deg, rgb(80, 86, 173) 25%, rgb(209, 206, 218) 100%);
+        background: linear-gradient(180deg, rgb(91, 97, 187) 25%, rgb(209, 206, 218) 100%);
     }
 }
 
