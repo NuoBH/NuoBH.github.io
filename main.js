@@ -343,11 +343,15 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             svgH = svgW / 1.604;
 
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
+            svg_05nuo.classList.add("svg-mobile-clip-path-05nuo");
+            svg_05nuo.classList.remove("svg-clip-path-05nuo");
         }
         else{
             svgW = w * 0.67;
             svgH = svgW / 1.604;
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
+            svg_05nuo.classList.add("svg-clip-path-05nuo");
+            svg_05nuo.classList.remove("svg-mobile-clip-path-05nuo");
         }
         //set svg left in scroll mode based on scroll state
         if(state === 0){
@@ -377,21 +381,21 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
 }
 
 //responsive feature for sign in button
-function responsiveSignInButton_05nuo(button){
-    const width = window.innerWidth;
-    let w = svgWidth_05nuo / 3 * 0.3;
-    if(w <= 72){
-        w = 72;
-    }
-    let marginLeft = (width - w) /2;
-    let marginTop = fullHeader_05nuo.offsetHeight / 1.75 - w;
-    let paddingTop = (w - button.children.item(1).offsetHeight) / 2;
-    button.style.setProperty("width", `${w}px`);
-    button.style.setProperty("height", `${w}px`);
-    button.style.setProperty("margin-left", `${marginLeft}px`);
-    button.style.setProperty("margin-top", `${marginTop}px`);
-    button.style.setProperty("padding-top", `${paddingTop}px`);
-}
+// function responsiveSignInButton_05nuo(button){
+//     const width = window.innerWidth;
+//     let w = svgWidth_05nuo / 3 * 0.3;
+//     if(w <= 72){
+//         w = 72;
+//     }
+//     let marginLeft = (width - w) /2;
+//     let marginTop = fullHeader_05nuo.offsetHeight / 1.75 - w;
+//     let paddingTop = (w - button.children.item(1).offsetHeight) / 2;
+//     button.style.setProperty("width", `${w}px`);
+//     button.style.setProperty("height", `${w}px`);
+//     button.style.setProperty("margin-left", `${marginLeft}px`);
+//     button.style.setProperty("margin-top", `${marginTop}px`);
+//     button.style.setProperty("padding-top", `${paddingTop}px`);
+// }
 
 function responsiveEnterprisePanel_05nuo(panel){
     // const height = window.innerHeight;
@@ -686,7 +690,7 @@ function getScrollStartEndTargets(state){
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
             // targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + transitText_05nuo.offsetHeight * 1.7;
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 ;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4 ;
         }
         else{
             // targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo + transitText_05nuo.offsetHeight*1.5) / 2;
@@ -698,8 +702,8 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
 
         if(width < widthLimit_05nuo && width < height){
-            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1;
-            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
+            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4 ;
+            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
         }
         else{
             startPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
@@ -711,8 +715,8 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
 
         if(width < widthLimit_05nuo && width < height){
-            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.1;
-            startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1;
+            startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.5 - svgHeight_05nuo * 0.4;
         }
         else{
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;

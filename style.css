@@ -530,6 +530,12 @@ html,body{
 }
 
 .svg-clip-path-05nuo{
+    animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+    animation-play-state: paused;
+    animation-fill-mode: both;
+    animation-delay: calc(var(--animation-seek-05nuo)*-1s);
+}
+.svg-mobile-clip-path-05nuo{
     animation: svg-clip-mobile-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
     animation-play-state: paused;
     animation-fill-mode: both;
