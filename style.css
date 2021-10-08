@@ -19,7 +19,6 @@ html,body{
 .full-header-05nuo{
     --title-size-05nuo: 35px;
     --large-title-size-05nuo: 40px;
-    --Max-title-size-05nuo: 47px;
     position: relative;
     background: linear-gradient(180deg, rgb(91, 97, 187) 30%,rgb(209, 206, 218) 100%);
     display: block;
@@ -47,7 +46,7 @@ html,body{
     text-align: left;
     padding: max(2.5%, 20px) 4% 2.3% max(5%, 20px);
 
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: rgb(255, 255, 255);
     font-weight: normal;
 
@@ -67,7 +66,7 @@ html,body{
     box-sizing: border-box;
     margin: 0;
 
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: var(--large-title-size-05nuo);
     font-weight: normal;
     color:rgb(255, 255, 255);
@@ -335,7 +334,7 @@ html,body{
     margin-top:60%;
     padding: 0 3% 1% 3%;
     
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: white;
     font-weight: normal;
     text-align: left;
@@ -359,7 +358,7 @@ html,body{
     font-size: var(--title-size-05nuo);
     line-height: calc(var(--title-size-05nuo) * 2);
     font-weight: normal;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: white;
     font-weight: normal;
     text-shadow: 0px 0px 10px rgba(26, 23, 212, 0.7);
@@ -453,7 +452,6 @@ html,body{
     stroke: rgba(252, 255, 224, 1);
     stroke-width: 6px;
     stroke-linecap: square;
-    stroke-dasharray: 500 2300;
 }
 #bg-path1-05nuo{
     stroke-dasharray: 1500 4500;
@@ -532,23 +530,10 @@ html,body{
 }
 
 .svg-clip-path-05nuo{
-    clip-path: inset(0% 0% 0% 0%);
-    animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+    animation: svg-clip-mobile-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
     animation-play-state: paused;
     animation-fill-mode: both;
     animation-delay: calc(var(--animation-seek-05nuo)*-1s);
-}
-
-.svg-clip-left-05nuo{
-    clip-path: inset(0% 67% 0% 3%);
-}
-
-.svg-clip-middle-05nuo{
-    clip-path: inset(0% 34% 0% 36%);
-}
-
-.svg-clip-right-05nuo{
-    clip-path: inset(0% 2% 0% 72%);
 }
 
 @keyframes svg-clip-anim-05nuo{
@@ -566,6 +551,69 @@ html,body{
 
     100%{
         clip-path: polygon(37% 0%, 68% 0%, 68% 100%, 37% 100%);
+    }
+}
+@keyframes svg-clip-mobile-anim-05nuo{
+    0%{
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    33%{
+        clip-path: polygon(72% 33%, 100% 40%, 100% 95%, 72% 88%);
+    }
+
+    66%{
+        clip-path: polygon(3% 40%, 31.5% 33%, 31.5% 87%, 3% 97%);
+    }
+
+    100%{
+        clip-path: polygon(37% 5%, 68% 5%, 68% 59%, 37% 59%);
+    }
+}
+
+
+.header-svg-wind-path{
+    fill: none;
+    fill-opacity: 0;
+    stroke: rgb(223, 223, 223);
+    stroke-linecap: square;
+    stroke-dasharray: 1000 4000;
+}
+#wind-path4-05nuo{
+    animation: wind-lines-05nuo 6s linear 1.25s infinite normal both;
+}
+#wind-path3-05nuo{
+    animation: wind-lines-05nuo 6s linear 2.35s infinite normal both;
+}
+#wind-path2-05nuo{
+    animation: wind-lines-05nuo 6s linear 2.9s infinite normal both;
+}
+#wind-path1-05nuo{
+    animation: wind-lines-05nuo 6s linear 3.95s infinite normal both;
+}
+#wind-path-05nuo{
+    animation: wind-lines-05nuo 6s linear 4.25s infinite normal both;
+}
+@keyframes wind-lines-05nuo{
+    0%{
+        stroke-dashoffset: 1650;
+        stroke-width: 1px;
+        opacity: 0.1;
+    }
+    35%{
+        stroke-dashoffset: 100;
+        stroke-width: 5px;
+        opacity: 0.2;
+    }
+    70%{
+        stroke-dashoffset: -4500;
+        stroke-width: 1px;
+        opacity: 0.1;
+    }
+    100%{
+        stroke-dashoffset: -4500;
+        stroke-width: 1px;
+        opacity: 0.1;
     }
 }
 

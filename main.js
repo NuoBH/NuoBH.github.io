@@ -199,7 +199,7 @@ function responsiveHeaderTitle(headerTitle){
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
 
-        if(width < 1370 && width >= 1250){
+        if(width < 1420 && width >= 1250){
             subtitle.style.setProperty("font-size", "37px");    
         }
         else if(width < 1250 && width >= 880){
@@ -339,18 +339,15 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     //after svg is in scroll
     else{
         if(width < widthLimit_05nuo && width < height){
-            svgW = w * 0.95;
-            if(svgW > 470){
-                svgW = 470;
-            }
+            svgW = w * 1.1;
             svgH = svgW / 1.604;
 
-            top = (titleHeight + headerTitle.offsetTop) * 1.2;
+            top = (titleHeight + headerTitle.offsetTop) * 1.15;
         }
         else{
             svgW = w * 0.67;
             svgH = svgW / 1.604;
-            top = (titleHeight + headerTitle.offsetTop) * 0.5;
+            top = (titleHeight + headerTitle.offsetTop) * 1.15;
         }
         //set svg left in scroll mode based on scroll state
         if(state === 0){
