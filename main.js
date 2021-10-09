@@ -110,6 +110,7 @@ const headerTitle_05nuo = document.getElementById("header-title-05nuo");
 
 const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = document.getElementById("header-container-05nuo");
+const navButtonContainer_05nuo = document.getElementById("nav-buttons-05nuo");
 
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
@@ -396,6 +397,57 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
 //     button.style.setProperty("margin-top", `${marginTop}px`);
 //     button.style.setProperty("padding-top", `${paddingTop}px`);
 // }
+
+function responsiveNavButton_05nuo(){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    let top;
+    let left;
+    let w;
+    let h;
+
+    let buttonW;
+    let buttonH;
+    let gap;
+
+    if(width < widthLimit_05nuo && width < height){
+        let multFactor = 1;
+        buttonH = `clamp(15px, 3vmax, 90px)`;
+        buttonW = `calc(clamp(20px, 3vmax, 90px)* ${multFactor})`
+        gap = 40;
+
+        navButtonContainer_05nuo.style.setProperty("height", `${buttonH}`);
+        w = navButtonContainer_05nuo.offsetHeight * multFactor * 4 + gap * 3;
+        navButtonContainer_05nuo.style.setProperty("width", `${w}px`);
+        navButtonContainer_05nuo.style.setProperty("flex-direction", `row`);
+
+        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
+        left = (width - navButtonContainer_05nuo.offsetWidth) * 0.5;
+    }
+    else{
+        buttonW = buttonH = `clamp(20px, 1.15vmax, 80px)`;
+        gap = 20;
+
+        navButtonContainer_05nuo.style.setProperty("width", `${buttonW}`);
+        h = navButtonContainer_05nuo.offsetWidth * 4 + gap * 3;
+        navButtonContainer_05nuo.style.setProperty("height", `${h}px`);
+        navButtonContainer_05nuo.style.setProperty("flex-direction", `column`);
+
+        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
+        left = navButtonContainer_05nuo.offsetWidth * 1.5;
+    }
+
+    navButtonContainer_05nuo.style.setProperty("gap", `${gap}px`);
+    let children = navButtonContainer_05nuo.children
+    for(let i = 0; i < children.length; i++){
+        children.item(i).style.setProperty("width", `${buttonW}`);
+        children.item(i).style.setProperty("height", `${buttonH}`);
+    }
+
+    navButtonContainer_05nuo.style.setProperty("top", `${top}px`);
+    navButtonContainer_05nuo.style.setProperty("left", `${left}px`);
+}
 
 function responsiveEnterprisePanel_05nuo(panel){
     // const height = window.innerHeight;
@@ -855,26 +907,148 @@ function scrollSvgLerp_05nuo(timestamp){
     }
 }
 
-
 function scrollTitle_05nuo(){
     let scrollY = window.scrollY;
-    if(scrollY >= headerTitle_05nuo.offsetHeight * 0.65){
+    if(!isTitleScroll_05nuo && scrollY >= headerTitle_05nuo.offsetHeight * 0.65){
         isTitleScroll_05nuo = true;
         responsiveHeaderTitle(headerTitle_05nuo);
         resizeHero_05nuo();
-        headerTitle_05nuo.style.setProperty("transform", `translateY(${scrollY}px)`)
     }
-    else{
+    else if(isTitleScroll_05nuo && scrollY < headerTitle_05nuo.offsetHeight * 0.65){
         isTitleScroll_05nuo = false;
         responsiveHeaderTitle(headerTitle_05nuo);
         resizeHero_05nuo();
-        headerTitle_05nuo.style.setProperty("transform", `translateY(0)`)
     }
 }
+
+//snap scroll and precent default scroll
+class ControlScroll_05nuo{
+    constructor(){
+        // left: 37, up: 38, right: 39, down: 40,
+        // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+        this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
+        this.wheelOpt = supportPassive_05nuo ? { passive: false } : false;
+        this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+        //reset scrollPos
+        window.scrollTo(0, 0);
+        //scroll status for scrolling in each panel
+        this.currentStats = {
+            getTargetPos: function (target){
+                if(target === 0){
+                    return 0;
+                }
+                else if(target === 1){
+                    return enterprisePanel_05nuo.offsetTop;
+                }
+                else if(target === 2){
+                    return institutionPanel_05nuo.offsetTop;
+                }
+                else if(target === 3){
+                    return associationPanel_05nuo.offsetTop;
+                }
+            },
+            curPanel:0,
+            updateCurPanel: function(scrollY){
+                const p0Start = 0;
+                const p0End = fullHeader_05nuo.offsetTop + fullHeader_05nuo.offsetHeight;
+                const p1End = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight;
+                const p2End = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight;
+
+                if(scrollY >= p0Start && scrollY < p0End){
+                    this.curPanel = 0;
+                }
+                else if(scrollY >= p0End && scrollY < p1End){
+                    this.curPanel = 1;
+                }
+                else if(scrollY >= p1End && scrollY < p2End){
+                    this.curPanel = 2;
+                }
+                else{
+                    this.curPanel = 3;
+                }
+
+                console.log(this.curPanel);
+            }
+        }
+
+        this.currentScrollPos = window.scrollY;
+        this.targetScrollPos = this.currentScrollPos;
+        this.scrollLerpSpeed = 0.05;
+        this.scrollLerpLastTime = undefined;
+        this.scrollLerpAnim = undefined;
+    }
+
+    preventDefault(e) {
+        e.preventDefault();
+    }
+
+    preventDefaultForScrollKeys(e) {
+        if (this.keys[e.keyCode]) {
+            preventDefault(e);
+            return true;
+        }
+        return false;
+    }
+
+    scrollLerp(timestamp){
+        if(this.scrollLerpLastTime === undefined){
+            this.scrollLerpLastTime = timestamp;
+        }
+
+        let deltaTime = (timestamp - this.scrollLerpLastTime) / 1000;
+        this.scrollLerpLastTime = timestamp;
+
+        this.currentScrollPos = lerp_05nuo(this.currentScrollPos, this.targetScrollPos, this.scrollLerpSpeed, deltaTime);
+
+        window.scrollTo(0, this.currentScrollPos);
+        scrollSvg_05nuo();
+
+        if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 1){
+            cancelAnimationFrame(this.scrollLerpAnim);
+            this.enbaleScroll();
+            this.currentStats.updateCurPanel(window.scrollY);
+        }
+        else{
+            cancelAnimationFrame(this.scrollLerpAnim);
+            this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
+        }
+    }
+
+    snapScroll(targetPanelIdx){
+        //disable normal scroll function
+        this.disableScroll();
+
+        //update target scroll pos
+        this.targetScrollPos = this.currentStats.getTargetPos(targetPanelIdx);
+
+        cancelAnimationFrame(this.scrollLerpAnim);
+        this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
+    }
+
+    disableScroll() {
+        window.addEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
+        window.addEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
+        window.addEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
+        window.addEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
+    }
+
+    enbaleScroll(){
+        window.removeEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
+        window.removeEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
+        window.removeEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
+        window.removeEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);  
+    }
+}
+    
+const controlScroll_05nuo = new ControlScroll_05nuo();
 
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", scrollTitle_05nuo, eventListenerOption_05nuo);
+    window.addEventListener("scroll", ()=>{
+        controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
+    }, eventListenerOption_05nuo);
     // window.addEventListener("scroll", showHideSignInButton_05nuo, eventListenerOption_05nuo);
 }
 
@@ -993,15 +1167,16 @@ else {
 ***********************************************************************************************************/
 
 const responsiveFunc_05nuo = function(){
+    responsiveNavButton_05nuo();
     responsiveTitle_05nuo();
     resizeHero_05nuo();
     // responsiveSignInButton_05nuo(signInButton_05nuo);
     // responsiveTransitText(transitText_05nuo, fullHeader_05nuo);
     // responsiveRotateText_05nuo();
-
     responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
+
 }
 
 const startTitleAnim_05nuo = function(){
