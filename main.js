@@ -164,7 +164,7 @@ function responsiveHeaderTitle(headerTitle){
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
         subtitle.style.setProperty("width", "100%");
-        subtitle.style.setProperty("font-size", "35px");
+        subtitle.style.setProperty("font-size", "40px");
         subtitle.style.setProperty("justify-content", "center");
         subtitle.style.setProperty("text-align", "center");
         subtitleItem1.innerHTML = "Manage Continuing Education<br><em>without</em> the Admin Work";
