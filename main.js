@@ -92,6 +92,12 @@ function getScrollbarWidth_05nuo() {
 
 const scrollBarWidth_05nuo = getScrollbarWidth_05nuo();
 
+window.mobileAndTabletCheck = function() {
+    let check = false;
+    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+    return check;
+  };
+
 /************************************************************************************************************* 
  ***************************** responsive feature for svg, title div and texts ******************************* 
  ************************************************************************************************************* 
@@ -476,6 +482,80 @@ function responsiveTitle_05nuo(){
  * ********************************** transition for button, in between texts**************************
  * ***************************************************************************************************
  */
+let navButtonClicked_05nuo = [true, false, false, false];
+function enterNavButton_05nuo(btn){
+    btn.style.setProperty("transform", "scale(1.7)");
+    btn.style.setProperty("border-radius", "100%");
+    btn.style.setProperty("background", "rgb(93, 93, 187)");
+}
+function leaveNavButton_05nuo(btn){
+    btn.style.setProperty("transform", "scale(1)");
+    btn.style.setProperty("border-radius", "20%");
+    btn.style.setProperty("background", "rgb(127, 133, 216)");
+}
+function clickNavButton_05nuo(btn){
+    btn.style.setProperty("transform", "scale(0.5)");
+    btn.style.setProperty("cursor", "default");
+    btn.setAttribute("aria-pressed", "true");
+}
+function unClickNavButton_05nuo(btn){
+    btn.style.setProperty("transform", "scale(1)");
+    btn.style.setProperty("cursor", "pointer");
+    btn.setAttribute("aria-pressed", "false");
+}
+
+function setNavButtonsHoverClick_05nuo(){
+    let children = navButtonContainer_05nuo.children;
+    for(let i = 0; i < children.length; i++){
+        let btn = children.item(i);
+        btn.addEventListener("mouseenter", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                enterNavButton_05nuo(btn);
+            }
+        });
+        btn.addEventListener("touchstart", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                enterNavButton_05nuo(btn);
+            }
+        });
+        btn.addEventListener("mouseleave", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                leaveNavButton_05nuo(btn);
+            }
+        });
+        btn.addEventListener("touchend", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                leaveNavButton_05nuo(btn);
+            }
+        });
+        window.addEventListener("touchend", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                leaveNavButton_05nuo(btn);
+            }
+        });
+
+        btn.addEventListener("click", ()=>{
+            if(!navButtonClicked_05nuo[i]){
+                controlScroll_05nuo.snapScroll(i);
+                btn.setAttribute("aria-pressed", "true");
+            }
+        })
+    }
+}
+
+function setButtonClick_05nuo(curPanel){
+    let children = navButtonContainer_05nuo.children;
+    navButtonClicked_05nuo[curPanel] = true;
+    clickNavButton_05nuo(children.item(curPanel));
+
+
+    for(let i = 0; i < children.length; i++){
+        if(i !== curPanel){
+            unClickNavButton_05nuo(children.item(i));
+            navButtonClicked_05nuo[i] = false;
+        }
+    }
+}
 // let hasHideSignInButton_05nuo = true;
 
 // function signInButtonAppear_05nuo(){
@@ -588,12 +668,12 @@ function svgPanAnimate_05nuo(timestamp){
     }
 
     let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
+    svgPanAnimLastTime_05nuo = timestamp;
 
     if(!stopSvgPan_05nuo){
         svgPan_05nuo(svg_05nuo, deltaTime);
         cancelAnimationFrame(svgPanAnim_05nuo);
         svgPanAnim_05nuo = requestAnimFrame(svgPanAnimate_05nuo);
-        svgPanAnimLastTime_05nuo = timestamp;
     }
     else{
         cancelAnimationFrame(svgPanAnim_05nuo);
@@ -623,6 +703,7 @@ function svgStopPanAnimate_05nuo(timestamp){
     }
 
     let deltaTime = (timestamp - svgPanAnimLastTime_05nuo) / 1000;
+    svgPanAnimLastTime_05nuo = timestamp;
 
     const svgLeft = svgLeft_05nuo;
     if(Math.abs((svgLeft + svgTranslateX_05nuo) - svgLeft) > 0.1){
@@ -919,6 +1000,10 @@ function scrollTitle_05nuo(){
     }
 }
 
+function scrollNavButtons_05nuo(){
+    //navButtonContainer_05nuo.style.setProperty("transform", `translateY(${window.scrollY}px)`);
+}
+
 //snap scroll and precent default scroll
 class ControlScroll_05nuo{
     constructor(){
@@ -948,12 +1033,11 @@ class ControlScroll_05nuo{
             },
             curPanel:0,
             updateCurPanel: function(scrollY){
-                const p0Start = 0;
-                const p0End = fullHeader_05nuo.offsetTop + fullHeader_05nuo.offsetHeight;
-                const p1End = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight;
-                const p2End = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight;
+                const p0End = enterprisePanel_05nuo.offsetTop - 1;
+                const p1End = institutionPanel_05nuo.offsetTop - 1;
+                const p2End = associationPanel_05nuo.offsetTop - 1;
 
-                if(scrollY >= p0Start && scrollY < p0End){
+                if(scrollY < p0End){
                     this.curPanel = 0;
                 }
                 else if(scrollY >= p0End && scrollY < p1End){
@@ -965,8 +1049,6 @@ class ControlScroll_05nuo{
                 else{
                     this.curPanel = 3;
                 }
-
-                console.log(this.curPanel);
             }
         }
 
@@ -998,14 +1080,16 @@ class ControlScroll_05nuo{
         this.scrollLerpLastTime = timestamp;
 
         this.currentScrollPos = lerp_05nuo(this.currentScrollPos, this.targetScrollPos, this.scrollLerpSpeed, deltaTime);
+        console.log(this.currentScrollPos);
 
         window.scrollTo(0, this.currentScrollPos);
-        scrollSvg_05nuo();
+        // scrollSvg_05nuo();
 
         if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 1){
             cancelAnimationFrame(this.scrollLerpAnim);
             this.enbaleScroll();
             this.currentStats.updateCurPanel(window.scrollY);
+            this.scrollLerpLastTime = undefined;
         }
         else{
             cancelAnimationFrame(this.scrollLerpAnim);
@@ -1019,6 +1103,7 @@ class ControlScroll_05nuo{
 
         //update target scroll pos
         this.targetScrollPos = this.currentStats.getTargetPos(targetPanelIdx);
+        this.currentScrollPos = window.scrollY;
 
         cancelAnimationFrame(this.scrollLerpAnim);
         this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
@@ -1043,10 +1128,16 @@ const controlScroll_05nuo = new ControlScroll_05nuo();
 
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
-    window.addEventListener("scroll", scrollTitle_05nuo, eventListenerOption_05nuo);
+    window.addEventListener("scroll", ()=>{
+        scrollTitle_05nuo();
+        scrollNavButtons_05nuo();
+    }, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
     }, eventListenerOption_05nuo);
+    window.addEventListener("scroll", ()=>{
+        setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
+    }, eventListenerOption_05nuo)
     // window.addEventListener("scroll", showHideSignInButton_05nuo, eventListenerOption_05nuo);
 }
 
@@ -1136,6 +1227,11 @@ vis(function(){
     // tab not focused
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
+        controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
+        canCheckSvgPan_05nuo = false;
+    }
+    if(vis() == true){
+        canCheckSvgPan_05nuo = true;
     }
 });
 
@@ -1144,25 +1240,42 @@ let notIE = (document.documentMode === undefined),
 if (notIE && !isChromium) {
     // checks for Firefox and other  NON IE Chrome versions
     window.addEventListener("focusout", function () {
-    // blur
-    svgPanAnimLastTime_05nuo = undefined;
-    lastScrollSVGLerpTime_05nuo = undefined;
+        // blur
+        svgPanAnimLastTime_05nuo = undefined;
+        lastScrollSVGLerpTime_05nuo = undefined;
+        controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
+        canCheckSvgPan_05nuo = false;
     });
+
+    window.addEventListener("focusin", function(){
+        canCheckSvgPan_05nuo = true;    
+    })
 } 
 else {
     // checks for IE and Chromium versions
     // bind blur event
     window.addEventListener("blur", function () {
-    // blur
-    svgPanAnimLastTime_05nuo = undefined;
-    lastScrollSVGLerpTime_05nuo = undefined;
+        // blur
+        svgPanAnimLastTime_05nuo = undefined;
+        lastScrollSVGLerpTime_05nuo = undefined;
+        controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
+        canCheckSvgPan_05nuo = false;
     });
+
+    window.addEventListener("focus", function(){
+        canCheckSvgPan_05nuo = true;    
+    })
 }
 
 
 /* *******************************************************************************************************
 *************************************************start ***************************************************
 ***********************************************************************************************************/
+function mobileCheckSvgScrollBg_05nuo(){
+    if(mobileAndTabletCheck()){
+        document.getElementById("svg-scroll-bg-container-05nuo").style.setProperty("display", "none");
+    }
+}
 
 const responsiveFunc_05nuo = function(){
     responsiveNavButton_05nuo();
@@ -1174,7 +1287,6 @@ const responsiveFunc_05nuo = function(){
     responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
-
 }
 
 const startTitleAnim_05nuo = function(){
@@ -1193,10 +1305,14 @@ requestTimeout(responsiveFunc_05nuo, 100);
 
 window.addEventListener("resize", responsiveFunc_05nuo);
 document.addEventListener('DOMContentLoaded', ()=>{
+    mobileCheckSvgScrollBg_05nuo()
     //start animation for titles
     startTitleAnim_05nuo();
     //start listen to scroll events
     scrollFunc_05nuo();
+
+    setButtonClick_05nuo(0);
+    setNavButtonsHoverClick_05nuo();
     //start transit text cube roate animation
     // titleAnim_05nuo = requestAnimFrame(titleRotateAnimate_05nuo);
     // setButtonHoverEffects_05nuo()

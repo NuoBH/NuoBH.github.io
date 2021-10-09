@@ -652,7 +652,7 @@ html,body{
 
 /****************/
 #nav-buttons-05nuo{
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -662,7 +662,23 @@ html,body{
     box-sizing: border-box;
     isolation: isolate;
     z-index: 2;
+
+    transform-style: preserve-3d;
+    animation: nav-show-05nuo 0.8s ease 0.5s 1 normal both;
 }
+
+@keyframes nav-show-05nuo {
+    0%{
+        transform: perspective(300px) rotateY(-90deg) translate(-20px, 0);
+    }
+    40%{
+        transform: perspective(300px) rotateY(5deg) translate(5px, 0); 
+    }
+    100%{
+        transform: perspective(300px) rotateX(0deg) translate(0, 0);
+    }
+}
+
 .nav-button-general-05nuo{
     display: block;
     box-sizing: border-box;
@@ -674,23 +690,5 @@ html,body{
     border-radius: 20%;
     transition: border-radius 0.2s cubic-bezier(.48,-0.59,.53,1.5), transform 0.2s cubic-bezier(.48,-0.59,.53,1.5),
     border 0.1s ease, background 0.1s ease;
-}
-.nav-button-general-05nuo:hover{
-    transform: scale(2);
-    border-radius: 100%;
-    border:none;
-    background: rgb(93, 93, 187);
-}
-
-#nav-button1-05nuo{
-
-}
-#nav-button2-05nuo{
-
-}
-#nav-button3-05nuo{
-
-}
-#nav-button4-05nuo{
-
+    cursor: pointer;
 }
