@@ -413,9 +413,9 @@ function responsiveNavButton_05nuo(){
 
     if(width < widthLimit_05nuo && width < height){
         let multFactor = 1;
-        buttonH = `clamp(15px, 3vmax, 90px)`;
-        buttonW = `calc(clamp(20px, 3vmax, 90px)* ${multFactor})`
-        gap = 40;
+        buttonH = `clamp(15px, 2vmax, 90px)`;
+        buttonW = `calc(clamp(20px, 2vmax, 90px)* ${multFactor})`
+        gap = 30;
 
         navButtonContainer_05nuo.style.setProperty("height", `${buttonH}`);
         w = navButtonContainer_05nuo.offsetHeight * multFactor * 4 + gap * 3;
