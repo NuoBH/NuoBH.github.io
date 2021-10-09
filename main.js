@@ -412,13 +412,11 @@ function responsiveNavButton_05nuo(){
     let gap;
 
     if(width < widthLimit_05nuo && width < height){
-        let multFactor = 1;
-        buttonH = `clamp(15px, 2vmax, 90px)`;
-        buttonW = `calc(clamp(20px, 2vmax, 90px)* ${multFactor})`
+        buttonH = buttonW = `clamp(15px, 2vmax, 90px)`;
         gap = 30;
 
         navButtonContainer_05nuo.style.setProperty("height", `${buttonH}`);
-        w = navButtonContainer_05nuo.offsetHeight * multFactor * 4 + gap * 3;
+        w = navButtonContainer_05nuo.offsetHeight * 4 + gap * 3;
         navButtonContainer_05nuo.style.setProperty("width", `${w}px`);
         navButtonContainer_05nuo.style.setProperty("flex-direction", `row`);
 
