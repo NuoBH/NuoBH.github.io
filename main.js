@@ -199,8 +199,8 @@ let whRatio_05nuo = 2.3;
 
 // svg width height ratio & min width in responsive mode
 // const minSVGW_V_05nuo = 575;
-const minSVGW_H_05nuo = 1170;
-const svgWRatioH_05nuo = 0.75;
+const minSVGW_H_05nuo = 1160;
+const svgWRatioH_05nuo = 0.7;
 // const svgWRatioV_05nuo = 1.1;
 
 //store svg width, height, left, top values after resize
@@ -211,8 +211,6 @@ let svgTop_05nuo = 0;
 
 //detect if svg is in scroll mode
 let isSvgScroll_05nuo = false;
-//detect if title is in scroll
-let isTitleScroll_05nuo = false;
 
 // set cube rotate text responsively
 // function responsiveTransitRotText_05nuo(text, placeholder){
@@ -240,8 +238,6 @@ function responsiveHeaderTitle(headerTitle){
     const subtitleLine2 = subtitle.children.item(2);
 
     if(width < widthLimit_05nuo && width < height){
-        headerTitle.style.setProperty("mix-blend-mode", "normal");
-
         subtitle.style.setProperty("display", "flex");
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
@@ -266,15 +262,8 @@ function responsiveHeaderTitle(headerTitle){
             ceText.style.setProperty("font-size", "27.5px");
             awText.style.setProperty("font-size", "27.5px");
         }
-        
-        if(isTitleScroll_05nuo){
-            subtitle.style.setProperty("display", "none");
-            headerTitle.style.setProperty("mix-blend-mode", "difference");
-        }
     }
     else{
-        headerTitle.style.setProperty("mix-blend-mode", "normal");
-
         subtitle.style.setProperty("justify-content", "center");
         subtitle.style.setProperty("text-align", "center");
         subtitle.style.setProperty("font-size", "45px");
@@ -303,11 +292,6 @@ function responsiveHeaderTitle(headerTitle){
             subtitleItem1.innerHTML = "Manage Continuing Education <em>without</em> the Admin Work";
             subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
             subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
-        }
-
-        if(isTitleScroll_05nuo){
-            subtitle.style.setProperty("display", "none");
-            headerTitle.style.setProperty("mix-blend-mode", "difference");
         }
     }
 }
@@ -399,7 +383,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     let svgW;
     let svgH;
 
-    let titleHeight = isTitleScroll_05nuo ? headerTitle.offsetHeight * 2 : headerTitle.offsetHeight;
+    let titleHeight = headerTitle.offsetHeight;
 
     //before svg is in scroll mode(this will always be run first when refreshed)
     if(!isSvgScroll_05nuo){
@@ -409,9 +393,9 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             left = (svgW - w) / -2;
         }
         else{
-            svgW = w * svgWRatioH_05nuo / window.devicePixelRatio;
+            svgW = w * svgWRatioH_05nuo;
             if(svgW < minSVGW_H_05nuo / window.devicePixelRatio){
-                svgW = minSVGW_H_05nuo;
+                svgW = minSVGW_H_05nuo / window.devicePixelRatio;
             }
             svgH = svgW / 1.604;
             left = (w - svgW) / 2;
@@ -559,6 +543,8 @@ function responsiveTitle_05nuo(){
  * ***************************************************************************************************
  */
 let navButtonClicked_05nuo = [true, false, false, false];
+let navButtonHover_05nuo = [false, false, false, false];
+
 function enterNavButton_05nuo(btn){
     btn.style.setProperty("transform", "scale(1.7)");
     btn.style.setProperty("border-radius", "100%");
@@ -572,11 +558,22 @@ function leaveNavButton_05nuo(btn){
 function clickNavButton_05nuo(btn){
     btn.style.setProperty("transform", "scale(0.5)");
     btn.style.setProperty("cursor", "default");
+    btn.style.setProperty("border-radius", "20%");
+    btn.style.setProperty("background", "rgb(127, 133, 216)");
     btn.setAttribute("aria-pressed", "true");
 }
-function unClickNavButton_05nuo(btn){
-    btn.style.setProperty("transform", "scale(1)");
+function unClickNavButtonHover_05nuo(btn){
+    btn.style.setProperty("transform", "scale(1.7)");
+    btn.style.setProperty("border-radius", "100%");
     btn.style.setProperty("cursor", "pointer");
+    btn.style.setProperty("background", "rgb(93, 93, 187)");
+    btn.setAttribute("aria-pressed", "false");
+}
+function unClickNavButtonNoHover_05nuo(btn){
+    btn.style.setProperty("transform", "scale(1)");
+    btn.style.setProperty("border-radius", "20%");
+    btn.style.setProperty("cursor", "pointer");
+    btn.style.setProperty("background", "rgb(127, 133, 216)");
     btn.setAttribute("aria-pressed", "false");
 }
 
@@ -586,26 +583,31 @@ function setNavButtonsHoverClick_05nuo(){
         let btn = children.item(i);
         btn.addEventListener("mouseenter", ()=>{
             if(!navButtonClicked_05nuo[i]){
+                navButtonHover_05nuo[i] = true;
                 enterNavButton_05nuo(btn);
             }
         });
         btn.addEventListener("touchstart", ()=>{
             if(!navButtonClicked_05nuo[i]){
+                navButtonHover_05nuo[i] = true;
                 enterNavButton_05nuo(btn);
             }
         });
         btn.addEventListener("mouseleave", ()=>{
             if(!navButtonClicked_05nuo[i]){
+                navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
             }
         });
         btn.addEventListener("touchend", ()=>{
             if(!navButtonClicked_05nuo[i]){
+                navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
             }
         });
         window.addEventListener("touchend", ()=>{
             if(!navButtonClicked_05nuo[i]){
+                navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
             }
         });
@@ -622,12 +624,17 @@ function setNavButtonsHoverClick_05nuo(){
 function setButtonClick_05nuo(curPanel){
     let children = navButtonContainer_05nuo.children;
     navButtonClicked_05nuo[curPanel] = true;
+    navButtonHover_05nuo[curPanel] = false;
     clickNavButton_05nuo(children.item(curPanel));
-
 
     for(let i = 0; i < children.length; i++){
         if(i !== curPanel){
-            unClickNavButton_05nuo(children.item(i));
+            if(navButtonHover_05nuo[i]){
+                unClickNavButtonHover_05nuo(children.item(i));
+            }
+            else{
+                unClickNavButtonNoHover_05nuo(children.item(i));        
+            }
             navButtonClicked_05nuo[i] = false;
         }
     }
@@ -1061,20 +1068,6 @@ function scrollSvgLerp_05nuo(timestamp){
     }
 }
 
-function scrollTitle_05nuo(){
-    let scrollY = window.scrollY;
-    if(!isTitleScroll_05nuo && scrollY >= headerTitle_05nuo.offsetHeight * 0.8){
-        isTitleScroll_05nuo = true;
-        responsiveHeaderTitle(headerTitle_05nuo);
-        resizeHero_05nuo();
-    }
-    else if(isTitleScroll_05nuo && scrollY < headerTitle_05nuo.offsetHeight * 0.8){
-        isTitleScroll_05nuo = false;
-        responsiveHeaderTitle(headerTitle_05nuo);
-        resizeHero_05nuo();
-    }
-}
-
 function scrollNavButtons_05nuo(){
     //navButtonContainer_05nuo.style.setProperty("transform", `translateY(${window.scrollY}px)`);
 }
@@ -1088,7 +1081,7 @@ class ControlScroll_05nuo{
         this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
         //reset scrollPos
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
         //disable normal scroll function
         this.disableScroll();
         //scroll status for scrolling in each panel
@@ -1108,21 +1101,11 @@ class ControlScroll_05nuo{
                 }
             },
             curPanel:0,
-            curPanelForBtn:0,
-            updateCurPanel: function(scrollY, forBtn=false){
-                let p0End;
-                let p1End;
-                let p2End;
-                if(!forBtn){
-                    p0End = enterprisePanel_05nuo.offsetTop;
-                    p1End = institutionPanel_05nuo.offsetTop;
-                    p2End = associationPanel_05nuo.offsetTop;
-                }
-                else{
-                    p0End = enterprisePanel_05nuo.offsetTop * 0.5;
-                    p1End = institutionPanel_05nuo.offsetTop * 0.5;
-                    p2End = associationPanel_05nuo.offsetTop * 0.5;
-                }
+            updateCurPanel: function(scrollY){
+                let p0End = enterprisePanel_05nuo.offsetTop * 0.65,
+                    p1End = institutionPanel_05nuo.offsetTop - enterprisePanel_05nuo.offsetHeight * 0.65,
+                    p2End = associationPanel_05nuo.offsetTop - institutionPanel_05nuo.offsetHeight * 0.65;
+
 
                 if(scrollY < p0End){
                     this.curPanel = 0;
@@ -1145,7 +1128,7 @@ class ControlScroll_05nuo{
             touch:2
         }
 
-        this.currentScrollPos = window.scrollY;
+        this.currentScrollPos = 0;
         this.targetScrollPos = this.currentScrollPos;
         this.scrollLerpSpeed = 0.05;
         this.scrollLerpLastTime = undefined;
@@ -1190,12 +1173,10 @@ class ControlScroll_05nuo{
 
         this.currentScrollPos = lerp_05nuo(this.currentScrollPos, this.targetScrollPos, this.scrollLerpSpeed, deltaTime);
 
-        window.scrollTo(0, this.currentScrollPos);
-        // scrollSvg_05nuo();
-
-        if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 1){
+        window.scrollTo(0, Math.round(this.currentScrollPos));
+        console.log(window.scrollY, this.currentScrollPos, this.targetScrollPos)
+        if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 0.2){
             cancelAnimationFrame(this.scrollLerpAnim);
-            // this.enbaleScroll();
             this.currentStats.updateCurPanel(window.scrollY);
             this.scrollLerpLastTime = undefined;
         }
@@ -1227,10 +1208,10 @@ class ControlScroll_05nuo{
         let moveY = 0;
         if(scrollMethod === this.scrollMethod.mouse){
             if(e.deltaY > 35){
-                moveY = 90;
+                moveY = 100;
             }
             else if(e.deltaY < -35){
-                moveY = -90;
+                moveY = -100;
             }
             else{
                 moveY = 0;
@@ -1326,13 +1307,14 @@ class ControlScroll_05nuo{
                 else if(moveY < 0){
                     //snap scroll back to either institution panel or enterprise panel
                     if(this.targetScrollPos <= associationPanel_05nuo.offsetTop){
+                        console.log(this.targetScrollPos, associationPanel_05nuo.offsetTop);
                         if(this.cumulativeMoveY > 0){ this.cumulativeMoveY = 0;}
                         this.cumulativeMoveY += moveY;
                         if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
-                            if(this.targetScrollPos === institutionPanel_05nuo.offsetTop){
+                            if(this.targetScrollPos <= institutionPanel_05nuo.offsetTop){
                                 this.targetScrollPos = enterprisePanel_05nuo.offsetTop;
                             }
-                            else if(this.targetScrollPos === associationPanel_05nuo.offsetTop){
+                            else if(this.targetScrollPos <= associationPanel_05nuo.offsetTop && this.targetScrollPos > institutionPanel_05nuo.offsetTop){
                                 this.targetScrollPos = institutionPanel_05nuo.offsetTop;
                             }
                             this.cumulativeMoveY = 0;
@@ -1385,7 +1367,7 @@ class ControlScroll_05nuo{
     snapScroll(targetPanelIdx){
         //update target scroll pos
         this.targetScrollPos = this.currentStats.getTargetPos(targetPanelIdx);
-        this.currentScrollPos = window.scrollY;
+        console.log(this.targetScrollPos, institutionPanel_05nuo.offsetTop)
 
         cancelAnimationFrame(this.scrollLerpAnim);
         this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
@@ -1422,7 +1404,6 @@ controlScroll_05nuo.controlScrollForAll();
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
-        scrollTitle_05nuo();
         scrollNavButtons_05nuo();
     }, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{

@@ -4,6 +4,9 @@ html,body{
     overflow-x: hidden;
     isolation: isolate;
 }
+body::-webkit-scrollbar{
+    width:0;
+}
 
 .fusion-page-title-bar{
 	display: none;
@@ -75,7 +78,7 @@ html,body{
 }
 
 #header-title-05nuo h1 .sub-item1-05nuo{
-    animation: subtitle-intro-05nuo 0.6s ease 0.5s 1 normal both;
+    animation: subtitle-intro-05nuo 0.6s ease 0.3s 1 normal both;
 }
 #header-title-05nuo h1 .sub-line-05nuo{
     position: relative;
