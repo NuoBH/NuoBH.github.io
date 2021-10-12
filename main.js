@@ -145,7 +145,6 @@ function swipeDetect_05nuo(el, callback){
             currentMove = touches[0];
             moveDistX = currentMove.pageX - previousMove.pageX;
             moveDistY = currentMove.pageY - previousMove.pageY;
-            console.log(moveDistX)
             if(Math.abs(moveDistX) <= moveRestraint){ 
                 if(movedir !== 0){
                     movedir = (moveDistY < 0) ? `up` : `down`;
@@ -1215,7 +1214,7 @@ class ControlScroll_05nuo{
 
     //get different scroll move distance for different methods of scrolling: mouse, keyboard and touch screen
     getScrollDelta(e, scrollMethod){
-        let moveY = 0;
+        let moveY = 10;
         if(scrollMethod === this.scrollMethod.mouse){
             if(e.deltaY > 35){
                 moveY = 80;
@@ -1240,21 +1239,21 @@ class ControlScroll_05nuo{
         else if(scrollMethod === this.scrollMethod.touch){
             swipeDetect_05nuo(window, function(swipedir, movedir){
                 if(movedir === "up"){
-                    moveY = -180;
+                    moveY = 180;
                 }
                 else if(movedir === "down"){
-                    moveY = 180;
+                    moveY = -180;
                 }
 
                 if(swipedir !== "none"){
                     if(swipedir === "up"){
-                        moveY = -150;
+                        moveY = 500;
                     }
                     else if(swipedir === "down"){
-                        movedir = 150;
+                        movedir = -500;
                     }
                 }
-            })
+            });
         }
 
         return moveY;
@@ -1265,7 +1264,6 @@ class ControlScroll_05nuo{
     controlScroll(e, scrollMethod){
         //simulate normal scroll
         let moveY = this.getScrollDelta(e, scrollMethod);
-
         //normal scroll for intro and enterprise panel
         if(this.targetScrollPos < enterprisePanel_05nuo.offsetTop){
             this.targetScrollPos += moveY;
