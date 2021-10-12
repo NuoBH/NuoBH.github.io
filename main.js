@@ -1,4 +1,4 @@
-/*******************************request time out***************************************** */
+/******************************* helper functions ***************************************** */
 // requestAnimationFrame() shim by Paul Irish
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 window.requestAnimFrame = (function() {
@@ -92,11 +92,89 @@ function getScrollbarWidth_05nuo() {
 
 const scrollBarWidth_05nuo = getScrollbarWidth_05nuo();
 
-window.mobileAndTabletCheck = function() {
+window.mobileAndTabletCheck_05nuo = function() {
     let check = false;
     (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
     return check;
-  };
+};
+
+const isMobileOrTablet_05nuo = mobileAndTabletCheck_05nuo();
+
+function swipeDetect_05nuo(el, callback){
+    //variables for swipes
+    var touchsurface = el,
+    swipedir,
+    startX,
+    startY,
+    distX,
+    distY,
+    threshold = 80, //required min distance traveled to be considered swipe
+    restraint = 200, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 550, // maximum time allowed to travel that distance
+    elapsedTime,
+    startTime;
+
+    //varibales for moves
+    let movedir = 0, 
+    previousMove = undefined, 
+    currentMove = undefined, 
+    moveDistX = 0, 
+    moveDistY = 0, 
+    moveRestraint = 10;
+
+    let handleswipe = callback || function(swipedir, movedir){};
+
+    touchsurface.addEventListener('touchstart', function(e){
+        let touchobj = e.changedTouches[0]
+        swipedir = `none`;
+        movedir = `none`;
+        moveDistX = 0;
+        moveDistY = 0;
+        dist = 0;
+        startX = touchobj.pageX;
+        startY = touchobj.pageY;
+        startTime = new Date().getTime(); // record time when finger first makes contact with surface
+    }, eventListenerOption_05nuo)
+
+    touchsurface.addEventListener('touchmove', function(e){
+        let touches = e.changedTouches;
+
+        let l = touches.length;
+        // for (let i = 0; i < l; i++){
+            if(previousMove === undefined) previousMove = touches[0];
+            currentMove = touches[0];
+            moveDistX = currentMove.pageX - previousMove.pageX;
+            moveDistY = currentMove.pageY - previousMove.pageY;
+            console.log(moveDistX)
+            if(Math.abs(moveDistX) <= moveRestraint){ 
+                if(movedir !== 0){
+                    movedir = (moveDistY < 0) ? `up` : `down`;
+                }
+                else movedir = `none`;
+            }
+            else movedir = `none`;
+            previousMove = currentMove;
+            handleswipe(swipedir, movedir);
+        // }
+    }, eventListenerOption_05nuo);
+
+    touchsurface.addEventListener('touchend', function(e){
+        var touchobj = e.changedTouches[0];
+        distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
+        distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
+        elapsedTime = new Date().getTime() - startTime; // get time elapsed
+        // first condition for awipe met
+        if (elapsedTime <= allowedTime){
+            if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){
+                // if dist traveled is negative, it indicates up swipe
+                swipedir = (distY < 0)? 'up' : 'down';
+            }
+        }
+        // handleswipe(swipedir, movedir);
+            handleswipe(swipedir);
+        // if(el !== window) e.preventDefault()
+    }, eventListenerOption_05nuo);
+}
 
 /************************************************************************************************************* 
  ***************************** responsive feature for svg, title div and texts ******************************* 
@@ -187,8 +265,8 @@ function responsiveHeaderTitle(headerTitle){
             const ceText = document.getElementById("ce-text-05nuo");
             const awText = document.getElementById('aw-text-05nuo');
 
-            ceText.style.setProperty("font-size", "26px");
-            awText.style.setProperty("font-size", "26px");
+            ceText.style.setProperty("font-size", "27.5px");
+            awText.style.setProperty("font-size", "27.5px");
         }
         
         if(isTitleScroll_05nuo){
@@ -801,7 +879,6 @@ let svgBgGradientFactor_05nuo = 300;
 //svgScroll lerp values
 let lastScrollSVGLerpTime_05nuo = undefined;
 let scrollLerpAnim_05nuo = undefined;
-let svgScrollLerpSpeed_05nuo = 0.005;
 
 let hasReduceSvgOnScroll_05nuo = false;
 
@@ -966,8 +1043,8 @@ function scrollSvgLerp_05nuo(timestamp){
     let deltaTime = (timestamp - lastScrollSVGLerpTime_05nuo) / 1000;
     lastScrollSVGLerpTime_05nuo = timestamp;
 
-    curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
-    curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, svgScrollLerpSpeed_05nuo, deltaTime);
+    curScrollMove_05nuo = lerp_05nuo(curScrollMove_05nuo, lastScrollTarget_05nuo, 0.02, deltaTime);
+    curClipAnimSeek_05nuo = lerp_05nuo(curClipAnimSeek_05nuo, lastClipAnimSeek_05nuo, 0.1, deltaTime);
 
     let matrix = window.getComputedStyle(svg_05nuo).getPropertyValue("transform");
     let matrixSplits = matrix.split(',');
@@ -988,12 +1065,12 @@ function scrollSvgLerp_05nuo(timestamp){
 
 function scrollTitle_05nuo(){
     let scrollY = window.scrollY;
-    if(!isTitleScroll_05nuo && scrollY >= headerTitle_05nuo.offsetHeight * 0.65){
+    if(!isTitleScroll_05nuo && scrollY >= headerTitle_05nuo.offsetHeight * 0.8){
         isTitleScroll_05nuo = true;
         responsiveHeaderTitle(headerTitle_05nuo);
         resizeHero_05nuo();
     }
-    else if(isTitleScroll_05nuo && scrollY < headerTitle_05nuo.offsetHeight * 0.65){
+    else if(isTitleScroll_05nuo && scrollY < headerTitle_05nuo.offsetHeight * 0.8){
         isTitleScroll_05nuo = false;
         responsiveHeaderTitle(headerTitle_05nuo);
         resizeHero_05nuo();
@@ -1009,12 +1086,13 @@ class ControlScroll_05nuo{
     constructor(){
         // left: 37, up: 38, right: 39, down: 40,
         // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-        this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
-        this.wheelOpt = supportPassive_05nuo ? { passive: false } : false;
+        this.keys = {ArrowLeft: 1, ArrowUp: 1, ArrowRight: 1, ArrowDown: 1};
         this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
         //reset scrollPos
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
+        //disable normal scroll function
+        this.disableScroll();
         //scroll status for scrolling in each panel
         this.currentStats = {
             getTargetPos: function (target){
@@ -1032,10 +1110,21 @@ class ControlScroll_05nuo{
                 }
             },
             curPanel:0,
-            updateCurPanel: function(scrollY){
-                const p0End = enterprisePanel_05nuo.offsetTop - 1;
-                const p1End = institutionPanel_05nuo.offsetTop - 1;
-                const p2End = associationPanel_05nuo.offsetTop - 1;
+            curPanelForBtn:0,
+            updateCurPanel: function(scrollY, forBtn=false){
+                let p0End;
+                let p1End;
+                let p2End;
+                if(!forBtn){
+                    p0End = enterprisePanel_05nuo.offsetTop;
+                    p1End = institutionPanel_05nuo.offsetTop;
+                    p2End = associationPanel_05nuo.offsetTop;
+                }
+                else{
+                    p0End = enterprisePanel_05nuo.offsetTop * 0.5;
+                    p1End = institutionPanel_05nuo.offsetTop * 0.5;
+                    p2End = associationPanel_05nuo.offsetTop * 0.5;
+                }
 
                 if(scrollY < p0End){
                     this.curPanel = 0;
@@ -1052,11 +1141,20 @@ class ControlScroll_05nuo{
             }
         }
 
+        this.scrollMethod = {
+            mouse:0,
+            key:1,
+            touch:2
+        }
+
         this.currentScrollPos = window.scrollY;
         this.targetScrollPos = this.currentScrollPos;
         this.scrollLerpSpeed = 0.05;
         this.scrollLerpLastTime = undefined;
         this.scrollLerpAnim = undefined;
+
+        this.cumulativeMoveY = 0;
+        this.cumulativeMoveYLimit = 500;
     }
 
     preventDefault(e) {
@@ -1064,13 +1162,15 @@ class ControlScroll_05nuo{
     }
 
     preventDefaultForScrollKeys(e) {
-        if (this.keys[e.keyCode]) {
-            preventDefault(e);
+        if (this.keys[e.key]) {
+            this.preventDefault(e);
             return true;
         }
         return false;
     }
 
+    /*****************************helper functions for controlScroll ***************************/
+    //make lerped scroll animation
     scrollLerp(timestamp){
         if(this.scrollLerpLastTime === undefined){
             this.scrollLerpLastTime = timestamp;
@@ -1080,27 +1180,203 @@ class ControlScroll_05nuo{
         this.scrollLerpLastTime = timestamp;
 
         this.currentScrollPos = lerp_05nuo(this.currentScrollPos, this.targetScrollPos, this.scrollLerpSpeed, deltaTime);
-        console.log(this.currentScrollPos);
 
         window.scrollTo(0, this.currentScrollPos);
         // scrollSvg_05nuo();
 
         if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 1){
             cancelAnimationFrame(this.scrollLerpAnim);
-            this.enbaleScroll();
+            // this.enbaleScroll();
             this.currentStats.updateCurPanel(window.scrollY);
             this.scrollLerpLastTime = undefined;
         }
         else{
+            if(Math.abs(this.currentScrollPos - this.targetScrollPos) > 20){
+                this.cumulativeMoveY = 0;
+            }
             cancelAnimationFrame(this.scrollLerpAnim);
             this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
         }
     }
 
-    snapScroll(targetPanelIdx){
-        //disable normal scroll function
-        this.disableScroll();
+    //set different lerp speed for mobile and tablet devices
+    setLerpSpeedForMobile(slow){
+        if(slow){
+            if(isMobileOrTablet_05nuo){
+                this.scrollLerpSpeed = 0.1;
+            }
+        }
+        else{
+            if(isMobileOrTablet_05nuo){
+                this.scrollLerpSpeed = 0.05;
+            } 
+        }
+    }
 
+    //get different scroll move distance for different methods of scrolling: mouse, keyboard and touch screen
+    getScrollDelta(e, scrollMethod){
+        let moveY = 0;
+        if(scrollMethod === this.scrollMethod.mouse){
+            if(e.deltaY > 35){
+                moveY = 80;
+            }
+            else if(e.deltaY < -35){
+                moveY = -80;
+            }
+            else{
+                moveY = 0;
+            }
+        }
+        else if(scrollMethod === this.scrollMethod.key){
+            //up arrow
+            if(e.key === "ArrowUp"){
+                moveY = -150;
+            }
+            //down arrow
+            else if(e.key === "ArrowDown"){
+                moveY = 150;
+            }
+        }
+        else if(scrollMethod === this.scrollMethod.touch){
+            swipeDetect_05nuo(window, function(swipedir, movedir){
+                if(movedir === "up"){
+                    moveY = -180;
+                }
+                else if(movedir === "down"){
+                    moveY = 180;
+                }
+
+                if(swipedir !== "none"){
+                    if(swipedir === "up"){
+                        moveY = -150;
+                    }
+                    else if(swipedir === "down"){
+                        movedir = 150;
+                    }
+                }
+            })
+        }
+
+        return moveY;
+    }
+    /*********************************end of helper functions*********************************** */
+
+    //control the scroll bar behavior with snap-to-scroll effects
+    controlScroll(e, scrollMethod){
+        //simulate normal scroll
+        let moveY = this.getScrollDelta(e, scrollMethod);
+
+        //normal scroll for intro and enterprise panel
+        if(this.targetScrollPos < enterprisePanel_05nuo.offsetTop){
+            this.targetScrollPos += moveY;
+            this.targetScrollPos = this.targetScrollPos < 0 ? 0 : this.targetScrollPos;
+            this.targetScrollPos = this.targetScrollPos > enterprisePanel_05nuo.offsetTop ? enterprisePanel_05nuo.offsetTop : this.targetScrollPos;
+            //normal scroll speed for mobile in first two panels
+            this.setLerpSpeedForMobile(false);
+        }
+        //snap scroll in other sections
+        else{
+            //slow scroll for mobile
+            this.setLerpSpeedForMobile(true);
+            //snap scroll to institution panel if scrolling down
+            // normal scroll back up if scrolling up
+            if(this.currentScrollPos >= enterprisePanel_05nuo.offsetTop * 0.98 && this.currentScrollPos < institutionPanel_05nuo.offsetTop * 0.98){
+                if(moveY > 0){
+                    if(this.cumulativeMoveY < 0){ this.cumulativeMoveY = 0;}
+                    this.cumulativeMoveY += moveY;
+                    if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
+                        this.targetScrollPos = institutionPanel_05nuo.offsetTop;
+                        this.cumulativeMoveY = 0;
+                    }
+                }
+                else if(moveY < 0){
+                    if(this.currentScrollPos <= enterprisePanel_05nuo.offsetTop * 1.15 ){
+                        this.targetScrollPos += moveY;
+                    }
+                }
+            }
+            //snap scroll to association panel
+            else if(this.currentScrollPos >= institutionPanel_05nuo.offsetTop * 0.98){
+                if(moveY > 0){
+                    //snap scroll to association panel from institution panel
+                    if(this.targetScrollPos < associationPanel_05nuo.offsetTop){
+                        if(this.cumulativeMoveY < 0){ this.cumulativeMoveY = 0;}
+                        this.cumulativeMoveY += moveY;
+                        if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
+                            this.targetScrollPos = associationPanel_05nuo.offsetTop;
+                            this.cumulativeMoveY = 0;
+                        }
+                    }
+                    //if already at association panel, normal scroll to view overflow content downward
+                    else{
+                        if(this.currentScrollPos >= associationPanel_05nuo.offsetTop * 0.98){
+                            this.setLerpSpeedForMobile(false);
+                            let end = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight - window.innerHeight;
+                            this.targetScrollPos += moveY;
+                            this.targetScrollPos = this.targetScrollPos >= end ? end : this.targetScrollPos;
+                        }
+                    }
+                }
+                else if(moveY < 0){
+                    //snap scroll back to either institution panel or enterprise panel
+                    if(this.targetScrollPos <= associationPanel_05nuo.offsetTop){
+                        if(this.cumulativeMoveY > 0){ this.cumulativeMoveY = 0;}
+                        this.cumulativeMoveY += moveY;
+                        if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
+                            if(this.targetScrollPos === institutionPanel_05nuo.offsetTop){
+                                this.targetScrollPos = enterprisePanel_05nuo.offsetTop;
+                            }
+                            else if(this.targetScrollPos === associationPanel_05nuo.offsetTop){
+                                this.targetScrollPos = institutionPanel_05nuo.offsetTop;
+                            }
+                            this.cumulativeMoveY = 0;
+                        }
+                    }
+                    // if at the overflow sections of the association panel, normal scroll up until reach
+                    // the top of association panel
+                    else{
+                        this.setLerpSpeedForMobile(false);
+                        this.targetScrollPos += moveY;
+                        this.targetScrollPos = this.targetScrollPos <= associationPanel_05nuo.offsetTop ?
+                        associationPanel_05nuo.offsetTop : this.targetScrollPos;
+                    }
+                }
+            }
+        }
+
+        //lerp animation
+        cancelAnimationFrame(this.scrollLerpAnim);
+        this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
+    }
+    
+    //apply control scroll to mouse wheel scroll, keyboard, and touch screen scroll
+    controlScrollForAll(){
+        // older FF
+        window.addEventListener('DOMMouseScroll', function(e){
+            this.controlScroll(e, this.scrollMethod.mouse);
+        }.bind(this), eventListenerOption_05nuo);
+        
+        // modern desktop
+        window.addEventListener(this.wheelEvent, function(e){
+            this.controlScroll(e, this.scrollMethod.mouse);  
+        }.bind(this), eventListenerOption_05nuo);
+
+        // mobile
+        window.addEventListener('touchmove', function(e){
+            this.controlScroll(e, this.scrollMethod.touch);  
+        }.bind(this), eventListenerOption_05nuo);
+        window.addEventListener('touchend', function(e){
+            this.controlScroll(e, this.scrollMethod.touch);  
+        }.bind(this), eventListenerOption_05nuo);
+
+        //keyboard
+        window.addEventListener('keydown', function(e){
+            this.controlScroll(e, this.scrollMethod.key);  
+        }.bind(this), eventListenerOption_05nuo);    
+    }
+
+    //used for navigation button to navigate between panels
+    snapScroll(targetPanelIdx){
         //update target scroll pos
         this.targetScrollPos = this.currentStats.getTargetPos(targetPanelIdx);
         this.currentScrollPos = window.scrollY;
@@ -1110,21 +1386,32 @@ class ControlScroll_05nuo{
     }
 
     disableScroll() {
-        window.addEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
-        window.addEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
-        window.addEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
-        window.addEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);
+        // older FF
+        window.addEventListener('DOMMouseScroll', this.preventDefault, eventListenerOption_05nuo);
+        // modern desktop
+        window.addEventListener(this.wheelEvent, this.preventDefault, eventListenerOption_05nuo);
+        // mobile
+        window.addEventListener('touchmove', this.preventDefault, eventListenerOption_05nuo);
+        window.addEventListener('touchend', this.preventDefault, eventListenerOption_05nuo);
+        // keybaord
+        window.addEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), eventListenerOption_05nuo);
     }
 
     enbaleScroll(){
-        window.removeEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
-        window.removeEventListener(this.wheelEvent, this.preventDefault, this.wheelOpt); // modern desktop
-        window.removeEventListener('touchmove', this.preventDefault, this.wheelOpt); // mobile
-        window.removeEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), false);  
+        // older FF
+        window.removeEventListener('DOMMouseScroll', this.preventDefault, eventListenerOption_05nuo);
+        // modern desktop
+        window.removeEventListener(this.wheelEvent, this.preventDefault, eventListenerOption_05nuo); 
+        // mobile
+        window.removeEventListener('touchmove', this.preventDefault, eventListenerOption_05nuo);
+        window.removeEventListener('touchend', this.preventDefault, eventListenerOption_05nuo);
+        // keyboard
+        window.removeEventListener('keydown', this.preventDefaultForScrollKeys.bind(this), eventListenerOption_05nuo);  
     }
 }
     
 const controlScroll_05nuo = new ControlScroll_05nuo();
+controlScroll_05nuo.controlScrollForAll();
 
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
@@ -1201,7 +1488,7 @@ function scrollFunc_05nuo(){
 *********************************** prevent choppy anim after focus out ***********************************
 *********************************************************************************************************** */
 
-let vis = (function(){
+let vis_05nuo = (function(){
     var stateKey, 
         eventKey, 
         keys = {
@@ -1222,22 +1509,22 @@ let vis = (function(){
     }
   })();
   // check if current tab is active or not
-vis(function(){
-    if(vis() == false) {
+vis_05nuo(function(){
+    if(vis_05nuo() == false) {
     // tab not focused
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
         canCheckSvgPan_05nuo = false;
     }
-    if(vis() == true){
+    if(vis_05nuo() == true){
         canCheckSvgPan_05nuo = true;
     }
 });
 
-let notIE = (document.documentMode === undefined),
-    isChromium = window.chrome;
-if (notIE && !isChromium) {
+let notIE_05nuo = (document.documentMode === undefined),
+    isChromium_05nuo = window.chrome;
+if (notIE_05nuo && !isChromium_05nuo) {
     // checks for Firefox and other  NON IE Chrome versions
     window.addEventListener("focusout", function () {
         // blur
@@ -1272,7 +1559,7 @@ else {
 *************************************************start ***************************************************
 ***********************************************************************************************************/
 function mobileCheckSvgScrollBg_05nuo(){
-    if(mobileAndTabletCheck()){
+    if(isMobileOrTablet_05nuo){
         document.getElementById("svg-scroll-bg-container-05nuo").style.setProperty("display", "none");
     }
 }

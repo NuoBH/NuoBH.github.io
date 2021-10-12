@@ -530,13 +530,13 @@ html,body{
 }
 
 .svg-clip-path-05nuo{
-    animation: svg-clip-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+    animation: svg-clip-anim-05nuo 1s ease;
     animation-play-state: paused;
     animation-fill-mode: both;
     animation-delay: calc(var(--animation-seek-05nuo)*-1s);
 }
 .svg-mobile-clip-path-05nuo{
-    animation: svg-clip-mobile-anim-05nuo 1s cubic-bezier(.39,.27,.67,1.3);
+    animation: svg-clip-mobile-anim-05nuo 1s ease;
     animation-play-state: paused;
     animation-fill-mode: both;
     animation-delay: calc(var(--animation-seek-05nuo)*-1s);
@@ -640,13 +640,14 @@ html,body{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: rgb(233, 234, 240);
+    /* background: rgb(233, 234, 240); */
+    background: rgb(116, 122, 206);
 }
 
 #association-panel-05nuo{
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 120vh;
     background: linear-gradient(180deg, rgb(233, 234, 240) 0%, rgb(209, 206, 218) 80%);
 }
 
