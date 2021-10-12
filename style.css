@@ -643,8 +643,8 @@ body::-webkit-scrollbar{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: rgb(233, 234, 240);
-    /* background: rgb(116, 122, 206); */
+    /* background: rgb(233, 234, 240); */
+    background: rgb(116, 122, 206);
 }
 
 #association-panel-05nuo{
