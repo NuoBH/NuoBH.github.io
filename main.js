@@ -1237,10 +1237,10 @@ class ControlScroll_05nuo{
 
             if(this.swipedir !== "none"){
                 if(this.swipedir === "up"){
-                    moveY = 300;
+                    moveY = 225;
                 }
                 else if(this.swipedir === "down"){
-                    moveY = -300;
+                    moveY = -225;
                 }
             }
         }
