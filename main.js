@@ -102,20 +102,20 @@ const isMobileOrTablet_05nuo = mobileAndTabletCheck_05nuo();
 
 function swipeDetect_05nuo(el, callback){
     //variables for swipes
-    var touchsurface = el,
-    swipedir,
+    let touchsurface = el,
+    swipedir = "none",
     startX,
     startY,
     distX,
     distY,
     threshold = 80, //required min distance traveled to be considered swipe
-    restraint = 200, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 550, // maximum time allowed to travel that distance
+    restraint = 50, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 850, // maximum time allowed to travel that distance
     elapsedTime,
     startTime;
 
     //varibales for moves
-    let movedir = 0, 
+    let movedir = "none", 
     previousMove = undefined, 
     currentMove = undefined, 
     moveDistX = 0, 
@@ -125,12 +125,13 @@ function swipeDetect_05nuo(el, callback){
     let handleswipe = callback || function(swipedir, movedir){};
 
     touchsurface.addEventListener('touchstart', function(e){
-        let touchobj = e.changedTouches[0]
+        let touchobj = e.changedTouches[0];
         swipedir = `none`;
         movedir = `none`;
         moveDistX = 0;
         moveDistY = 0;
-        dist = 0;
+        distX = 0;
+        distY = 0;
         startX = touchobj.pageX;
         startY = touchobj.pageY;
         startTime = new Date().getTime(); // record time when finger first makes contact with surface
@@ -138,23 +139,21 @@ function swipeDetect_05nuo(el, callback){
 
     touchsurface.addEventListener('touchmove', function(e){
         let touches = e.changedTouches;
-
         let l = touches.length;
-        // for (let i = 0; i < l; i++){
-            if(previousMove === undefined) previousMove = touches[0];
-            currentMove = touches[0];
+        for (let i = 0; i < l; i++){
+            if(previousMove === undefined) previousMove = touches[i];
+            currentMove = touches[i];
             moveDistX = currentMove.pageX - previousMove.pageX;
             moveDistY = currentMove.pageY - previousMove.pageY;
+            movedir = "none";
             if(Math.abs(moveDistX) <= moveRestraint){ 
                 if(movedir !== 0){
                     movedir = (moveDistY < 0) ? `up` : `down`;
                 }
-                else movedir = `none`;
             }
-            else movedir = `none`;
             previousMove = currentMove;
             handleswipe(swipedir, movedir);
-        // }
+        }
     }, eventListenerOption_05nuo);
 
     touchsurface.addEventListener('touchend', function(e){
@@ -163,15 +162,15 @@ function swipeDetect_05nuo(el, callback){
         distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
         elapsedTime = new Date().getTime() - startTime; // get time elapsed
         // first condition for awipe met
+        swipedir = "none";
+        movedir = "none";
         if (elapsedTime <= allowedTime){
             if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){
                 // if dist traveled is negative, it indicates up swipe
                 swipedir = (distY < 0)? 'up' : 'down';
             }
         }
-        // handleswipe(swipedir, movedir);
-            handleswipe(swipedir);
-        // if(el !== window) e.preventDefault()
+        handleswipe(swipedir, movedir);
     }, eventListenerOption_05nuo);
 }
 
@@ -1154,6 +1153,17 @@ class ControlScroll_05nuo{
 
         this.cumulativeMoveY = 0;
         this.cumulativeMoveYLimit = 500;
+
+        this.touchdir ={
+            movedir:"none",
+            swipedir:"none"
+        }
+        
+        swipeDetect_05nuo(window, function(swipedir, movedir){
+            this.movedir = movedir;
+            this.swipedir = swipedir;
+        }.bind(this));
+
     }
 
     preventDefault(e) {
@@ -1214,7 +1224,7 @@ class ControlScroll_05nuo{
 
     //get different scroll move distance for different methods of scrolling: mouse, keyboard and touch screen
     getScrollDelta(e, scrollMethod){
-        let moveY = 10;
+        let moveY = 0;
         if(scrollMethod === this.scrollMethod.mouse){
             if(e.deltaY > 35){
                 moveY = 80;
@@ -1237,23 +1247,21 @@ class ControlScroll_05nuo{
             }
         }
         else if(scrollMethod === this.scrollMethod.touch){
-            swipeDetect_05nuo(window, function(swipedir, movedir){
-                if(movedir === "up"){
-                    moveY = 180;
-                }
-                else if(movedir === "down"){
-                    moveY = -180;
-                }
+            if(this.movedir === "up"){
+                moveY = 50;
+            }
+            else if(this.movedir === "down"){
+                moveY = -50;
+            }
 
-                if(swipedir !== "none"){
-                    if(swipedir === "up"){
-                        moveY = 500;
-                    }
-                    else if(swipedir === "down"){
-                        movedir = -500;
-                    }
+            if(this.swipedir !== "none"){
+                if(this.swipedir === "up"){
+                    moveY = 500;
                 }
-            });
+                else if(this.swipedir === "down"){
+                    moveY = -500;
+                }
+            }
         }
 
         return moveY;
