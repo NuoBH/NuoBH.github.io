@@ -409,8 +409,8 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             left = (svgW - w) / -2;
         }
         else{
-            svgW = w * svgWRatioH_05nuo;
-            if(svgW < minSVGW_H_05nuo){
+            svgW = w * svgWRatioH_05nuo / window.devicePixelRatio;
+            if(svgW < minSVGW_H_05nuo / window.devicePixelRatio){
                 svgW = minSVGW_H_05nuo;
             }
             svgH = svgW / 1.604;
@@ -1227,10 +1227,10 @@ class ControlScroll_05nuo{
         let moveY = 0;
         if(scrollMethod === this.scrollMethod.mouse){
             if(e.deltaY > 35){
-                moveY = 80;
+                moveY = 90;
             }
             else if(e.deltaY < -35){
-                moveY = -80;
+                moveY = -90;
             }
             else{
                 moveY = 0;
@@ -1239,19 +1239,19 @@ class ControlScroll_05nuo{
         else if(scrollMethod === this.scrollMethod.key){
             //up arrow
             if(e.key === "ArrowUp"){
-                moveY = -150;
+                moveY = -300;
             }
             //down arrow
             else if(e.key === "ArrowDown"){
-                moveY = 150;
+                moveY = 300;
             }
         }
         else if(scrollMethod === this.scrollMethod.touch){
             if(this.movedir === "up"){
-                moveY = 50;
+                moveY = 80;
             }
             else if(this.movedir === "down"){
-                moveY = -50;
+                moveY = -80;
             }
 
             if(this.swipedir !== "none"){
@@ -1296,7 +1296,7 @@ class ControlScroll_05nuo{
                     }
                 }
                 else if(moveY < 0){
-                    if(this.currentScrollPos <= enterprisePanel_05nuo.offsetTop * 1.15 ){
+                    if(this.currentScrollPos <= enterprisePanel_05nuo.offsetTop * 1.1 && this.targetScrollPos < institutionPanel_05nuo.offsetTop ){
                         this.targetScrollPos += moveY;
                     }
                 }
