@@ -1048,7 +1048,6 @@ class ControlScroll_05nuo{
         this.currentScrollPos = lerp_05nuo(this.currentScrollPos, this.targetScrollPos, this.scrollLerpSpeed, deltaTime);
 
         window.scrollTo(0, Math.round(this.currentScrollPos));
-        console.log(window.scrollY, this.currentScrollPos, this.targetScrollPos)
         if(Math.abs(this.currentScrollPos - this.targetScrollPos) <= 0.2){
             cancelAnimationFrame(this.scrollLerpAnim);
             this.currentStats.updateCurPanel(window.scrollY);
@@ -1181,7 +1180,6 @@ class ControlScroll_05nuo{
                 else if(moveY < 0){
                     //snap scroll back to either institution panel or enterprise panel
                     if(this.targetScrollPos <= associationPanel_05nuo.offsetTop){
-                        console.log(this.targetScrollPos, associationPanel_05nuo.offsetTop);
                         if(this.cumulativeMoveY > 0){ this.cumulativeMoveY = 0;}
                         this.cumulativeMoveY += moveY;
                         if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
@@ -1241,7 +1239,6 @@ class ControlScroll_05nuo{
     snapScroll(targetPanelIdx){
         //update target scroll pos
         this.targetScrollPos = this.currentStats.getTargetPos(targetPanelIdx);
-        console.log(this.targetScrollPos, institutionPanel_05nuo.offsetTop)
 
         cancelAnimationFrame(this.scrollLerpAnim);
         this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
