@@ -69,10 +69,8 @@ body::-webkit-scrollbar{
     box-sizing: border-box;
     margin: 0;
 
-    font-family: 'Lato', sans-serif;
     font-size: var(--large-title-size-05nuo);
     font-weight: normal;
-    color:rgb(255, 255, 255);
     text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.4);
     transition: width 0.2s ease;
 }
@@ -404,18 +402,42 @@ body::-webkit-scrollbar{
 }
 
 /***************  */
-#enterprise-panel-05nuo{
-    position: relative;
+.panel-container-05nuo{
     width: 100vw;
     height: 100vh;
+    font-family: 'Lato', sans-serif;
+}
+.panel-div-05nuo{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+}
+
+#enterprise-panel-05nuo{
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
+}
+#enterprise-panel-05nuo h2{
+    padding-left: 7%;
+    font-size: 55px;
+    font-weight: 600;
+}
+#enterprise-panel-05nuo p{
+    padding-left: 7%;
+    font-size: 30px;
+}
+#panel-animation1-05nuo{
+    --panel-anim-width-05nuo: 100vw;
+    width: var(--panel-anim1-width-05nuo);
+    height: calc(var(--panel-anim1-width-05nuo) / 1.78);
+    transition: all 0.7s ease;
 }
 
 #institution-panel-05nuo{
     position: relative;
     width: 100vw;
     height: 100vh;
-    /* background: rgb(233, 234, 240); */
     background: rgb(116, 122, 206);
 }
 

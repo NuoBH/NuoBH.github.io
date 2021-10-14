@@ -414,7 +414,7 @@ function responsiveNavButton_05nuo(){
     let buttonH;
     let gap;
 
-    if(width < widthLimit_05nuo && width < height){
+    const smallScreenAdapt = function(){
         buttonH = buttonW = `clamp(15px, 2vmax, 90px)`;
         gap = 30;
 
@@ -426,7 +426,7 @@ function responsiveNavButton_05nuo(){
         top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
         left = (width - navButtonContainer_05nuo.offsetWidth) * 0.5;
     }
-    else{
+    const normalScreenAdapt = function(){
         buttonW = buttonH = `clamp(20px, 1.15vmax, 80px)`;
         gap = 20;
 
@@ -437,6 +437,16 @@ function responsiveNavButton_05nuo(){
 
         top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
         left = navButtonContainer_05nuo.offsetWidth * 1.5;
+    }
+
+    if(width < widthLimit_05nuo && width < height){
+        smallScreenAdapt();
+    }
+    else{
+        normalScreenAdapt();
+        if(height < 550){
+            smallScreenAdapt();
+        }
     }
 
     navButtonContainer_05nuo.style.setProperty("gap", `${gap}px`);
@@ -451,7 +461,226 @@ function responsiveNavButton_05nuo(){
 }
 
 function responsiveEnterprisePanel_05nuo(panel){
+    responsiveSectionText(panel);
+}
 
+function getSectionFontSize(width, height){
+    let titleSize, paragraphSize;
+
+    if(width < widthLimit_05nuo){
+        if(width < height){
+            if(width >= 590){
+                titleSize = 45;
+                paragraphSize = 25;
+                //when screen narrow in height
+                if(height < 850 && height >= 700){
+                    titleSize = 35;
+                    paragraphSize = 20;
+                }
+                if(height < 700){
+                    titleSize = 30;
+                    paragraphSize = 18;
+                }
+            }
+            else if(width < 590 && width >= 450){
+                titleSize = 38;
+                paragraphSize = 22;
+                //when screen narrow in height
+                if(height < 700 && height >= 600){
+                    paragraphSize = 20;
+                }
+                else if(height < 600){
+                    titleSize = 34;
+                    paragraphSize = 16;
+                }
+            }
+            else if(width < 450){
+                titleSize = 35/450 * width;
+                paragraphSize = 21/450 * width;
+                //when screen narrow in height
+                if(height < 650 && height >= 550){
+                    titleSize = 32/450 * width;
+                    paragraphSize = 17/450 * width;
+                }
+                else if(height < 550){
+                    titleSize = 30/450 * width;
+                    paragraphSize = 13/450 * width;
+                }
+            }
+        }
+        //when screen is narrow in height
+        else{
+            titleSize = 38;
+            paragraphSize = 23;
+
+            if(height < 600 && height >= 400){
+                titleSize = 35;
+                paragraphSize = 20;
+            }
+            else if(height < 400){
+                titleSize = 35/1050 * width;
+                paragraphSize = 20/1050 * width;
+            }
+        }
+        titleSize = titleSize < 18 ? 18 : titleSize;
+        paragraphSize = paragraphSize < 12 ? 12 : paragraphSize;
+    }
+    else{
+        titleSize = 55;
+        paragraphSize = 30;
+
+        if(width < 1200){
+            titleSize = 50;
+            paragraphSize = 24;
+        }
+
+        //when screen is narrow in height
+        if(height < 550 && height >= 350){
+            titleSize = 38;
+            paragraphSize = 23;
+            if(width < 1150){
+                titleSize = 34;
+                paragraphSize = 19;
+            }
+        }
+        else if(height < 350){
+            titleSize = 34;
+            paragraphSize = 19;
+        }
+    }
+    return {titleSize, paragraphSize};
+}
+
+function responsiveSectionText(section){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const title = section.children.item(0);
+    const paragraph = section.children.item(1);
+    const anim = section.children.item(2);
+
+    //the part of svg that is not in view (clip path)
+    let svgWPortion = 0.72;
+    let svgHPortion = 0.57;
+
+    //padding sizes for title, paragraph and anim
+    let titleTop = 0,
+        titleRight = 0,
+        pTop = 0,
+        pRight = 0,
+        animWidth = 0,
+        animHeight = 0,
+        animTop = 0,
+        animLeft = 0;
+
+    let {titleSize, paragraphSize} = getSectionFontSize(width, height);
+
+    //method to set title style
+    const setTitleStyle = function(){
+        title.style.setProperty("padding-top", `${titleTop}px`);
+        title.style.setProperty("padding-right", `${titleRight}px`);
+        title.style.setProperty("font-size", `${titleSize}px`);
+    }
+    //method to set paragraph style
+    const setParagraphStyle = function(){
+        paragraph.style.setProperty("padding-right", `${pRight}px`);
+        paragraph.style.setProperty("padding-top", `${pTop}px`);
+        paragraph.style.setProperty("font-size", `${paragraphSize}px`);
+    }
+    //method to set animation div style
+    const setAnimStyle = function(){
+        anim.style.setProperty("width", `${animWidth}px`);
+        anim.style.setProperty("height", `${animHeight}px`);
+        anim.style.setProperty("margin-top", `${animTop}px`);
+        anim.style.setProperty("margin-left", `${animLeft}px`);
+    }
+
+    //smaller vertical screen cases
+    if(width < widthLimit_05nuo && width < height){
+        //set title style
+        title.innerHTML = "For Employers<br>& Enterprise"
+        titleTop = section.offsetHeight * 0.1;
+        titleRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + 50/1050*width;
+        setTitleStyle();
+
+        //in case of even smaller screen like phone screen
+        // set paragraph style
+        if(width < 520){
+            title.innerHTML = "For<br>Employers<br>& Enterprise";
+            pTop = (titleTop + svgHeight_05nuo * svgHPortion - title.offsetHeight) * 1.3;
+            console.log( paragraph.offsetTop)
+            pRight = (width - svgLeft_05nuo - svgWidth_05nuo) * 0.9;
+        }
+        // a bit larget screen like ipad
+        else{
+            pRight = titleRight;
+            pTop = titleSize - 5/1000 * width;
+        }
+        setParagraphStyle();
+
+        //set anim style
+        let navButtonToBottom = height - (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
+        if(width < 590){
+            animWidth = width;
+            animHeight = animWidth / 1.78;
+            if((animHeight + anim.offsetTop + navButtonToBottom) > height * 0.98){
+                animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.9;
+                animWidth = animHeight * 1.78;
+            }
+            animLeft = (width - animWidth) / 2;
+            animTop = (section.offsetHeight - anim.offsetTop - animHeight - navButtonToBottom);
+            animTop = animTop > 85 ? 85 : animTop;
+        }
+        else{
+            animTop = 50/940 * width;
+            animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
+            animWidth = animHeight * 1.78;
+            if(animWidth > width){
+                animWidth = width;
+                animHeight = animWidth / 1.78;
+            }
+            animLeft = (width - animWidth) / 2;
+        }
+
+        animTop = animTop < 0 ? 0 : animTop;
+        setAnimStyle();
+
+    }
+    //wider screen cases
+    else{
+        title.innerHTML = "For Employers & Enterprise"
+        //set different padding top for title and p based on width
+        if(width < 1650){
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2.5;
+        }
+        else{
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 1.8;
+        }
+        titleTop = titleTop < 20 ? 20 : titleTop;
+        let rightGap = 150/1920*width;
+        rightGap = rightGap > 220 ? 220 : rightGap;
+        titleRight = pRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + rightGap;
+        pTop = titleSize - 5/55*titleSize;
+        setTitleStyle();
+        setParagraphStyle();
+
+        //set anim style
+        let navButtonToBottom = height < 550 ? (height - (height - navButtonContainer_05nuo.offsetHeight) * 0.95) : 0;
+        animTop = 50/1080 * height;
+        animTop = animTop > 100 ? 90 : animTop;
+        animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
+        animWidth = animHeight * 1.78;
+        animLeft = 0.07 * width;
+        if(animLeft + animWidth > width - titleRight){
+            animWidth = width - titleRight - animLeft;
+            animHeight = animWidth / 1.78;
+        }
+        if(animWidth < 300){
+            animWidth = 300;
+            animHeight = animWidth / 1.78;
+        }
+
+        setAnimStyle();
+    }
 }
 
 function resizeHero_05nuo(state=0){
@@ -954,8 +1183,6 @@ class ControlScroll_05nuo{
         this.keys = {ArrowLeft: 1, ArrowUp: 1, ArrowRight: 1, ArrowDown: 1};
         this.wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
-        //reset scrollPos
-        window.scrollTo(0, 0);
         //disable normal scroll function
         this.disableScroll();
         //scroll status for scrolling in each panel
@@ -1002,7 +1229,7 @@ class ControlScroll_05nuo{
             touch:2
         }
 
-        this.currentScrollPos = 0;
+        this.currentScrollPos = window.scrollY;
         this.targetScrollPos = this.currentScrollPos;
         this.scrollLerpSpeed = 0.05;
         this.scrollLerpLastTime = undefined;
@@ -1275,10 +1502,9 @@ function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
-    }, eventListenerOption_05nuo);
-    window.addEventListener("scroll", ()=>{
+        responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
         setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
-    }, eventListenerOption_05nuo)
+    }, eventListenerOption_05nuo);
 }
 
 /* ********************************************************************************************************
