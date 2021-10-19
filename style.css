@@ -419,14 +419,15 @@ body::-webkit-scrollbar{
 #enterprise-panel-05nuo{
     color:rgb(41, 41, 107);
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
+    text-align: right;
 }
 #enterprise-panel-05nuo h2{
-    padding-left: 9%;
+    padding-left: 7%;
     font-size: 55px;
     font-weight: 600;
 }
 #enterprise-panel-05nuo p{
-    padding-left: 9%;
+    padding-left: 7%;
     font-size: 30px;
 }
 #panel-animation1-05nuo{
@@ -458,7 +459,15 @@ body::-webkit-scrollbar{
     display: inline-block;
     padding: 1.5% 3%;
     border-radius: 10% / 50%;
+    transform: scale(0.85);
 }
+.btn-align-left-05nuo{
+    transform-origin: left;
+}
+.btn-align-right-05nuo{
+    transform-origin: right;
+}
+
 .panel-button-white-05nuo{
     background: rgb(233, 234, 240);
     color: rgb(93, 93, 187);

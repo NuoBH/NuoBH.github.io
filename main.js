@@ -565,6 +565,11 @@ function getSectionFontSize(width, height){
             paragraphSize = 19;
         }
     }
+
+    if(!isMobileOrTablet_05nuo){
+        titleSize /= window.devicePixelRatio;
+        paragraphSize /= window.devicePixelRatio;
+    }
     return {titleSize, paragraphSize};
 }
 
@@ -601,7 +606,6 @@ function responsiveSectionText(section, idx){
         animLeft = 0;
 
     let {titleSize, paragraphSize} = getSectionFontSize(width, height);
-
     //method to set title style
     const setTitleStyle = function(){
         title.style.setProperty("padding-top", `${titleTop}px`);
