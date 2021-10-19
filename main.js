@@ -184,6 +184,14 @@ const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = document.getElementById("header-container-05nuo");
 const navButtonContainer_05nuo = document.getElementById("nav-buttons-05nuo");
 
+const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
+const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
+const associationPanel_05nuo = document.getElementById("association-panel-05nuo");
+const ascTitle_05nuo = document.getElementById("association-title-05nuo");
+const ascText_05nuo = document.getElementById("association-text-05nuo");
+const eduTitle_05nuo = document.getElementById("educator-title-05nuo");
+const eduText_05nuo = document.getElementById("educator-text-05nuo");
+
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
@@ -364,15 +372,15 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             svgH = svgW / 1.604;
 
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
-            svg_05nuo.classList.add("svg-mobile-clip-path-05nuo");
-            svg_05nuo.classList.remove("svg-clip-path-05nuo");
+            svg.children.item(0).classList.add("svg-mobile-clip-path-05nuo");
+            svg.children.item(0).classList.remove("svg-clip-path-05nuo");
         }
         else{
             svgW = w * 0.67;
             svgH = svgW / 1.604;
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
-            svg_05nuo.classList.add("svg-clip-path-05nuo");
-            svg_05nuo.classList.remove("svg-mobile-clip-path-05nuo");
+            svg.children.item(0).classList.add("svg-clip-path-05nuo");
+            svg.children.item(0).classList.remove("svg-mobile-clip-path-05nuo");
         }
         //set svg left in scroll mode based on scroll state
         if(state === 0){
@@ -384,7 +392,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
         }
         else if(state === 2){
             let dist = w - scrollBarWidth_05nuo - svgW;
-            left = dist / 2;
+            left = dist / 2 - 0.03 * svgW;
         }
     }
 
@@ -460,8 +468,17 @@ function responsiveNavButton_05nuo(){
     navButtonContainer_05nuo.style.setProperty("left", `${left}px`);
 }
 
-function responsiveEnterprisePanel_05nuo(panel){
-    responsiveSectionText(panel);
+function responsiveEnterprisePanel_05nuo(){
+    responsiveSectionText(enterprisePanel_05nuo, 0);
+}
+function responsiveInstitutionPanel_05nuo(){
+    responsiveSectionText(institutionPanel_05nuo, 1);
+}
+
+function responsiveAssociationPanel_05nuo(){
+    let h = window.innerHeight;
+    let contentH;
+    associationPanel_05nuo.style.height = `${h}px`;
 }
 
 function getSectionFontSize(width, height){
@@ -551,7 +568,7 @@ function getSectionFontSize(width, height){
     return {titleSize, paragraphSize};
 }
 
-function responsiveSectionText(section){
+function responsiveSectionText(section, idx){
     const width = window.innerWidth;
     const height = window.innerHeight;
     const title = section.children.item(0);
@@ -559,8 +576,19 @@ function responsiveSectionText(section){
     const anim = section.children.item(2);
 
     //the part of svg that is not in view (clip path)
-    let svgWPortion = 0.72;
-    let svgHPortion = 0.57;
+    let svgWPortion;
+    let svgHPortion;
+    let hGapToSet = "";
+    if(idx === 0){
+        svgWPortion = 0.72;
+        svgHPortion = 0.57;
+        hGapToSet = "padding-right";
+    }
+    else if(idx === 1){
+        svgWPortion = 0.345;
+        svgHPortion = 0.56;
+        hGapToSet = "padding-left";
+    }
 
     //padding sizes for title, paragraph and anim
     let titleTop = 0,
@@ -577,12 +605,12 @@ function responsiveSectionText(section){
     //method to set title style
     const setTitleStyle = function(){
         title.style.setProperty("padding-top", `${titleTop}px`);
-        title.style.setProperty("padding-right", `${titleRight}px`);
+        title.style.setProperty(hGapToSet, `${titleRight}px`);
         title.style.setProperty("font-size", `${titleSize}px`);
     }
     //method to set paragraph style
     const setParagraphStyle = function(){
-        paragraph.style.setProperty("padding-right", `${pRight}px`);
+        paragraph.style.setProperty(hGapToSet, `${pRight}px`);
         paragraph.style.setProperty("padding-top", `${pTop}px`);
         paragraph.style.setProperty("font-size", `${paragraphSize}px`);
     }
@@ -597,18 +625,29 @@ function responsiveSectionText(section){
     //smaller vertical screen cases
     if(width < widthLimit_05nuo && width < height){
         //set title style
-        title.innerHTML = "For Employers<br>& Enterprise"
+        if(idx === 0){
+            title.innerHTML = "For Employers<br>& Enterprise";
+            titleRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + 50/1050*width;
+        }
+        else if(idx === 1){
+            title.innerHTML = "For Healthcare<br>Institutions";
+            titleRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + 50/1050*width;
+        }
         titleTop = section.offsetHeight * 0.1;
-        titleRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + 50/1050*width;
         setTitleStyle();
 
         //in case of even smaller screen like phone screen
         // set paragraph style
         if(width < 520){
-            title.innerHTML = "For<br>Employers<br>& Enterprise";
+            if(idx === 0){
+                title.innerHTML = "For<br>Employers<br>& Enterprise";
+                pRight = (width - svgLeft_05nuo - svgWidth_05nuo) * 0.9;
+            }
+            else if(idx === 1){
+                title.innerHTML = "For<br>Healthcare<br>Institutions";
+                pRight = svgLeft_05nuo * 0.9;   
+            }
             pTop = (titleTop + svgHeight_05nuo * svgHPortion - title.offsetHeight) * 1.3;
-            console.log( paragraph.offsetTop)
-            pRight = (width - svgLeft_05nuo - svgWidth_05nuo) * 0.9;
         }
         // a bit larget screen like ipad
         else{
@@ -631,8 +670,9 @@ function responsiveSectionText(section){
             animTop = animTop > 85 ? 85 : animTop;
         }
         else{
-            animTop = 50/940 * width;
-            animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
+            animTop = 70/940 * width;
+
+            animHeight = ( section.offsetHeight - anim.offsetTop - navButtonToBottom ) * 0.85;
             animWidth = animHeight * 1.78;
             if(animWidth > width){
                 animWidth = width;
@@ -647,18 +687,26 @@ function responsiveSectionText(section){
     }
     //wider screen cases
     else{
-        title.innerHTML = "For Employers & Enterprise"
+        let rightGap = 150/1920*width;
+        rightGap = rightGap > 220 ? 220 : rightGap;
+
+        if(idx === 0){
+            title.innerHTML = "For Employers & Enterprise";
+            titleRight = pRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + rightGap;
+        }
+        else if(idx === 1){
+            title.innerHTML = "For Healthcare Institutions";
+            titleRight = pRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + rightGap;
+        }
         //set different padding top for title and p based on width
         if(width < 1650){
             titleTop = (section.offsetHeight - svgHeight_05nuo) / 2.5;
         }
         else{
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 1.8;
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2;
         }
         titleTop = titleTop < 20 ? 20 : titleTop;
-        let rightGap = 150/1920*width;
-        rightGap = rightGap > 220 ? 220 : rightGap;
-        titleRight = pRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + rightGap;
+
         pTop = titleSize - 5/55*titleSize;
         setTitleStyle();
         setParagraphStyle();
@@ -666,14 +714,26 @@ function responsiveSectionText(section){
         //set anim style
         let navButtonToBottom = height < 550 ? (height - (height - navButtonContainer_05nuo.offsetHeight) * 0.95) : 0;
         animTop = 50/1080 * height;
-        animTop = animTop > 100 ? 90 : animTop;
+        animTop = animTop > 100 ? 100 : animTop;
         animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
         animWidth = animHeight * 1.78;
-        animLeft = 0.07 * width;
-        if(animLeft + animWidth > width - titleRight){
-            animWidth = width - titleRight - animLeft;
-            animHeight = animWidth / 1.78;
+
+        if(idx === 0){
+            animLeft = 0.09 * width;
+            if(animLeft + animWidth > width - titleRight){
+                animWidth = width - titleRight - animLeft;
+                animHeight = animWidth / 1.78;
+            }
         }
+        else if(idx === 1){
+            animLeft = 0.94*width - animWidth;
+            // animLeft = width - 0.1 * width - animWidth;
+            if(animWidth > (width - animLeft) * 0.85){
+                animWidth = (width - animLeft) * 0.85 ;
+                animHeight = animWidth / 1.78;
+            }
+        }
+
         if(animWidth < 300){
             animWidth = 300;
             animHeight = animWidth / 1.78;
@@ -699,38 +759,60 @@ function responsiveTitle_05nuo(){
  * ********************************** transition for button, in between texts**************************
  * ***************************************************************************************************
  */
-let navButtonClicked_05nuo = [true, false, false, false];
-let navButtonHover_05nuo = [false, false, false, false];
+let navButtonClicked_05nuo = [true, false, false, false],
+    navButtonHover_05nuo = [false, false, false, false],
+    normalBtnColor_05nuo = "rgb(127, 133, 216)",
+    hoverBtnColor_05nuo = "rgb(93, 93, 187)";
+
+function updateBtnColors_05nuo(curPanel, btnIdx){
+    let children = navButtonContainer_05nuo.children;
+    if(curPanel === 2){
+        normalBtnColor_05nuo = "rgb(209, 206, 218)";
+        hoverBtnColor_05nuo = "rgb(233, 234, 240)";
+
+    }
+    else{
+        normalBtnColor_05nuo = "rgb(127, 133, 216)";
+        hoverBtnColor_05nuo = "rgb(93, 93, 187)";
+    }
+
+    if(navButtonHover_05nuo[btnIdx]){
+        children[btnIdx].style.setProperty("background", `${hoverBtnColor_05nuo}`);
+    }
+    else{
+        children[btnIdx].style.setProperty("background", `${normalBtnColor_05nuo}`);
+    }
+}
 
 function enterNavButton_05nuo(btn){
     btn.style.setProperty("transform", "scale(1.7)");
     btn.style.setProperty("border-radius", "100%");
-    btn.style.setProperty("background", "rgb(93, 93, 187)");
+    btn.style.setProperty("background", `${hoverBtnColor_05nuo}`);
 }
 function leaveNavButton_05nuo(btn){
     btn.style.setProperty("transform", "scale(1)");
     btn.style.setProperty("border-radius", "20%");
-    btn.style.setProperty("background", "rgb(127, 133, 216)");
+    btn.style.setProperty("background", `${normalBtnColor_05nuo}`);
 }
 function clickNavButton_05nuo(btn){
     btn.style.setProperty("transform", "scale(0.5)");
     btn.style.setProperty("cursor", "default");
     btn.style.setProperty("border-radius", "20%");
-    btn.style.setProperty("background", "rgb(127, 133, 216)");
+    btn.style.setProperty("background", `${normalBtnColor_05nuo}`);
     btn.setAttribute("aria-pressed", "true");
 }
 function unClickNavButtonHover_05nuo(btn){
     btn.style.setProperty("transform", "scale(1.7)");
     btn.style.setProperty("border-radius", "100%");
     btn.style.setProperty("cursor", "pointer");
-    btn.style.setProperty("background", "rgb(93, 93, 187)");
+    btn.style.setProperty("background", `${hoverBtnColor_05nuo}`);
     btn.setAttribute("aria-pressed", "false");
 }
 function unClickNavButtonNoHover_05nuo(btn){
     btn.style.setProperty("transform", "scale(1)");
     btn.style.setProperty("border-radius", "20%");
     btn.style.setProperty("cursor", "pointer");
-    btn.style.setProperty("background", "rgb(127, 133, 216)");
+    btn.style.setProperty("background", `${normalBtnColor_05nuo}`);
     btn.setAttribute("aria-pressed", "false");
 }
 
@@ -760,6 +842,8 @@ function setNavButtonsHoverClick_05nuo(){
             if(!navButtonClicked_05nuo[i]){
                 navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
+                controlScroll_05nuo.snapScroll(i);
+                btn.setAttribute("aria-pressed", "true");
             }
         });
         window.addEventListener("touchend", ()=>{
@@ -794,6 +878,8 @@ function setButtonClick_05nuo(curPanel){
             }
             navButtonClicked_05nuo[i] = false;
         }
+
+        updateBtnColors_05nuo(curPanel, i);
     }
 }
 
@@ -944,9 +1030,6 @@ const svgPanStartCheck = function(){
 
 const svgScrollBg_05nuo = document.getElementById("scroll-bg-05nuo");
 const svgBgGradient_05nuo = document.getElementById('scroll-bg-gradient-05nuo');
-const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
-const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
-const associationPanel_05nuo = document.getElementById("association-panel-05nuo");
 
 //svg scroll animation
 const svgScrollTriggerPoints_05nuo = {
@@ -1502,7 +1585,8 @@ function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
-        responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
+        responsiveEnterprisePanel_05nuo();
+        responsiveInstitutionPanel_05nuo();
         setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
     }, eventListenerOption_05nuo);
 }
@@ -1591,7 +1675,8 @@ const responsiveFunc_05nuo = function(){
     responsiveNavButton_05nuo();
     responsiveTitle_05nuo();
     resizeHero_05nuo();
-    responsiveEnterprisePanel_05nuo(enterprisePanel_05nuo);
+    responsiveEnterprisePanel_05nuo();
+    responsiveInstitutionPanel_05nuo();
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
 }
