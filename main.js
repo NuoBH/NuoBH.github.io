@@ -564,6 +564,7 @@ function getSectionFontSize_05nuo(width, height){
     return {titleSize, paragraphSize};
 }
 
+// responsive title and paragraph for enterprise and institution panel
 function responsiveSectionText_05nuo(section, idx){
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -737,6 +738,7 @@ function responsiveSectionText_05nuo(section, idx){
     }
 }
 
+// responsive title and paragraph for association panel
 function responsiveAscText(section, gap){
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -1290,6 +1292,19 @@ function scrollSvg_05nuo(){
         }
     }
 
+    //update title and paragraph responsive styles
+    {
+        if(state === 0){
+            responsiveEnterprisePanel_05nuo();
+        }
+        else if(state === 1){
+            responsiveInstitutionPanel_05nuo();
+        }
+        else if(state === 2){
+            responsiveAssociationPanel_05nuo();
+        }
+    }
+
     //set scrollY values
     let getScrollY = function(){
         let scrollY = window.scrollY;
@@ -1719,9 +1734,6 @@ function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
-        responsiveEnterprisePanel_05nuo();
-        responsiveInstitutionPanel_05nuo();
-        responsiveAssociationPanel_05nuo();
         setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
     }, eventListenerOption_05nuo);
 }
