@@ -417,7 +417,7 @@ body::-webkit-scrollbar{
 }
 
 #enterprise-panel-05nuo{
-    color:rgb(41, 41, 107);
+    color:rgb(91, 97, 187);
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
     text-align: right;
 }
@@ -427,7 +427,7 @@ body::-webkit-scrollbar{
     font-weight: 600;
 }
 #enterprise-panel-05nuo p{
-    padding-left: 7%;
+    padding-left: 5%;
     font-size: 30px;
 }
 #panel-animation1-05nuo{
@@ -448,6 +448,7 @@ body::-webkit-scrollbar{
     font-size: 30px;
 }
 #panel-animation2-05nuo{
+    float:right;
     transition: all 0.7s ease;
 }
 

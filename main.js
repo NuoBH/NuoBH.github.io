@@ -372,15 +372,15 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
             svgH = svgW / 1.604;
 
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
-            svg.children.item(0).classList.add("svg-mobile-clip-path-05nuo");
-            svg.children.item(0).classList.remove("svg-clip-path-05nuo");
+            svg.classList.add("svg-mobile-clip-path-05nuo");
+            svg.classList.remove("svg-clip-path-05nuo");
         }
         else{
             svgW = w * 0.67;
             svgH = svgW / 1.604;
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
-            svg.children.item(0).classList.add("svg-clip-path-05nuo");
-            svg.children.item(0).classList.remove("svg-mobile-clip-path-05nuo");
+            svg.classList.add("svg-clip-path-05nuo");
+            svg.classList.remove("svg-mobile-clip-path-05nuo");
         }
         //set svg left in scroll mode based on scroll state
         if(state === 0){
@@ -584,15 +584,18 @@ function responsiveSectionText(section, idx){
     let svgWPortion;
     let svgHPortion;
     let hGapToSet = "";
+    let animGapToSet = "";
     if(idx === 0){
         svgWPortion = 0.72;
         svgHPortion = 0.57;
         hGapToSet = "padding-right";
+        animGapToSet = "margin-left";
     }
     else if(idx === 1){
         svgWPortion = 0.345;
         svgHPortion = 0.56;
         hGapToSet = "padding-left";
+        animGapToSet = "margin-right";
     }
 
     //padding sizes for title, paragraph and anim
@@ -623,7 +626,7 @@ function responsiveSectionText(section, idx){
         anim.style.setProperty("width", `${animWidth}px`);
         anim.style.setProperty("height", `${animHeight}px`);
         anim.style.setProperty("margin-top", `${animTop}px`);
-        anim.style.setProperty("margin-left", `${animLeft}px`);
+        anim.style.setProperty(`${animGapToSet}`, `${animLeft}px`);
     }
 
     //smaller vertical screen cases
@@ -671,10 +674,10 @@ function responsiveSectionText(section, idx){
             }
             animLeft = (width - animWidth) / 2;
             animTop = (section.offsetHeight - anim.offsetTop - animHeight - navButtonToBottom);
-            animTop = animTop > 85 ? 85 : animTop;
+            animTop = animTop > 65 ? 65 : animTop;
         }
         else{
-            animTop = 70/940 * width;
+            animTop = 65/940 * width;
 
             animHeight = ( section.offsetHeight - anim.offsetTop - navButtonToBottom ) * 0.85;
             animWidth = animHeight * 1.78;
@@ -704,10 +707,16 @@ function responsiveSectionText(section, idx){
         }
         //set different padding top for title and p based on width
         if(width < 1650){
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2.5;
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 3.4;
+        }
+        if(width < widthLimit_05nuo){
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 4.9;
+            if(height < 680){
+                titleTop = 20;
+            }
         }
         else{
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2;
+            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2.8;
         }
         titleTop = titleTop < 20 ? 20 : titleTop;
 
@@ -722,21 +731,12 @@ function responsiveSectionText(section, idx){
         animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
         animWidth = animHeight * 1.78;
 
-        if(idx === 0){
-            animLeft = 0.09 * width;
-            if(animLeft + animWidth > width - titleRight){
-                animWidth = width - titleRight - animLeft;
-                animHeight = animWidth / 1.78;
-            }
+        animLeft = 0.09 * width;
+        if(animLeft + animWidth > width - titleRight){
+            animWidth = width - titleRight - animLeft;
+            animHeight = animWidth / 1.78;
         }
-        else if(idx === 1){
-            animLeft = 0.94*width - animWidth;
-            // animLeft = width - 0.1 * width - animWidth;
-            if(animWidth > (width - animLeft) * 0.85){
-                animWidth = (width - animLeft) * 0.85 ;
-                animHeight = animWidth / 1.78;
-            }
-        }
+
 
         if(animWidth < 300){
             animWidth = 300;
@@ -1558,6 +1558,26 @@ class ControlScroll_05nuo{
         this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
     }
 
+    adjustScrollAfterResize(){
+        const pos = [0, enterprisePanel_05nuo.offsetTop, institutionPanel_05nuo.offsetTop, associationPanel_05nuo.offsetTop];
+        let scrollY = window.scrollY;
+        let smallestDist = window.innerHeight;
+        let scrollTo = 0;
+        for(let i = 0; i < pos.length; i++){
+            let dist = Math.abs(scrollY - pos[i]);
+            if(dist < smallestDist){
+                smallestDist = dist;
+                scrollTo = pos[i];
+            }
+        }
+
+        smallestDist = window.innerHeight;
+        this.targetScrollPos = scrollTo;
+
+        cancelAnimationFrame(this.scrollLerpAnim);
+        this.scrollLerpAnim = requestAnimFrame(this.scrollLerp.bind(this));
+    }
+
     disableScroll() {
         // older FF
         window.addEventListener('DOMMouseScroll', this.preventDefault, eventListenerOption_05nuo);
@@ -1683,6 +1703,7 @@ const responsiveFunc_05nuo = function(){
     responsiveInstitutionPanel_05nuo();
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
+    controlScroll_05nuo.adjustScrollAfterResize();
 }
 
 const startTitleAnim_05nuo = function(){
@@ -1699,7 +1720,7 @@ const startTitleAnim_05nuo = function(){
 requestTimeout(responsiveFunc_05nuo, 0);
 requestTimeout(responsiveFunc_05nuo, 100);
 
-window.addEventListener("resize", responsiveFunc_05nuo);
+window.addEventListener("resize", responsiveFunc_05nuo, eventListenerOption_05nuo);
 document.addEventListener('DOMContentLoaded', ()=>{
     //add control scroll events handlers
     controlScroll_05nuo.controlScrollForAll();
