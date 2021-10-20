@@ -567,6 +567,7 @@ function getSectionFontSize(width, height){
     }
 
     if(!isMobileOrTablet_05nuo){
+        console.log(window.devicePixelRatio);
         titleSize /= window.devicePixelRatio;
         paragraphSize /= window.devicePixelRatio;
     }
@@ -736,7 +737,6 @@ function responsiveSectionText(section, idx){
             animWidth = width - titleRight - animLeft;
             animHeight = animWidth / 1.78;
         }
-
 
         if(animWidth < 300){
             animWidth = 300;
