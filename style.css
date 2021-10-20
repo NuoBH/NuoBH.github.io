@@ -417,7 +417,7 @@ body::-webkit-scrollbar{
 }
 
 #enterprise-panel-05nuo{
-    color:rgb(91, 97, 187);
+    color:rgb(75, 81, 168);
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
     text-align: right;
 }
@@ -453,7 +453,45 @@ body::-webkit-scrollbar{
 }
 
 #association-panel-05nuo{
+    --btn-font-size-05nuo: 30px;
+    color:rgb(75, 81, 168);
     background: linear-gradient(180deg, rgb(233, 234, 240) 0%, rgb(209, 206, 218) 80%);
+}
+.asc-flex-05nuo{
+    position: absolute;
+    display: flex;
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+    width: 100%;
+
+    top:0;
+    left:0;
+    flex-direction: row;
+    gap: 0;
+}
+#asc-half-panel-05nuo{
+    position: relative;
+    box-sizing: border-box;
+    text-align:right;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+#asc-half-panel-05nuo h2{
+    padding-bottom: 3%;
+}
+#edu-half-panel-05nuo{
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+#edu-half-panel-05nuo h2{
+    padding-bottom: 3%;
+}
+.reset-handp-05nuo{
+    margin: 0;
+    padding: 0;
 }
 
 .panel-button-05nuo{
@@ -462,11 +500,19 @@ body::-webkit-scrollbar{
     border-radius: 10% / 50%;
     transform: scale(0.85);
 }
+.panel-btn-smaller-radius{
+    text-align: center;
+    border-radius: 5% / 50%;
+    padding: 2% 5%;
+    transform: scale(1);
+    font-size: var(--btn-font-size-05nuo);
+}
 .btn-align-left-05nuo{
     transform-origin: left;
 }
 .btn-align-right-05nuo{
     transform-origin: right;
+    
 }
 
 .panel-button-white-05nuo{

@@ -187,10 +187,13 @@ const navButtonContainer_05nuo = document.getElementById("nav-buttons-05nuo");
 const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
 const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
 const associationPanel_05nuo = document.getElementById("association-panel-05nuo");
-const ascTitle_05nuo = document.getElementById("association-title-05nuo");
-const ascText_05nuo = document.getElementById("association-text-05nuo");
-const eduTitle_05nuo = document.getElementById("educator-title-05nuo");
-const eduText_05nuo = document.getElementById("educator-text-05nuo");
+const ascFlexContainer_05nuo = associationPanel_05nuo.children.item(0);
+const ascHalfPanel_05nuo = document.getElementById("asc-half-panel-05nuo");
+const eduHalfPanel_05nuo = document.getElementById("edu-half-panel-05nuo");
+const ascTitle_05nuo = ascHalfPanel_05nuo.children.item(0);
+const ascText_05nuo = ascHalfPanel_05nuo.children.item(1);
+const eduTitle_05nuo = eduHalfPanel_05nuo.children.item(0);
+const eduText_05nuo = eduHalfPanel_05nuo.children.item(1);
 
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
@@ -392,7 +395,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
         }
         else if(state === 2){
             let dist = w - scrollBarWidth_05nuo - svgW;
-            left = dist / 2 - 0.03 * svgW;
+            left = dist / 2 - 0.02 * svgW;
         }
     }
 
@@ -431,7 +434,7 @@ function responsiveNavButton_05nuo(){
         navButtonContainer_05nuo.style.setProperty("width", `${w}px`);
         navButtonContainer_05nuo.style.setProperty("flex-direction", `row`);
 
-        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
+        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.985;
         left = (width - navButtonContainer_05nuo.offsetWidth) * 0.5;
     }
     const normalScreenAdapt = function(){
@@ -468,20 +471,8 @@ function responsiveNavButton_05nuo(){
     navButtonContainer_05nuo.style.setProperty("left", `${left}px`);
 }
 
-function responsiveEnterprisePanel_05nuo(){
-    responsiveSectionText(enterprisePanel_05nuo, 0);
-}
-function responsiveInstitutionPanel_05nuo(){
-    responsiveSectionText(institutionPanel_05nuo, 1);
-}
-
-function responsiveAssociationPanel_05nuo(){
-    let h = window.innerHeight;
-    let contentH;
-    associationPanel_05nuo.style.height = `${h}px`;
-}
-
-function getSectionFontSize(width, height){
+// responsive font size for the three panels: enterprise, institution, association
+function getSectionFontSize_05nuo(width, height){
     let titleSize, paragraphSize;
 
     if(width < widthLimit_05nuo){
@@ -567,14 +558,13 @@ function getSectionFontSize(width, height){
     }
 
     if(!isMobileOrTablet_05nuo){
-        console.log(window.devicePixelRatio);
         titleSize /= window.devicePixelRatio;
         paragraphSize /= window.devicePixelRatio;
     }
     return {titleSize, paragraphSize};
 }
 
-function responsiveSectionText(section, idx){
+function responsiveSectionText_05nuo(section, idx){
     const width = window.innerWidth;
     const height = window.innerHeight;
     const title = section.children.item(0);
@@ -609,7 +599,7 @@ function responsiveSectionText(section, idx){
         animTop = 0,
         animLeft = 0;
 
-    let {titleSize, paragraphSize} = getSectionFontSize(width, height);
+    let {titleSize, paragraphSize} = getSectionFontSize_05nuo(width, height);
     //method to set title style
     const setTitleStyle = function(){
         title.style.setProperty("padding-top", `${titleTop}px`);
@@ -745,6 +735,126 @@ function responsiveSectionText(section, idx){
 
         setAnimStyle();
     }
+}
+
+function responsiveAscText(section, gap){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    let ascWidth, eduWidth = 0;
+    let ascTop, eduTop = 0;
+    let ascPTop, ascPBottom, eduPTop, eduPBottom = 0;
+    //left & right padding
+    let padding, padding_large = 0;
+    let ascHeight = 0;
+    let eduHeight = 0;
+
+    //set title size
+    let {titleSize, paragraphSize} = getSectionFontSize_05nuo(width, height);
+    let btnFontSize;
+
+    ascHalfPanel_05nuo.children.item(0).style.setProperty("font-size", `${titleSize}px`);
+    ascHalfPanel_05nuo.children.item(1).style.setProperty("font-size", `${paragraphSize}px`);
+    eduHalfPanel_05nuo.children.item(0).style.setProperty("font-size", `${titleSize}px`);
+    eduHalfPanel_05nuo.children.item(1).style.setProperty("font-size", `${paragraphSize}px`);
+
+    const ascChildren = ascHalfPanel_05nuo.children;
+    const eduChildren = eduHalfPanel_05nuo.children;
+
+    //narrow screen
+    if(width < widthLimit_05nuo && width < height){
+        btnFontSize = paragraphSize * 0.7;
+        ascWidth = eduWidth = width;
+        //set association flex item height
+        ascHeight = (section.offsetHeight - gap) / 2;
+        eduHeight = (section.offsetHeight - gap) / 2;
+        ascHalfPanel_05nuo.style.setProperty("height", `${ascHeight}px`);
+        eduHalfPanel_05nuo.style.setProperty("height", `${eduHeight}px`);
+
+        //set padding top and bottom
+        eduPTop = eduPBottom = 0.025 * section.offsetHeight;
+        ascPBottom = 0.035 * section.offsetHeight;
+        ascPTop = ascHeight - (ascChildren.item(0).offsetHeight + ascChildren.item(1).offsetHeight + ascPBottom);
+        //set flex items left and right paddings
+        padding = padding_large = 0.05 * ascWidth;
+        padding = padding < 50 ? 50 : padding;
+        padding_large = padding_large < 50 ? 50 : padding_large;
+        //set flex items marign top
+        eduTop = ascTop = 0;
+    }
+    //wide screen
+    else{
+        btnFontSize = paragraphSize * 0.8;
+        //set padding top and bottom
+        ascPTop = ascPBottom = eduPTop = eduPBottom = 0.02 * section.offsetHeight;
+        //set flex items width
+        let totalSpace = section.offsetWidth - gap;
+        //set association flex item height
+        ascHeight = ascChildren.item(0).offsetHeight + ascChildren.item(1).offsetHeight + ascPTop + ascPBottom;
+        eduHeight = eduChildren.item(0).offsetHeight + eduChildren.item(1).offsetHeight + eduPTop + eduPBottom;
+        ascHalfPanel_05nuo.style.setProperty("height", `${ascHeight}px`);
+
+        ascWidth = eduWidth = totalSpace / 2;
+        //set flex items left and right paddings
+        padding = padding_large = 0.03 * ascWidth;
+        padding = padding < 30 ? 30 : padding;
+        padding_large = padding_large < 50 ? 50 : padding_large;
+        //set flex items margin top
+        ascTop = (section.offsetHeight - svgHeight_05nuo) / 2;
+        ascTop = ascTop < 20 ? 20: ascTop;
+            //the portion of svg image viewable 
+        let viewableImgH = svgHeight_05nuo > section.offsetHeight ? section.offsetHeight : svgHeight_05nuo;
+        eduTop = (section.offsetHeight - viewableImgH) / 2 + viewableImgH / 2.5;
+        if(eduTop + eduHalfPanel_05nuo.offsetHeight > section.offsetHeight){
+            eduTop = section.offsetHeight - eduHalfPanel_05nuo.offsetHeight - 40;
+        }
+    }
+
+    associationPanel_05nuo.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`)
+
+    ascHalfPanel_05nuo.style.setProperty("width", `${ascWidth}px`);
+    eduHalfPanel_05nuo.style.setProperty("width", `${eduWidth}px`);
+
+    ascHalfPanel_05nuo.style.setProperty("margin-top", `${ascTop}px`);
+    eduHalfPanel_05nuo.style.setProperty("margin-top", `${eduTop}px`);
+
+    ascHalfPanel_05nuo.style.setProperty("padding-top", `${ascPTop}px`);
+    ascHalfPanel_05nuo.style.setProperty("padding-bottom", `${ascPBottom}px`);
+    eduHalfPanel_05nuo.style.setProperty("padding-top", `${eduPTop}px`);
+    eduHalfPanel_05nuo.style.setProperty("padding-bottom", `${eduPBottom}px`);
+
+    ascHalfPanel_05nuo.style.setProperty("padding-left", `${padding}px`);
+    ascHalfPanel_05nuo.style.setProperty("padding-right", `${padding_large}px`);
+    eduHalfPanel_05nuo.style.setProperty("padding-left", `${padding_large}px`);
+    eduHalfPanel_05nuo.style.setProperty("padding-right", `${padding}px`);
+}
+
+function responsiveEnterprisePanel_05nuo(){
+    responsiveSectionText_05nuo(enterprisePanel_05nuo, 0);
+}
+function responsiveInstitutionPanel_05nuo(){
+    responsiveSectionText_05nuo(institutionPanel_05nuo, 1);
+}
+
+function responsiveAssociationPanel_05nuo(){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    let gap = 0;
+    let dir = "";
+
+    if(width < widthLimit_05nuo && width < height){
+        gap = 0.54 * svgHeight_05nuo;
+        dir="column";
+    }
+    else{
+        gap = 0.31 * svgWidth_05nuo;
+        dir="row";
+    }
+
+    ascFlexContainer_05nuo.style.setProperty("gap", `${gap}px`);
+    ascFlexContainer_05nuo.style.setProperty("flex-direction", `${dir}`);
+
+    responsiveAscText(associationPanel_05nuo, gap);
 }
 
 function resizeHero_05nuo(state=0){
@@ -1127,7 +1237,7 @@ function getScrollStartEndTargets(state){
 
         if(width < widthLimit_05nuo && width < height){
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
-            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.5 - svgHeight_05nuo * 0.4;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.5 - svgHeight_05nuo * 0.28 - svgHeight_05nuo * 0.05;
         }
         else{
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
@@ -1611,6 +1721,7 @@ function scrollFunc_05nuo(){
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
         responsiveEnterprisePanel_05nuo();
         responsiveInstitutionPanel_05nuo();
+        responsiveAssociationPanel_05nuo();
         setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
     }, eventListenerOption_05nuo);
 }
@@ -1701,6 +1812,7 @@ const responsiveFunc_05nuo = function(){
     resizeHero_05nuo();
     responsiveEnterprisePanel_05nuo();
     responsiveInstitutionPanel_05nuo();
+    responsiveAssociationPanel_05nuo();
     svgPanStartCheck(svg_05nuo);
     scrollSvg_05nuo();
     controlScroll_05nuo.adjustScrollAfterResize();
