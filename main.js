@@ -768,8 +768,8 @@ function responsiveAscText(section, gap){
         btnFontSize = paragraphSize * 0.7;
         ascWidth = eduWidth = width;
         //set association flex item height
-        ascHeight = (section.offsetHeight - gap) / 2;
-        eduHeight = (section.offsetHeight - gap) / 2;
+        ascHeight = (section.offsetHeight*0.9 - gap) / 2;
+        eduHeight = (section.offsetHeight*0.9 - gap) / 2;
         ascHalfPanel_05nuo.style.setProperty("height", `${ascHeight}px`);
         eduHalfPanel_05nuo.style.setProperty("height", `${eduHeight}px`);
 
@@ -1239,7 +1239,7 @@ function getScrollStartEndTargets(state){
 
         if(width < widthLimit_05nuo && width < height){
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
-            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.5 - svgHeight_05nuo * 0.28 - svgHeight_05nuo * 0.05;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.28 - svgHeight_05nuo * 0.05;
         }
         else{
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
