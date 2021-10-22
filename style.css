@@ -739,8 +739,6 @@ body::-webkit-scrollbar{
     box-sizing: border-box;
     width: clamp(20px, 1.15vmax, 80px);
     height: clamp(20px, 1.15vmax, 80px);
-    /* background: rgb(127, 133, 216); */
-    background: violet;
     border:none;
     padding: 0;
     border-radius: 20%;

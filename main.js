@@ -1630,18 +1630,18 @@ class ControlScroll_05nuo{
         }
         else if(scrollMethod === this.scrollMethod.touch){
             if(this.movedir === "up"){
-                moveY = 10;
+                moveY = 30;
             }
             else if(this.movedir === "down"){
-                moveY = -10;
+                moveY = -30;
             }
 
             if(this.swipedir !== "none"){
                 if(this.swipedir === "up"){
-                    moveY = 250;
+                    moveY = 275;
                 }
                 else if(this.swipedir === "down"){
-                    moveY = -250;
+                    moveY = -275;
                 }
             }
         }
