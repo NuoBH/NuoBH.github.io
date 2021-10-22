@@ -190,7 +190,6 @@ function swipeDetect_05nuo(el, btns, callback){
             if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){
                 // if dist traveled is negative, it indicates up swipe
                 swipedir = (distY < 0)? 'up' : 'down';
-                console.log("!!!")
             }
         }
         handleswipe(swipedir, movedir);
