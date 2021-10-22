@@ -371,7 +371,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     //after svg is in scroll
     else{
         if(width < widthLimit_05nuo && width < height){
-            svgW = w * 1.1;
+            svgW = w * 1.2;
             svgH = svgW / 1.604;
 
             top = (titleHeight + headerTitle.offsetTop) * 1.15;
@@ -491,7 +491,7 @@ function getSectionFontSize_05nuo(width, height){
                 }
             }
             else if(width < 590 && width >= 450){
-                titleSize = 38;
+                titleSize = 36;
                 paragraphSize = 22;
                 //when screen narrow in height
                 if(height < 700 && height >= 600){
@@ -568,124 +568,82 @@ function getSectionFontSize_05nuo(width, height){
 function responsiveSectionText_05nuo(section, idx){
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const title = section.children.item(0);
-    const paragraph = section.children.item(1);
-    const anim = section.children.item(2);
+    const content = section.children;
+    const title = content.item(0);
+    const paragraph = content.item(1);
+    let ctaBtn = undefined;
 
     //the part of svg that is not in view (clip path)
     let svgWPortion;
     let svgHPortion;
     let hGapToSet = "";
-    let animGapToSet = "";
+    // let animGapToSet = "";
     if(idx === 0){
         svgWPortion = 0.72;
         svgHPortion = 0.57;
         hGapToSet = "padding-right";
-        animGapToSet = "margin-left";
+        ctaBtn = paragraph.querySelector(".panel-button-05nuo");
     }
     else if(idx === 1){
         svgWPortion = 0.345;
         svgHPortion = 0.56;
         hGapToSet = "padding-left";
-        animGapToSet = "margin-right";
     }
 
     //padding sizes for title, paragraph and anim
     let titleTop = 0,
         titleRight = 0,
         pTop = 0,
-        pRight = 0,
-        animWidth = 0,
-        animHeight = 0,
-        animTop = 0,
-        animLeft = 0;
+        pRight = 0;
 
+    //get font sizes for title and paragraph
     let {titleSize, paragraphSize} = getSectionFontSize_05nuo(width, height);
-    //method to set title style
-    const setTitleStyle = function(){
-        title.style.setProperty("padding-top", `${titleTop}px`);
-        title.style.setProperty(hGapToSet, `${titleRight}px`);
-        title.style.setProperty("font-size", `${titleSize}px`);
-    }
-    //method to set paragraph style
-    const setParagraphStyle = function(){
-        paragraph.style.setProperty(hGapToSet, `${pRight}px`);
-        paragraph.style.setProperty("padding-top", `${pTop}px`);
-        paragraph.style.setProperty("font-size", `${paragraphSize}px`);
-    }
-    //method to set animation div style
-    const setAnimStyle = function(){
-        anim.style.setProperty("width", `${animWidth}px`);
-        anim.style.setProperty("height", `${animHeight}px`);
-        anim.style.setProperty("margin-top", `${animTop}px`);
-        anim.style.setProperty(`${animGapToSet}`, `${animLeft}px`);
-    }
+
+    //set cta btn font size
+    let btnFontSize = paragraphSize * 0.85;
+    section.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
 
     //smaller vertical screen cases
     if(width < widthLimit_05nuo && width < height){
+        if(idx === 0){
+            section.style.setProperty("text-align", "left");
+            ctaBtn.classList.add("btn-align-left-05nuo");
+            ctaBtn.classList.remove("btn-align-right-05nuo");
+        }
+
         //set title style
         if(idx === 0){
-            title.innerHTML = "For Employers<br>& Enterprise";
+            title.innerHTML = `For Employers<br>& Enterprise`;
             titleRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + 50/1050*width;
         }
         else if(idx === 1){
-            title.innerHTML = "For Healthcare<br>Institutions";
+            title.innerHTML = `For Healthcare<br>Institutions`;
             titleRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + 50/1050*width;
         }
-        titleTop = section.offsetHeight * 0.1;
-        setTitleStyle();
+        titleTop = (section.offsetHeight - title.offsetHeight - pTop - paragraph.offsetHeight) * 0.35;
+
+        pRight = titleRight;
+        pTop = titleSize - 5/1000 * width;
 
         //in case of even smaller screen like phone screen
         // set paragraph style
         if(width < 520){
             if(idx === 0){
                 title.innerHTML = "For<br>Employers<br>& Enterprise";
-                pRight = (width - svgLeft_05nuo - svgWidth_05nuo) * 0.9;
             }
             else if(idx === 1){
                 title.innerHTML = "For<br>Healthcare<br>Institutions";
-                pRight = svgLeft_05nuo * 0.9;   
             }
-            pTop = (titleTop + svgHeight_05nuo * svgHPortion - title.offsetHeight) * 1.3;
         }
-        // a bit larget screen like ipad
-        else{
-            pRight = titleRight;
-            pTop = titleSize - 5/1000 * width;
-        }
-        setParagraphStyle();
-
-        //set anim style
-        let navButtonToBottom = height - (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
-        if(width < 590){
-            animWidth = width;
-            animHeight = animWidth / 1.78;
-            if((animHeight + anim.offsetTop + navButtonToBottom) > height * 0.98){
-                animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.9;
-                animWidth = animHeight * 1.78;
-            }
-            animLeft = (width - animWidth) / 2;
-            animTop = (section.offsetHeight - anim.offsetTop - animHeight - navButtonToBottom);
-            animTop = animTop > 65 ? 65 : animTop;
-        }
-        else{
-            animTop = 65/940 * width;
-
-            animHeight = ( section.offsetHeight - anim.offsetTop - navButtonToBottom ) * 0.85;
-            animWidth = animHeight * 1.78;
-            if(animWidth > width){
-                animWidth = width;
-                animHeight = animWidth / 1.78;
-            }
-            animLeft = (width - animWidth) / 2;
-        }
-
-        animTop = animTop < 0 ? 0 : animTop;
-        setAnimStyle();
-
     }
     //wider screen cases
     else{
+        if(idx === 0){ 
+            section.style.setProperty("text-align", "right");
+            ctaBtn.classList.add("btn-align-right-05nuo");
+            ctaBtn.classList.remove("btn-align-left-05nuo");
+        }
+
         let rightGap = 150/1920*width;
         rightGap = rightGap > 220 ? 220 : rightGap;
 
@@ -697,45 +655,20 @@ function responsiveSectionText_05nuo(section, idx){
             title.innerHTML = "For Healthcare Institutions";
             titleRight = pRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + rightGap;
         }
-        //set different padding top for title and p based on width
-        if(width < 1650){
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 3.4;
-        }
-        if(width < widthLimit_05nuo){
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 4.9;
-            if(height < 680){
-                titleTop = 20;
-            }
-        }
-        else{
-            titleTop = (section.offsetHeight - svgHeight_05nuo) / 2.8;
-        }
-        titleTop = titleTop < 20 ? 20 : titleTop;
-
+        //set paragraph margin top
         pTop = titleSize - 5/55*titleSize;
-        setTitleStyle();
-        setParagraphStyle();
 
-        //set anim style
-        let navButtonToBottom = height < 550 ? (height - (height - navButtonContainer_05nuo.offsetHeight) * 0.95) : 0;
-        animTop = 50/1080 * height;
-        animTop = animTop > 100 ? 100 : animTop;
-        animHeight = ( section.offsetHeight - anim.offsetTop - animTop - navButtonToBottom ) * 0.85;
-        animWidth = animHeight * 1.78;
-
-        animLeft = 0.09 * width;
-        if(animLeft + animWidth > width - titleRight){
-            animWidth = width - titleRight - animLeft;
-            animHeight = animWidth / 1.78;
-        }
-
-        if(animWidth < 300){
-            animWidth = 300;
-            animHeight = animWidth / 1.78;
-        }
-
-        setAnimStyle();
+        //set title margin top
+        titleTop = (section.offsetHeight - title.offsetHeight - pTop - paragraph.offsetHeight) * 0.45;
     }
+
+    title.style.setProperty("margin-top", `${titleTop}px`);
+    title.style.setProperty(hGapToSet, `${titleRight}px`);
+    title.style.setProperty("font-size", `${titleSize}px`);
+
+    paragraph.style.setProperty(hGapToSet, `${pRight}px`);
+    paragraph.style.setProperty("margin-top", `${pTop}px`);
+    paragraph.style.setProperty("font-size", `${paragraphSize}px`);
 }
 
 // responsive title and paragraph for association panel
@@ -765,7 +698,7 @@ function responsiveAscText(section, gap){
 
     //narrow screen
     if(width < widthLimit_05nuo && width < height){
-        btnFontSize = paragraphSize * 0.7;
+        btnFontSize = paragraphSize * 0.75;
         ascWidth = eduWidth = width;
         //set association flex item height
         ascHeight = (section.offsetHeight*0.9 - gap) / 2;
@@ -786,7 +719,7 @@ function responsiveAscText(section, gap){
     }
     //wide screen
     else{
-        btnFontSize = paragraphSize * 0.8;
+        btnFontSize = paragraphSize * 0.85;
         //set padding top and bottom
         ascPTop = ascPBottom = eduPTop = eduPBottom = 0.02 * section.offsetHeight;
         //set flex items width
@@ -812,7 +745,7 @@ function responsiveAscText(section, gap){
         }
     }
 
-    associationPanel_05nuo.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`)
+    associationPanel_05nuo.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
 
     ascHalfPanel_05nuo.style.setProperty("width", `${ascWidth}px`);
     eduHalfPanel_05nuo.style.setProperty("width", `${eduWidth}px`);
@@ -1214,7 +1147,7 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end1;
         startPosY_05nuo = svgTop_05nuo;
         if(width < widthLimit_05nuo && width < height){
-            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4 ;
+            targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.5;
         }
         else{
             targetPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
@@ -1225,8 +1158,8 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end2;
 
         if(width < widthLimit_05nuo && width < height){
-            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4 ;
-            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
+            startPosY_05nuo = enterprisePanel_05nuo.offsetTop + enterprisePanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.5;
+            targetPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.5;
         }
         else{
             startPosY_05nuo = enterprisePanel_05nuo.offsetTop + (enterprisePanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;
@@ -1238,8 +1171,8 @@ function getScrollStartEndTargets(state){
         endSvgScroll_05nuo = svgScrollTriggerPoints_05nuo.end3;
 
         if(width < widthLimit_05nuo && width < height){
-            startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.1 - svgHeight_05nuo * 0.4;
-            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.28 - svgHeight_05nuo * 0.05;
+            startPosY_05nuo = institutionPanel_05nuo.offsetTop + institutionPanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.5;
+            targetPosY_05nuo = associationPanel_05nuo.offsetTop + associationPanel_05nuo.offsetHeight * 0.45 - svgHeight_05nuo * 0.295;
         }
         else{
             startPosY_05nuo = institutionPanel_05nuo.offsetTop + (institutionPanel_05nuo.offsetHeight - svgHeight_05nuo) / 2;

@@ -339,6 +339,23 @@ body::-webkit-scrollbar{
     }
 
     33%{
+        clip-path: polygon(72% 0%, 100% 0%, 100% 100%, 72% 93%);
+    }
+
+    66%{
+        clip-path: polygon(3% 0%, 31.5% 0%, 31.5% 90%, 3% 100%);
+    }
+
+    100%{
+        clip-path: polygon(35% 0%, 70% 0%, 70% 59%, 35% 59%);
+    }
+}
+/* @keyframes svg-clip-mobile-anim-05nuo{
+    0%{
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    33%{
         clip-path: polygon(72% 33%, 100% 40%, 100% 95%, 72% 88%);
     }
 
@@ -349,8 +366,7 @@ body::-webkit-scrollbar{
     100%{
         clip-path: polygon(37% 5%, 68% 5%, 68% 59%, 37% 59%);
     }
-}
-
+} */
 
 .header-svg-wind-path{
     fill: none;
@@ -407,6 +423,7 @@ body::-webkit-scrollbar{
     width: 100vw;
     height: 100vh;
     font-family: 'Lato', sans-serif;
+    overflow: hidden;
 }
 .panel-div-05nuo{
     position: relative;
@@ -417,6 +434,7 @@ body::-webkit-scrollbar{
 }
 
 #enterprise-panel-05nuo{
+    --btn-font-size-05nuo: 30px;
     color:rgb(75, 81, 168);
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
     text-align: right;
@@ -427,14 +445,16 @@ body::-webkit-scrollbar{
     font-weight: 600;
 }
 #enterprise-panel-05nuo p{
-    padding-left: 5%;
+    padding-left: 7%;
     font-size: 30px;
 }
 #panel-animation1-05nuo{
     transition: all 0.7s ease;
+        display: none;
 }
 
 #institution-panel-05nuo{
+    --btn-font-size-05nuo: 30px;
     color: white;
     background: rgb(116, 122, 206);
 }
@@ -450,6 +470,7 @@ body::-webkit-scrollbar{
 #panel-animation2-05nuo{
     float:right;
     transition: all 0.7s ease;
+    display: none;
 }
 
 #association-panel-05nuo{
@@ -496,16 +517,18 @@ body::-webkit-scrollbar{
 
 .panel-button-05nuo{
     display: inline-block;
-    padding: 1.5% 3%;
+    padding: max(2%, 11px) max(5%, 15px);
     border-radius: 10% / 50%;
-    transform: scale(0.85);
+    text-align: center;
+    font-size: var(--btn-font-size-05nuo);
+    cursor: pointer;
+    user-select: none;
 }
 .panel-btn-smaller-radius{
     text-align: center;
-    border-radius: 5% / 50%;
-    padding: 2% 5%;
+    border-radius: 7.5% / 50%;
+    padding:  max(1.5%, 8px) max(5%, 15px);
     transform: scale(1);
-    font-size: var(--btn-font-size-05nuo);
 }
 .btn-align-left-05nuo{
     transform-origin: left;
