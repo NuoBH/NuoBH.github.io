@@ -444,7 +444,7 @@ body::-webkit-scrollbar{
     font-size: 55px;
     font-weight: 600;
 }
-#enterprise-panel-05nuo p{
+#enterprise-panel-05nuo .enterprise-p-05nuo{
     padding-left: 7%;
     font-size: 30px;
 }
@@ -463,7 +463,7 @@ body::-webkit-scrollbar{
     font-size: 55px;
     font-weight: 600;
 }
-#institution-panel-05nuo p{
+#institution-panel-05nuo .institution-p-05nuo{
     padding-right: 5%;
     font-size: 30px;
 }
@@ -516,17 +516,20 @@ body::-webkit-scrollbar{
 }
 
 .panel-button-05nuo{
+    position: relative;
     display: inline-block;
     padding: max(2%, 11px) max(5%, 15px);
     border-radius: 10% / 50%;
     text-align: center;
     font-size: var(--btn-font-size-05nuo);
+    margin-top: calc(var(--btn-font-size-05nuo) * 1.5);
     cursor: pointer;
     user-select: none;
+    overflow: hidden;
 }
 .panel-btn-smaller-radius{
     text-align: center;
-    border-radius: 7.5% / 50%;
+    border-radius: 5% / 50%;
     padding:  max(1.5%, 8px) max(5%, 15px);
     transform: scale(1);
 }
@@ -537,9 +540,8 @@ body::-webkit-scrollbar{
     transform-origin: right;
     
 }
-
 .panel-button-white-05nuo{
-    background: rgb(233, 234, 240);
+    background: rgb(224, 225, 231);
     color: rgb(93, 93, 187);
 }
 .panel-button-dark-05nuo{
@@ -547,6 +549,162 @@ body::-webkit-scrollbar{
     color: white;
 }
 
+.btn-hover-bg-05nuo{
+    position: absolute;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    width:100%;
+    height:100%;
+    transform: translateX(-100%);
+}
+.btn-bg-light-05nuo{
+    background: white;
+}
+.btn-bg-dark-05nuo{
+    background: rgb(78, 78, 161);
+}
+.btn-bg-content-05nuo{
+    display: inline-block;
+}
+
+@keyframes btn-bg-slide-right-start-05nuo {
+    0%{
+        opacity: 0.5;
+        transform: translateX(-100%);
+        border-radius: 30% / 50%;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 10% / 50%;
+    }
+}
+@keyframes btn-narrow-bg-slide-right-start-05nuo {
+    0%{
+        opacity: 0.25;
+        transform: translateX(-100%);
+        border-radius: 25% / 50%;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 5% / 50%;
+    }
+}
+@keyframes arrow-slide-right-start-05nuo {
+    0%{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+@keyframes btn-bg-slide-right-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 10% / 50%;
+    }
+    100%{
+        opacity: 0.5;
+        transform: translateX(100%);
+        border-radius: 30% / 50%;
+    }
+}
+@keyframes btn-narrow-bg-slide-right-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 5% / 50%;
+    }
+    100%{
+        opacity: 0.25;
+        transform: translateX(100%);
+        border-radius: 25% / 50%;
+    }
+}
+@keyframes arrow-slide-right-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(-70%);
+    }
+}
+
+@keyframes btn-bg-slide-left-start-05nuo {
+    0%{
+        opacity: 0.5;
+        transform: translateX(100%);
+        border-radius: 30% / 50%;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 10% / 50%;
+    }
+}
+@keyframes btn-narrow-bg-slide-left-start-05nuo {
+    0%{
+        opacity: 0.25;
+        transform: translateX(100%);
+        border-radius: 30% / 50%;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 5% / 50%;
+    }
+}
+@keyframes arrow-slide-left-start-05nuo {
+    0%{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+@keyframes btn-bg-slide-left-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 10% / 50%;
+    }
+    100%{
+        opacity: 0.5;
+        transform: translateX(-100%);
+        border-radius: 30% / 50%;
+    }
+}
+@keyframes btn-narrow-bg-slide-left-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+        border-radius: 5% / 50%;
+    }
+    100%{
+        opacity: 0.25;
+        transform: translateX(-100%);
+        border-radius: 30% / 50%;
+    }
+}
+@keyframes arrow-slide-left-end-05nuo {
+    0%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(70%);
+    }
+}
 /****************/
 #nav-buttons-05nuo{
     position: fixed;

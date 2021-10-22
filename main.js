@@ -100,7 +100,7 @@ window.mobileAndTabletCheck_05nuo = function() {
 
 const isMobileOrTablet_05nuo = mobileAndTabletCheck_05nuo();
 
-function swipeDetect_05nuo(el, callback){
+function swipeDetect_05nuo(el, btns, callback){
     //variables for swipes
     let touchsurface = el,
     swipedir = "none",
@@ -122,7 +122,24 @@ function swipeDetect_05nuo(el, callback){
     moveDistY = 0, 
     moveRestraint = 10;
 
+    let canDetectTouchMove = true;
     let handleswipe = callback || function(swipedir, movedir){};
+
+    if(Array.isArray(btns)){
+        for(let i = 0; i < btns.length; i++){
+            btns[i].addEventListener('touchstart', ()=>{
+                canDetectTouchMove = false;
+                console.log("!!")
+            }, eventListenerOption_05nuo);
+
+            btns[i].addEventListener('touchend', ()=>{
+                canDetectTouchMove = true;
+            });
+            window.addEventListener('touchend', ()=>{
+                canDetectTouchMove = true;
+            })
+        }
+    }
 
     touchsurface.addEventListener('touchstart', function(e){
         let touchobj = e.changedTouches[0];
@@ -138,20 +155,26 @@ function swipeDetect_05nuo(el, callback){
     }, eventListenerOption_05nuo)
 
     touchsurface.addEventListener('touchmove', function(e){
-        let touches = e.changedTouches;
-        let l = touches.length;
-        for (let i = 0; i < l; i++){
-            if(previousMove === undefined) previousMove = touches[i];
-            currentMove = touches[i];
-            moveDistX = currentMove.pageX - previousMove.pageX;
-            moveDistY = currentMove.pageY - previousMove.pageY;
-            movedir = "none";
-            if(Math.abs(moveDistX) <= moveRestraint){ 
-                if(movedir !== 0){
-                    movedir = (moveDistY < 0) ? `up` : `down`;
+        if(canDetectTouchMove){
+            let touches = e.changedTouches;
+            let l = touches.length;
+            for (let i = 0; i < l; i++){
+                if(previousMove === undefined) previousMove = touches[i];
+                currentMove = touches[i];
+                moveDistX = currentMove.pageX - previousMove.pageX;
+                moveDistY = currentMove.pageY - previousMove.pageY;
+                movedir = "none";
+                if(Math.abs(moveDistX) <= moveRestraint){ 
+                    if(movedir !== 0){
+                        movedir = (moveDistY < 0) ? `up` : `down`;
+                    }
                 }
+                previousMove = currentMove;
+                handleswipe(swipedir, movedir);
             }
-            previousMove = currentMove;
+        }
+        else{
+            movedir = "none";
             handleswipe(swipedir, movedir);
         }
     }, eventListenerOption_05nuo);
@@ -184,6 +207,7 @@ const svg_05nuo = document.getElementById("header-svg-05nuo");
 const fullHeader_05nuo = document.getElementById("header-container-05nuo");
 const navButtonContainer_05nuo = document.getElementById("nav-buttons-05nuo");
 
+//variables for the three main text sections
 const enterprisePanel_05nuo = document.getElementById("enterprise-panel-05nuo");
 const institutionPanel_05nuo = document.getElementById("institution-panel-05nuo");
 const associationPanel_05nuo = document.getElementById("association-panel-05nuo");
@@ -194,6 +218,10 @@ const ascTitle_05nuo = ascHalfPanel_05nuo.children.item(0);
 const ascText_05nuo = ascHalfPanel_05nuo.children.item(1);
 const eduTitle_05nuo = eduHalfPanel_05nuo.children.item(0);
 const eduText_05nuo = eduHalfPanel_05nuo.children.item(1);
+const ctaBtn1Bg_05nuo = document.getElementById("cta-btn1-bg-05nuo");
+const ctaBtn2Bg_05nuo = document.getElementById("cta-btn2-bg-05nuo");
+const ctaBtn3Bg_05nuo = document.getElementById("cta-btn3-bg-05nuo");
+const ctaBtn4Bg_05nuo = document.getElementById("cta-btn4-bg-05nuo");
 
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
@@ -565,28 +593,24 @@ function getSectionFontSize_05nuo(width, height){
 }
 
 // responsive title and paragraph for enterprise and institution panel
-function responsiveSectionText_05nuo(section, idx){
+function responsiveSectionText_05nuo(section, idx, btnBg){
     const width = window.innerWidth;
     const height = window.innerHeight;
     const content = section.children;
     const title = content.item(0);
     const paragraph = content.item(1);
-    let ctaBtn = undefined;
+    const ctaBtn = btnBg.parentElement;
 
     //the part of svg that is not in view (clip path)
     let svgWPortion;
-    let svgHPortion;
     let hGapToSet = "";
     // let animGapToSet = "";
     if(idx === 0){
         svgWPortion = 0.72;
-        svgHPortion = 0.57;
         hGapToSet = "padding-right";
-        ctaBtn = paragraph.querySelector(".panel-button-05nuo");
     }
     else if(idx === 1){
         svgWPortion = 0.345;
-        svgHPortion = 0.56;
         hGapToSet = "padding-left";
     }
 
@@ -669,12 +693,20 @@ function responsiveSectionText_05nuo(section, idx){
     paragraph.style.setProperty(hGapToSet, `${pRight}px`);
     paragraph.style.setProperty("margin-top", `${pTop}px`);
     paragraph.style.setProperty("font-size", `${paragraphSize}px`);
+
+    //set cta btn background paddings
+    let paddingH = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-left"));
+    let paddingV = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-top"));
+    btnBg.style.setProperty("padding", `${paddingV}px ${paddingH}px`);
 }
 
 // responsive title and paragraph for association panel
-function responsiveAscText(section, gap){
+function responsiveAscText_05nuo(section, gap){
     const width = window.innerWidth;
     const height = window.innerHeight;
+
+    const ascCtaBtn = ctaBtn3Bg_05nuo.parentElement;
+    const eduCtaBtn = ctaBtn4Bg_05nuo.parentElement;
 
     let ascWidth, eduWidth = 0;
     let ascTop, eduTop = 0;
@@ -735,7 +767,10 @@ function responsiveAscText(section, gap){
         padding = padding < 30 ? 30 : padding;
         padding_large = padding_large < 50 ? 50 : padding_large;
         //set flex items margin top
-        ascTop = (section.offsetHeight - svgHeight_05nuo) / 2;
+        ascTop = (section.offsetHeight - svgHeight_05nuo) / 1.75;
+        if(width < widthLimit_05nuo){
+            ascTop = (section.offsetHeight - svgHeight_05nuo) / 3;
+        }
         ascTop = ascTop < 20 ? 20: ascTop;
             //the portion of svg image viewable 
         let viewableImgH = svgHeight_05nuo > section.offsetHeight ? section.offsetHeight : svgHeight_05nuo;
@@ -743,6 +778,7 @@ function responsiveAscText(section, gap){
         if(eduTop + eduHalfPanel_05nuo.offsetHeight > section.offsetHeight){
             eduTop = section.offsetHeight - eduHalfPanel_05nuo.offsetHeight - 40;
         }
+        eduTop = eduTop < 20 ? 20: eduTop;
     }
 
     associationPanel_05nuo.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
@@ -762,13 +798,22 @@ function responsiveAscText(section, gap){
     ascHalfPanel_05nuo.style.setProperty("padding-right", `${padding_large}px`);
     eduHalfPanel_05nuo.style.setProperty("padding-left", `${padding_large}px`);
     eduHalfPanel_05nuo.style.setProperty("padding-right", `${padding}px`);
+
+    //set cta btn paddings
+    let ascPaddingH = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-left"));
+    let ascPaddingV = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-top"));
+    let eduPaddingH = parseFloat(window.getComputedStyle(eduCtaBtn).getPropertyValue("padding-left"));
+    let eduPaddingV = parseFloat(window.getComputedStyle(eduCtaBtn).getPropertyValue("padding-top"));
+
+    ctaBtn3Bg_05nuo.style.setProperty("padding", `${ascPaddingV}px ${ascPaddingH}px`);
+    ctaBtn4Bg_05nuo.style.setProperty("padding", `${eduPaddingV}px ${eduPaddingH}px`);
 }
 
 function responsiveEnterprisePanel_05nuo(){
-    responsiveSectionText_05nuo(enterprisePanel_05nuo, 0);
+    responsiveSectionText_05nuo(enterprisePanel_05nuo, 0, ctaBtn1Bg_05nuo);
 }
 function responsiveInstitutionPanel_05nuo(){
-    responsiveSectionText_05nuo(institutionPanel_05nuo, 1);
+    responsiveSectionText_05nuo(institutionPanel_05nuo, 1, ctaBtn2Bg_05nuo);
 }
 
 function responsiveAssociationPanel_05nuo(){
@@ -789,7 +834,7 @@ function responsiveAssociationPanel_05nuo(){
     ascFlexContainer_05nuo.style.setProperty("gap", `${gap}px`);
     ascFlexContainer_05nuo.style.setProperty("flex-direction", `${dir}`);
 
-    responsiveAscText(associationPanel_05nuo, gap);
+    responsiveAscText_05nuo(associationPanel_05nuo, gap);
 }
 
 function resizeHero_05nuo(state=0){
@@ -808,6 +853,8 @@ function responsiveTitle_05nuo(){
  * ********************************** transition for button, in between texts**************************
  * ***************************************************************************************************
  */
+
+/** set navigation buttons hover and click effects*/
 let navButtonClicked_05nuo = [true, false, false, false],
     navButtonHover_05nuo = [false, false, false, false],
     normalBtnColor_05nuo = "rgb(127, 133, 216)",
@@ -892,7 +939,7 @@ function setNavButtonsHoverClick_05nuo(){
                 navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
                 controlScroll_05nuo.snapScroll(i);
-                btn.setAttribute("aria-pressed", "true");
+                // btn.setAttribute("aria-pressed", "true");
             }
         });
         window.addEventListener("touchend", ()=>{
@@ -930,6 +977,114 @@ function setButtonClick_05nuo(curPanel){
 
         updateBtnColors_05nuo(curPanel, i);
     }
+}
+
+/**set cta btn hover effects */
+function enterCtaBtnRight_05nuo(btn, isNarrow=false){
+    if(isNarrow){
+        btn.style.setProperty("animation", "btn-narrow-bg-slide-right-start-05nuo 0.3s ease 0s 1 normal both");
+    }
+    else{
+        btn.style.setProperty("animation", "btn-bg-slide-right-start-05nuo 0.3s ease 0s 1 normal both");
+    }
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-right-start-05nuo 0.3s ease 0.1s 1 normal both");
+}
+function leaveCtaBtnRight_05nuo(btn, isNarrow=false){
+    if(isNarrow){
+        btn.style.setProperty("animation", "btn-narrow-bg-slide-right-end-05nuo 0.3s ease 0s 1 normal both");
+    }
+    else{
+        btn.style.setProperty("animation", "btn-bg-slide-right-end-05nuo 0.3s ease 0s 1 normal both");
+    }
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-right-end-05nuo 0.35s ease 0s 1 normal both");
+}
+function enterCtaBtnLeft_05nuo(btn, isNarrow=false){
+    if(isNarrow){
+        btn.style.setProperty("animation", "btn-narrow-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
+    }
+    else{
+        btn.style.setProperty("animation", "btn-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
+    }
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-start-05nuo 0.3s ease 0.15s 1 normal both");
+}
+function leaveCtaBtnLeft_05nuo(btn, isNarrow=false){
+    if(isNarrow){
+        btn.style.setProperty("animation", "btn-narrow-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
+    }
+    else{
+        btn.style.setProperty("animation", "btn-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
+    }
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-end-05nuo 0.35s ease 0s 1 normal both");
+}
+
+function setCtaBtnHover_05nuo(){
+    //cta btn 1
+    ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+        enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn1Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+        enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn1Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    window.addEventListener("touchend", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    }, eventListenerOption_05nuo);
+
+    //cta btn 2
+    ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+        enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn2Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+        enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    ctaBtn2Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+    }, eventListenerOption_05nuo);
+    window.addEventListener("touchend", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+    }, eventListenerOption_05nuo);
+
+    //cta btn 3
+    ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+        enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn3Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+        enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn3Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    window.addEventListener("touchend", ()=>{
+        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+
+    //cta btn 4
+    ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+        enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn4Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+        enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    ctaBtn4Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
+    window.addEventListener("touchend", ()=>{
+        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+    }, eventListenerOption_05nuo);
 }
 
 /************************************************************************************************************ 
@@ -1388,7 +1543,8 @@ class ControlScroll_05nuo{
             swipedir:"none"
         }
         
-        swipeDetect_05nuo(window, function(swipedir, movedir){
+        let btnArr = Array.prototype.concat(Array.prototype.slice.call(navButtonContainer_05nuo.children), [ctaBtn1Bg_05nuo.parentElement, ctaBtn2Bg_05nuo.parentElement, ctaBtn3Bg_05nuo.parentElement, ctaBtn4Bg_05nuo.parentElement]);
+        swipeDetect_05nuo(window, btnArr, function(swipedir, movedir){
             this.movedir = movedir;
             this.swipedir = swipedir;
         }.bind(this));
@@ -1453,10 +1609,10 @@ class ControlScroll_05nuo{
         let moveY = 0;
         if(scrollMethod === this.scrollMethod.mouse){
             if(e.deltaY > 35){
-                moveY = 100;
+                moveY = 150;
             }
             else if(e.deltaY < -35){
-                moveY = -100;
+                moveY = -150;
             }
             else{
                 moveY = 0;
@@ -1474,18 +1630,18 @@ class ControlScroll_05nuo{
         }
         else if(scrollMethod === this.scrollMethod.touch){
             if(this.movedir === "up"){
-                moveY = 50;
+                moveY = 60;
             }
             else if(this.movedir === "down"){
-                moveY = -50;
+                moveY = -60;
             }
 
             if(this.swipedir !== "none"){
                 if(this.swipedir === "up"){
-                    moveY = 225;
+                    moveY = 300;
                 }
                 else if(this.swipedir === "down"){
-                    moveY = -225;
+                    moveY = -300;
                 }
             }
         }
@@ -1791,5 +1947,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     setButtonClick_05nuo(0);
     //add hover and click event listeners to nav buttons
     setNavButtonsHoverClick_05nuo();
-
+    //set cta btn hover
+    setCtaBtnHover_05nuo()
 });
