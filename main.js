@@ -108,7 +108,7 @@ function swipeDetect_05nuo(el, btns, callback){
     startY,
     distX,
     distY,
-    threshold = 150, //required min distance traveled to be considered swipe
+    threshold = 50, //required min distance traveled to be considered swipe
     restraint = 50, // maximum distance allowed at the same time in perpendicular direction
     allowedTime = 700, // maximum time allowed to travel that distance
     elapsedTime,
@@ -129,7 +129,6 @@ function swipeDetect_05nuo(el, btns, callback){
         for(let i = 0; i < btns.length; i++){
             btns[i].addEventListener('touchstart', ()=>{
                 canDetectTouchMove = false;
-                console.log("!!")
             }, eventListenerOption_05nuo);
 
             btns[i].addEventListener('touchend', ()=>{
@@ -191,6 +190,7 @@ function swipeDetect_05nuo(el, btns, callback){
             if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){
                 // if dist traveled is negative, it indicates up swipe
                 swipedir = (distY < 0)? 'up' : 'down';
+                console.log("!!!")
             }
         }
         handleswipe(swipedir, movedir);
@@ -1630,18 +1630,18 @@ class ControlScroll_05nuo{
         }
         else if(scrollMethod === this.scrollMethod.touch){
             if(this.movedir === "up"){
-                moveY = 30;
+                moveY = 35;
             }
             else if(this.movedir === "down"){
-                moveY = -30;
+                moveY = -35;
             }
 
             if(this.swipedir !== "none"){
                 if(this.swipedir === "up"){
-                    moveY = 275;
+                    moveY = 300;
                 }
                 else if(this.swipedir === "down"){
-                    moveY = -275;
+                    moveY = -300;
                 }
             }
         }
