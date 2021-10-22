@@ -108,9 +108,9 @@ function swipeDetect_05nuo(el, btns, callback){
     startY,
     distX,
     distY,
-    threshold = 80, //required min distance traveled to be considered swipe
+    threshold = 150, //required min distance traveled to be considered swipe
     restraint = 50, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 850, // maximum time allowed to travel that distance
+    allowedTime = 700, // maximum time allowed to travel that distance
     elapsedTime,
     startTime;
 
@@ -1630,18 +1630,18 @@ class ControlScroll_05nuo{
         }
         else if(scrollMethod === this.scrollMethod.touch){
             if(this.movedir === "up"){
-                moveY = 40;
+                moveY = 10;
             }
             else if(this.movedir === "down"){
-                moveY = -40;
+                moveY = -10;
             }
 
             if(this.swipedir !== "none"){
                 if(this.swipedir === "up"){
-                    moveY = 300;
+                    moveY = 250;
                 }
                 else if(this.swipedir === "down"){
-                    moveY = -300;
+                    moveY = -250;
                 }
             }
         }
