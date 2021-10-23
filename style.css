@@ -526,6 +526,9 @@ body::-webkit-scrollbar{
     cursor: pointer;
     user-select: none;
     overflow: hidden;
+
+    transform-style: preserve-3d;
+    transform-origin: center;
 }
 .panel-btn-smaller-radius{
     text-align: center;
@@ -565,7 +568,16 @@ body::-webkit-scrollbar{
     background: rgb(78, 78, 161);
 }
 .btn-bg-content-05nuo{
+    position: absolute;
     display: inline-block;
+}
+.btn-bg-content-right-05nuo{
+    left: 85%;
+    top: 30%;
+}
+.btn-bg-content-left-05nuo{
+    left: 10%;
+    top: 30%;
 }
 
 @keyframes btn-bg-slide-right-start-05nuo {
@@ -595,7 +607,7 @@ body::-webkit-scrollbar{
 @keyframes arrow-slide-right-start-05nuo {
     0%{
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateX(-150%);
     }
     100%{
         opacity: 1;
@@ -705,6 +717,130 @@ body::-webkit-scrollbar{
         transform: translateX(70%);
     }
 }
+
+/*panel text and btn transition anim*/
+.title-show-up-05nuo{
+    animation: panel-text-show-up-05nuo 1s ease 0s 1 normal both;
+}
+.title-hide-up-05nuo{
+    animation: panel-text-hide-up-05nuo 1s ease 0s 1 normal both;
+}
+.title-show-down-05nuo{
+    animation: panel-text-show-down-05nuo 1s ease 0s 1 normal both;
+}
+.title-hide-down-05nuo{
+    animation: panel-text-hide-down-05nuo 1s ease 0s 1 normal both;
+}
+.p-show-up-05nuo{
+    animation: panel-text-show-up-05nuo 1s ease 0.2s 1 normal both;
+}
+.p-hide-up-05nuo{
+    animation: panel-text-hide-up-05nuo 1s ease 0.2s 1 normal both;
+}
+.p-show-down-05nuo{
+    animation: panel-text-show-down-05nuo 1s ease 0.2s 1 normal both;
+}
+.p-hide-down-05nuo{
+    animation: panel-text-hide-down-05nuo 1s ease 0.2s 1 normal both;
+}
+.btn-show-up-05nuo{
+    animation: btn-show-up-05nuo 1s ease 0s 1 normal both;
+}
+.btn-hide-up-05nuo{
+    animation: btn-hide-up-05nuo 1s ease 0s 1 normal both;
+}
+.btn-show-down-05nuo{
+    animation: btn-show-down-05nuo 1s ease 0s 1 normal both;
+}
+.btn-hide-down-05nuo{
+    animation: btn-hide-down-05nuo 1s ease 0s 1 normal both;
+}
+
+@keyframes panel-text-show-up-05nuo {
+    0%{
+        transform: translateY(75px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1; 
+    }
+}
+@keyframes panel-text-hide-up-05nuo {
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-75px);
+        opacity: 0; 
+    }
+}
+@keyframes panel-text-show-down-05nuo{
+    0%{
+        transform: translateY(-75px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1; 
+    }
+}
+@keyframes panel-text-hide-down-05nuo{
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(75px);
+        opacity: 0; 
+    } 
+}
+@keyframes btn-show-up-05nuo{
+    0%{
+        transform: perspective(300px) rotateX(-90deg) translateY(50%);
+    }
+    40%{
+        transform: perspective(300px) rotateX(15deg) translateY(-15%); 
+    }
+    100%{
+        transform: perspective(300px) rotateX(0deg) translateY(0);
+    }
+}
+@keyframes btn-hide-up-05nuo{
+    0%{
+        transform: perspective(800px) rotateX(0deg) translateY(0);
+    }
+    60%{
+        transform: perspective(800px) rotateX(-15deg) translateY(15%);
+    }
+    100%{
+        transform: perspective(800px) rotateX(90deg) translateY(-50%);
+    }
+}
+@keyframes btn-show-down-05nuo{
+    0%{
+        transform: perspective(800px) rotateX(90deg) translateY(-50%);
+    }
+    40%{
+        transform: perspective(300px) rotateX(-15deg) translateY(15%); 
+    }
+    100%{
+        transform: perspective(800px) rotateX(0deg) translateY(0);
+    }
+}
+@keyframes btn-hide-down-05nuo{
+    0%{
+        transform: perspective(800px) rotateX(0deg) translateY(0);
+    }
+    60%{
+        transform: perspective(800px) rotateX(15deg) translateY(-15%);
+    }
+    100%{
+        transform: perspective(800px) rotateX(-90deg) translateY(50%);
+    }
+}
+
 /****************/
 #nav-buttons-05nuo{
     position: fixed;

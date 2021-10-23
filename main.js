@@ -986,7 +986,7 @@ function enterCtaBtnRight_05nuo(btn, isNarrow=false){
     else{
         btn.style.setProperty("animation", "btn-bg-slide-right-start-05nuo 0.3s ease 0s 1 normal both");
     }
-    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-right-start-05nuo 0.3s ease 0.1s 1 normal both");
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-right-start-05nuo 0.3s ease 0.27s 1 normal both");
 }
 function leaveCtaBtnRight_05nuo(btn, isNarrow=false){
     if(isNarrow){
@@ -1004,7 +1004,7 @@ function enterCtaBtnLeft_05nuo(btn, isNarrow=false){
     else{
         btn.style.setProperty("animation", "btn-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
     }
-    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-start-05nuo 0.3s ease 0.15s 1 normal both");
+    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-start-05nuo 0.3s ease 0.27s 1 normal both");
 }
 function leaveCtaBtnLeft_05nuo(btn, isNarrow=false){
     if(isNarrow){
@@ -1086,6 +1086,56 @@ function setCtaBtnHover_05nuo(){
     }, eventListenerOption_05nuo);
 }
 
+/**set section text and button transitions */
+function showUpSectionTextBtn_05nuo(section, action, dir){
+    const content = section.children;
+    const title = content.item(0);
+
+    const p = content.item(1).children;
+    const pText = p.item(0);
+    const btn = p.item(1);
+
+    let toAddAction, toAddDir = "";
+    let toRemoveAction, toRemoveDir = "";
+    //action 1: show 0: hide
+    // dir 1: up 0: down
+    if(action === 0){
+        toAddAction = "hide";
+        toRemoveAction = "show";
+    }
+    else if(action === 1){
+        toAddAction = "show";
+        toRemoveAction = "hide";
+    }
+
+    if(dir === 0){
+        toAddDir = "down";
+        toRemoveDir = "up";
+    }
+    else if(dir === 1){
+        toAddDir = "up";
+        toAddDir = "down";
+    }
+
+    title.classList.remove(`title-${toRemoveAction}-up-05nuo`);
+    title.classList.remove(`title-${toRemoveAction}-down-05nuo`);
+    title.classList.remove(`title-${toAddAction}-${toRemoveDir}-05nuo`);
+    title.classList.add(`title-${toAddAction}-${toAddDir}-05nuo`);
+
+    pText.classList.remove(`p-${toRemoveAction}-up-05nuo`);
+    pText.classList.remove(`p-${toRemoveAction}-down-05nuo`);
+    pText.classList.remove(`p-${toAddAction}-${toRemoveDir}-05nuo`);
+    pText.classList.add(`p-${toAddAction}-${toAddDir}-05nuo`);
+
+    btn.classList.remove(`btn-${toRemoveAction}-ubtn-05nuo`);
+    btn.classList.remove(`btn-${toRemoveAction}-down-05nuo`);
+    btn.classList.remove(`btn-${toAddAction}-${toRemoveDir}-05nuo`);
+    btn.classList.add(`btn-${toAddAction}-${toAddDir}-05nuo`);
+}
+
+function setSectionTextBtnTransition(curPanel, lastPanel){
+    
+}
 /************************************************************************************************************ 
  * ****************************************** svg pan *******************************************************
  * **********************************************************************************************************
@@ -1500,13 +1550,14 @@ class ControlScroll_05nuo{
                     return associationPanel_05nuo.offsetTop;
                 }
             },
+            lastPanel:0,
             curPanel:0,
             updateCurPanel: function(scrollY){
                 let p0End = enterprisePanel_05nuo.offsetTop * 0.65,
                     p1End = institutionPanel_05nuo.offsetTop - enterprisePanel_05nuo.offsetHeight * 0.65,
                     p2End = associationPanel_05nuo.offsetTop - institutionPanel_05nuo.offsetHeight * 0.65;
 
-
+                this.lastPanel = this.curPanel;
                 if(scrollY < p0End){
                     this.curPanel = 0;
                 }
