@@ -573,12 +573,12 @@ body::-webkit-scrollbar{
     display: block;
 }
 .btn-bg-content-right-05nuo{
-    left: 80%;
-    top: 30%;
+    left: calc(100% - var(--btn-font-size-05nuo)*2);
+    top: 28.5%;
 }
 .btn-bg-content-left-05nuo{
-    left: 10%;
-    top: 30%;
+    left: calc(var(--btn-font-size-05nuo)*1.5);
+    top: 28.5%;
 }
 
 @keyframes btn-bg-slide-right-start-05nuo {
