@@ -530,8 +530,8 @@ function getSectionFontSize_05nuo(width, height){
                 }
             }
             else if(width < 450){
-                titleSize = 35/450 * width;
-                paragraphSize = 21/450 * width;
+                titleSize = 32/450 * width;
+                paragraphSize = 19/450 * width;
                 //when screen narrow in height
                 if(height < 650 && height >= 550){
                     titleSize = 32/450 * width;

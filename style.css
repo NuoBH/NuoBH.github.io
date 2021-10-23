@@ -571,14 +571,13 @@ body::-webkit-scrollbar{
 .btn-bg-content-05nuo{
     position: absolute;
     display: block;
+    top: calc(50% - var(--btn-font-size-05nuo)/2);
 }
 .btn-bg-content-right-05nuo{
     left: calc(100% - var(--btn-font-size-05nuo)*2);
-    top: 28.5%;
 }
 .btn-bg-content-left-05nuo{
     left: calc(var(--btn-font-size-05nuo)*1.5);
-    top: 28.5%;
 }
 
 @keyframes btn-bg-slide-right-start-05nuo {
