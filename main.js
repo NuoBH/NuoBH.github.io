@@ -1178,7 +1178,7 @@ let svgPrevTranslateX_05nuo = 0;
 let svgPanAnim_05nuo = undefined;
 let svgPanAnimLastTime_05nuo = undefined;
 let svgPanDir_05nuo = 1;
-let svgPanSpeed_05nuo = 0.12;
+let svgPanSpeed_05nuo = 0.2;
 let stopSvgPan_05nuo = true;
 let canCheckSvgPan_05nuo = true;
 
@@ -1203,19 +1203,20 @@ function svgPan_05nuo(svg, deltaTime){
 
     let target;
 
-    let totalDistance = svgLeft + svgTranslateX_05nuo + svgPrevTranslateX_05nuo;
-    if((svgPanDir_05nuo > 0) && (totalDistance >= -1) 
-    || ((svgPanDir_05nuo < 0) && (totalDistance + svgWidth) <= (width * 0.95)) ){
+    let totalDistance = svgLeft + svgTranslateX_05nuo;
+    if((svgPanDir_05nuo > 0) && (totalDistance >= -80) 
+    || ((svgPanDir_05nuo < 0) && (svgWidth + totalDistance) <= width + 40) ){
         svgPanDir_05nuo *= -1;
         svgTranslateX_05nuo = 0;
-        svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? (100 / 800 * width / 1000) : (150 / 800 * width / 1000);
     }
+    svgPanSpeed_05nuo = svgPanDir_05nuo < 0 ? 0.2 : 0.3;
 
+    let traveled = Math.abs(svgTranslateX_05nuo + (svgWidth_05nuo - width)/2);
     if(svgPanDir_05nuo > 0){
-        target = 0 - svgLeft - svgTranslateX_05nuo;
+        target = 0 - svgLeft - traveled/2;
     }
     else{
-        target = (svgWidth - width) - svgTranslateX_05nuo;
+        target = svgWidth - width - Math.abs(svgWidth_05nuo - width - traveled);
     }
 
     let move =  target * svgPanSpeed_05nuo * svgPanDir_05nuo * deltaTime;
