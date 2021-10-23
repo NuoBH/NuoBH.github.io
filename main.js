@@ -634,14 +634,15 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
             ctaBtn.classList.remove("btn-align-right-05nuo");
         }
 
+        let svgW = width * 1.2;
         //set title style
         if(idx === 0){
             title.innerHTML = `For Employers<br>& Enterprise`;
-            titleRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + 50/1050*width;
+            titleRight = section.offsetWidth - svgW * svgWPortion - svgLeft_05nuo + 50/1050*width;
         }
         else if(idx === 1){
             title.innerHTML = `For Healthcare<br>Institutions`;
-            titleRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + 50/1050*width;
+            titleRight = svgW * svgWPortion + svgLeft_05nuo + 50/1050*width;
         }
         titleTop = (section.offsetHeight - title.offsetHeight - pTop - paragraph.offsetHeight) * 0.35;
 
@@ -670,13 +671,14 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
         let rightGap = 150/1920*width;
         rightGap = rightGap > 220 ? 220 : rightGap;
 
+        let svgW = width * 0.67;
         if(idx === 0){
             title.innerHTML = "For Employers & Enterprise";
-            titleRight = pRight = section.offsetWidth - svgWidth_05nuo * svgWPortion - svgLeft_05nuo + rightGap;
+            titleRight = pRight = section.offsetWidth - svgW * svgWPortion - svgLeft_05nuo + rightGap;
         }
         else if(idx === 1){
             title.innerHTML = "For Healthcare Institutions";
-            titleRight = pRight = svgWidth_05nuo * svgWPortion + svgLeft_05nuo + rightGap;
+            titleRight = pRight = svgW * svgWPortion + svgLeft_05nuo + rightGap;
         }
         //set paragraph margin top
         pTop = titleSize - 5/55*titleSize;
@@ -1087,7 +1089,7 @@ function setCtaBtnHover_05nuo(){
 }
 
 /**set section text and button transitions */
-function showUpSectionTextBtn_05nuo(section, action, dir){
+function transitionSectionTextBtn_05nuo(section, action, dir){
     const content = section.children;
     const title = content.item(0);
 
@@ -1114,8 +1116,10 @@ function showUpSectionTextBtn_05nuo(section, action, dir){
     }
     else if(dir === 1){
         toAddDir = "up";
-        toAddDir = "down";
+        toRemoveDir = "down";
     }
+
+    console.log(toAddDir);
 
     title.classList.remove(`title-${toRemoveAction}-up-05nuo`);
     title.classList.remove(`title-${toRemoveAction}-down-05nuo`);
@@ -1127,14 +1131,43 @@ function showUpSectionTextBtn_05nuo(section, action, dir){
     pText.classList.remove(`p-${toAddAction}-${toRemoveDir}-05nuo`);
     pText.classList.add(`p-${toAddAction}-${toAddDir}-05nuo`);
 
-    btn.classList.remove(`btn-${toRemoveAction}-ubtn-05nuo`);
+    btn.classList.remove(`btn-${toRemoveAction}-up-05nuo`);
     btn.classList.remove(`btn-${toRemoveAction}-down-05nuo`);
     btn.classList.remove(`btn-${toAddAction}-${toRemoveDir}-05nuo`);
     btn.classList.add(`btn-${toAddAction}-${toAddDir}-05nuo`);
 }
 
 function setSectionTextBtnTransition(curPanel, lastPanel){
-    
+    if(curPanel === 0){
+        if(lastPanel > curPanel){
+            transitionSectionTextBtn_05nuo(enterprisePanel_05nuo, 0, 0); 
+        }
+    }
+    else if(curPanel === 1){
+        if(lastPanel < curPanel){
+           transitionSectionTextBtn_05nuo(enterprisePanel_05nuo, 1, 1); 
+        }
+        else if(lastPanel > curPanel){
+            transitionSectionTextBtn_05nuo(enterprisePanel_05nuo, 1, 0); 
+            transitionSectionTextBtn_05nuo(institutionPanel_05nuo, 0, 0); 
+        }
+    }
+    else if(curPanel === 2){
+        if(lastPanel < curPanel){
+            transitionSectionTextBtn_05nuo(enterprisePanel_05nuo, 0, 1); 
+            transitionSectionTextBtn_05nuo(institutionPanel_05nuo, 1, 1); 
+         }
+         else if(lastPanel > curPanel){
+             transitionSectionTextBtn_05nuo(institutionPanel_05nuo, 1, 0);
+             transitionSectionTextBtn_05nuo(ascHalfPanel_05nuo, 0, 0);
+             transitionSectionTextBtn_05nuo(eduHalfPanel_05nuo, 0, 1);
+         }
+    }
+    else if(curPanel === 3){
+        transitionSectionTextBtn_05nuo(ascHalfPanel_05nuo, 1, 1);
+        transitionSectionTextBtn_05nuo(eduHalfPanel_05nuo, 1, 0);
+        transitionSectionTextBtn_05nuo(institutionPanel_05nuo, 0, 1);
+    }
 }
 /************************************************************************************************************ 
  * ****************************************** svg pan *******************************************************
@@ -1534,6 +1567,7 @@ class ControlScroll_05nuo{
 
         //disable normal scroll function
         this.disableScroll();
+        window.scrollTo(0, 0);
         //scroll status for scrolling in each panel
         this.currentStats = {
             getTargetPos: function (target){
@@ -1592,6 +1626,8 @@ class ControlScroll_05nuo{
             movedir:"none",
             swipedir:"none"
         }
+
+        this.currentStats.updateCurPanel(window.scrollY);
         
         let btnArr = Array.prototype.concat(Array.prototype.slice.call(navButtonContainer_05nuo.children), [ctaBtn1Bg_05nuo.parentElement, ctaBtn2Bg_05nuo.parentElement, ctaBtn3Bg_05nuo.parentElement, ctaBtn4Bg_05nuo.parentElement]);
         swipeDetect_05nuo(window, btnArr, function(swipedir, movedir){
@@ -1867,13 +1903,14 @@ class ControlScroll_05nuo{
     }
 }
     
-const controlScroll_05nuo = new ControlScroll_05nuo();
+let controlScroll_05nuo = new ControlScroll_05nuo();
 
 function scrollFunc_05nuo(){
     window.addEventListener("scroll", scrollSvg_05nuo, eventListenerOption_05nuo);
     window.addEventListener("scroll", ()=>{
         controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
         setButtonClick_05nuo(controlScroll_05nuo.currentStats.curPanel);
+        setSectionTextBtnTransition(controlScroll_05nuo.currentStats.curPanel, controlScroll_05nuo.currentStats.lastPanel)
     }, eventListenerOption_05nuo);
 }
 
@@ -1980,11 +2017,10 @@ const startTitleAnim_05nuo = function(){
     }, 1400);
 }
 
-requestTimeout(responsiveFunc_05nuo, 0);
-requestTimeout(responsiveFunc_05nuo, 100);
-
 window.addEventListener("resize", responsiveFunc_05nuo, eventListenerOption_05nuo);
 document.addEventListener('DOMContentLoaded', ()=>{
+    requestTimeout(responsiveFunc_05nuo, 0);
+    requestTimeout(responsiveFunc_05nuo, 100);
     //add control scroll events handlers
     controlScroll_05nuo.controlScrollForAll();
     //hide svg gradient bg if its mobile
@@ -1999,4 +2035,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
     setNavButtonsHoverClick_05nuo();
     //set cta btn hover
     setCtaBtnHover_05nuo()
+    controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
 });

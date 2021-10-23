@@ -448,10 +448,6 @@ body::-webkit-scrollbar{
     padding-left: 7%;
     font-size: 30px;
 }
-#panel-animation1-05nuo{
-    transition: all 0.7s ease;
-        display: none;
-}
 
 #institution-panel-05nuo{
     --btn-font-size-05nuo: 30px;
@@ -466,11 +462,6 @@ body::-webkit-scrollbar{
 #institution-panel-05nuo .institution-p-05nuo{
     padding-right: 5%;
     font-size: 30px;
-}
-#panel-animation2-05nuo{
-    float:right;
-    transition: all 0.7s ease;
-    display: none;
 }
 
 #association-panel-05nuo{
@@ -719,6 +710,16 @@ body::-webkit-scrollbar{
 }
 
 /*panel text and btn transition anim*/
+.panel-text-start-05nuo{
+    transform: translateY(75px);
+    opacity: 0;
+    animation: none;
+    transition: animation 1s ease;
+}
+.cta-btn-start-05nuo{
+    transform: perspective(300px) rotateX(-90deg) translateY(50%);
+    transition: animation 1s ease;
+}
 .title-show-up-05nuo{
     animation: panel-text-show-up-05nuo 1s ease 0s 1 normal both;
 }
@@ -744,13 +745,13 @@ body::-webkit-scrollbar{
     animation: panel-text-hide-down-05nuo 1s ease 0.2s 1 normal both;
 }
 .btn-show-up-05nuo{
-    animation: btn-show-up-05nuo 1s ease 0s 1 normal both;
+    animation: btn-show-up-05nuo 1s ease 0.8s 1 normal both;
 }
 .btn-hide-up-05nuo{
     animation: btn-hide-up-05nuo 1s ease 0s 1 normal both;
 }
 .btn-show-down-05nuo{
-    animation: btn-show-down-05nuo 1s ease 0s 1 normal both;
+    animation: btn-show-down-05nuo 1s ease 0.8s 1 normal both;
 }
 .btn-hide-down-05nuo{
     animation: btn-hide-down-05nuo 1s ease 0s 1 normal both;
@@ -809,35 +810,35 @@ body::-webkit-scrollbar{
 }
 @keyframes btn-hide-up-05nuo{
     0%{
-        transform: perspective(800px) rotateX(0deg) translateY(0);
+        transform: perspective(300px) rotateX(0deg) translateY(0);
     }
     60%{
-        transform: perspective(800px) rotateX(-15deg) translateY(15%);
+        transform: perspective(300px) rotateX(-15deg) translateY(15%);
     }
     100%{
-        transform: perspective(800px) rotateX(90deg) translateY(-50%);
+        transform: perspective(300px) rotateX(90deg) translateY(-50%);
     }
 }
 @keyframes btn-show-down-05nuo{
     0%{
-        transform: perspective(800px) rotateX(90deg) translateY(-50%);
+        transform: perspective(300px) rotateX(90deg) translateY(-50%);
     }
     40%{
         transform: perspective(300px) rotateX(-15deg) translateY(15%); 
     }
     100%{
-        transform: perspective(800px) rotateX(0deg) translateY(0);
+        transform: perspective(300px) rotateX(0deg) translateY(0);
     }
 }
 @keyframes btn-hide-down-05nuo{
     0%{
-        transform: perspective(800px) rotateX(0deg) translateY(0);
+        transform: perspective(300px) rotateX(0deg) translateY(0);
     }
     60%{
-        transform: perspective(800px) rotateX(15deg) translateY(-15%);
+        transform: perspective(300px) rotateX(15deg) translateY(-15%);
     }
     100%{
-        transform: perspective(800px) rotateX(-90deg) translateY(50%);
+        transform: perspective(300px) rotateX(-90deg) translateY(50%);
     }
 }
 
