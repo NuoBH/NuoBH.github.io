@@ -639,10 +639,10 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
 
         if(idx === 0){
             let dist = width - scrollBarWidth_05nuo - svgW;
-            svgLeft = dist - 120 / 1920 * w;
+            svgLeft = dist - 120 / 1920 * width;
         }
         else if(idx === 1){
-            svgLeft = w * 0.05;
+            svgLeft = width * 0.05;
         }
 
         //set title style
