@@ -517,6 +517,7 @@ body::-webkit-scrollbar{
     cursor: pointer;
     user-select: none;
     overflow: hidden;
+    font-weight: 600;
 
     transform-style: preserve-3d;
     transform-origin: center;
@@ -536,7 +537,6 @@ body::-webkit-scrollbar{
 .panel-button-white-05nuo{
     background: rgb(224, 225, 231);
     color: rgb(93, 93, 187);
-    font-weight: 600;
 }
 .panel-button-dark-05nuo{
     background: rgb(127, 133, 216);
