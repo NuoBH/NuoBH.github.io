@@ -260,19 +260,27 @@ function responsiveHeaderTitle(headerTitle){
         subtitleItem1.innerHTML = "Manage Continuing Education<br><em>without</em> the Admin Work";
         subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
         subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
+        subtitleItem1.style.setProperty("margin-right", `0`);
         if(width < 680){
             subtitle.style.setProperty("text-align", "left");
             subtitleLine1.style.setProperty("width", "0");
             subtitle.style.setProperty("gap", "5px");
             subtitle.style.setProperty("justify-content", "flex-start");
-            subtitleItem1.innerHTML = "Manage<br><span id='ce-text-05nuo'>Continuing Education</span><br><em>without</em><br><span id='aw-text-05nuo'>the Admin Work</span>";
-            subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B<br>B</span>`;
+            subtitleItem1.innerHTML = "Continuing Education<br>Without the Admin Work";
+            subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
 
-            const ceText = document.getElementById("ce-text-05nuo");
-            const awText = document.getElementById('aw-text-05nuo');
+            let fsize = 40/540 * width; 
+            if(width < 360){
+                fsize =26/360 * width;
+            }
+            fsize = fsize > 45 ? 45 : fsize;
+            fsize = fsize < 16 ? 16 : fsize;
+            subtitle.style.setProperty("font-size", `${fsize}px`);
+            subtitleItem1.style.setProperty("margin-right", `10px`);
 
-            ceText.style.setProperty("font-size", "27.5px");
-            awText.style.setProperty("font-size", "27.5px");
+            if(width < 220){
+                subtitleItem1.innerHTML = "Continuing<br>Education<br>without<br>the Admin Work";
+            }
         }
     }
     else{
@@ -282,6 +290,7 @@ function responsiveHeaderTitle(headerTitle){
         subtitle.style.setProperty("display", "flex");      
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
+        subtitleItem1.style.setProperty("margin-right", `0`);
 
         if(width < 1420 && width >= 1250){
             subtitle.style.setProperty("font-size", "37px");    
