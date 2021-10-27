@@ -261,6 +261,8 @@ function responsiveHeaderTitle(headerTitle){
         subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
         subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
         subtitleItem1.style.setProperty("margin-right", `0`);
+        subtitleItem1.style.setProperty("line-height", 'normal');
+
         if(width < 680){
             subtitle.style.setProperty("text-align", "left");
             subtitleLine1.style.setProperty("width", "0");
@@ -269,18 +271,24 @@ function responsiveHeaderTitle(headerTitle){
             subtitleItem1.innerHTML = "Continuing Education<br>Without the Admin Work";
             subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
 
-            let fsize = 40/540 * width; 
+            let fsize = 40/540 * width;
+            let lineH = fsize * 1.35;
+            if(width < 500){
+                lineH = fsize * 1.75;
+            } 
             if(width < 360){
                 fsize =26/360 * width;
             }
-            fsize = fsize > 45 ? 45 : fsize;
-            fsize = fsize < 16 ? 16 : fsize;
-            subtitle.style.setProperty("font-size", `${fsize}px`);
-            subtitleItem1.style.setProperty("margin-right", `10px`);
-
             if(width < 220){
                 subtitleItem1.innerHTML = "Continuing<br>Education<br>without<br>the Admin Work";
             }
+            fsize = fsize > 45 ? 45 : fsize;
+            fsize = fsize < 16 ? 16 : fsize;
+
+
+            subtitle.style.setProperty("font-size", `${fsize}px`);
+            subtitleItem1.style.setProperty("margin-right", `10px`);
+            subtitleItem1.style.setProperty("line-height", `${lineH}px`);
         }
     }
     else{
@@ -291,6 +299,7 @@ function responsiveHeaderTitle(headerTitle){
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
         subtitleItem1.style.setProperty("margin-right", `0`);
+        subtitleItem1.style.setProperty("line-height", 'normal');
 
         if(width < 1420 && width >= 1250){
             subtitle.style.setProperty("font-size", "37px");    
