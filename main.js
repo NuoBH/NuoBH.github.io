@@ -758,6 +758,7 @@ function responsiveAscText_05nuo(section, gap){
         eduPTop = eduPBottom = 0.025 * section.offsetHeight;
         ascPBottom = 0.035 * section.offsetHeight;
         ascPTop = ascHeight - (ascChildren.item(0).offsetHeight + ascChildren.item(1).offsetHeight + ascPBottom);
+        console.log(gap)
         //set flex items left and right paddings
         padding = padding_large = 0.05 * ascWidth;
         padding = padding < 50 ? 50 : padding;
@@ -846,13 +847,15 @@ function responsiveAssociationPanel_05nuo(){
     const height = window.innerHeight;
     let gap = 0;
     let dir = "";
-
+    
     if(width < widthLimit_05nuo && width < height){
-        gap = 0.54 * svgHeight_05nuo;
+        let svgH = width * 1.2 / 1.604;
+        gap = 0.54 * svgH;
         dir="column";
     }
     else{
-        gap = 0.31 * svgWidth_05nuo;
+        let svgW = width * 0.67;
+        gap = 0.31 * svgW;
         dir="row";
     }
 
@@ -1142,8 +1145,6 @@ function transitionSectionTextBtn_05nuo(section, action, dir){
         toAddDir = "up";
         toRemoveDir = "down";
     }
-
-    console.log(toAddDir);
 
     title.classList.remove(`title-${toRemoveAction}-up-05nuo`);
     title.classList.remove(`title-${toRemoveAction}-down-05nuo`);
@@ -1486,19 +1487,6 @@ function scrollSvg_05nuo(){
             hasReduceSvgOnScroll_05nuo = false;
         }
     }
-
-    //update title and paragraph responsive styles
-    // {
-    //     if(state === 0){
-    //         responsiveEnterprisePanel_05nuo();
-    //     }
-    //     else if(state === 1){
-    //         responsiveInstitutionPanel_05nuo();
-    //     }
-    //     else if(state === 2){
-    //         responsiveAssociationPanel_05nuo();
-    //     }
-    // }
 
     //set scrollY values
     let getScrollY = function(){
