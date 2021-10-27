@@ -635,14 +635,24 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
         }
 
         let svgW = width * 1.2;
+        let svgLeft = 0;
+
+        if(idx === 0){
+            let dist = width - scrollBarWidth_05nuo - svgW;
+            svgLeft = dist - 120 / 1920 * w;
+        }
+        else if(idx === 1){
+            svgLeft = w * 0.05;
+        }
+
         //set title style
         if(idx === 0){
             title.innerHTML = `For Employers<br>& Enterprise`;
-            titleRight = section.offsetWidth - svgW * svgWPortion - svgLeft_05nuo + 50/1050*width;
+            titleRight = section.offsetWidth - svgW * svgWPortion - svgLeft + 50/1050*width;
         }
         else if(idx === 1){
             title.innerHTML = `For Healthcare<br>Institutions`;
-            titleRight = svgW * svgWPortion + svgLeft_05nuo + 50/1050*width;
+            titleRight = svgW * svgWPortion + svgLeft + 50/1050*width;
         }
         titleTop = (section.offsetHeight - title.offsetHeight - pTop - paragraph.offsetHeight) * 0.35;
 
