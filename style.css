@@ -47,7 +47,7 @@ body::-webkit-scrollbar{
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: max(3%, 35px) 4% max(3%, 30px) max(5%, 20px);
+    padding: max(3%, 35px) 4% max(3%, 20px) max(5%, 20px);
 
     font-family: 'Lato', sans-serif;
     color: rgb(255, 255, 255);

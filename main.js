@@ -2045,7 +2045,7 @@ const startTitleAnim_05nuo = function(){
     requestTimeout(()=>{
         subtitleLine1.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
         subtitleLine2.style.setProperty("background", "rgba(247, 247, 247, 0.5)")
-    }, 1400);
+    }, 1300);
 }
 
 window.addEventListener("resize", responsiveFunc_05nuo, eventListenerOption_05nuo);
