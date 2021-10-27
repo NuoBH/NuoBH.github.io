@@ -760,6 +760,7 @@ body::-webkit-scrollbar{
         -ms-user-select: none;
             user-select: none;
     overflow: hidden;
+    font-weight: 600;
 
     transform-style: preserve-3d;
     transform-origin: center;
@@ -775,7 +776,6 @@ body::-webkit-scrollbar{
 }
 .btn-align-right-05nuo{
     transform-origin: right;
-    
 }
 .panel-button-white-05nuo{
     background: rgb(224, 225, 231);
@@ -787,6 +787,7 @@ body::-webkit-scrollbar{
 }
 
 .btn-hover-bg-05nuo{
+    --narrow-padding-05nuo: 0;
     position: absolute;
     box-sizing: border-box;
     left: 0;
@@ -799,6 +800,17 @@ body::-webkit-scrollbar{
         -ms-user-select: none;
             user-select: none;
 }
+.btn-hover-bg-right-05nuo{
+    padding-left: var(--narrow-padding-05nuo);
+    padding-right: calc(var(--btn-font-size-05nuo)*2.75);
+    text-align: right;
+}
+.btn-hover-bg-left-05nuo{
+    padding-right: var(--narrow-padding-05nuo);
+    padding-left: calc(var(--btn-font-size-05nuo)*3.25);
+    text-align: left;
+}
+
 .btn-bg-light-05nuo{
     background: white;
 }
@@ -809,6 +821,10 @@ body::-webkit-scrollbar{
     position: absolute;
     display: block;
     top: calc(50% - var(--btn-font-size-05nuo)/2);
+}
+.btn-bg-text-05nuo{
+    position: relative;
+    display: inline;
 }
 .btn-bg-content-right-05nuo{
     left: calc(100% - var(--btn-font-size-05nuo)*2);
