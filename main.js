@@ -628,32 +628,27 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
 
     //smaller vertical screen cases
     if(width < widthLimit_05nuo && width < height){
-        if(idx === 0){
-            section.style.setProperty("text-align", "left");
-            ctaBtn.classList.add("btn-align-left-05nuo");
-            ctaBtn.classList.remove("btn-align-right-05nuo");
-        }
-
         let svgW = width * 1.2;
         let svgLeft = 0;
 
         if(idx === 0){
             let dist = width - scrollBarWidth_05nuo - svgW;
             svgLeft = dist - 120 / 1920 * width;
-        }
-        else if(idx === 1){
-            svgLeft = width * 0.05;
-        }
 
-        //set title style
-        if(idx === 0){
+            section.style.setProperty("text-align", "left");
+            ctaBtn.classList.add("btn-align-left-05nuo");
+            ctaBtn.classList.remove("btn-align-right-05nuo");
+
             title.innerHTML = `For Employers<br>& Enterprise`;
             titleRight = section.offsetWidth - svgW * svgWPortion - svgLeft + 50/1050*width;
         }
         else if(idx === 1){
+            svgLeft = width * 0.05;
+
             title.innerHTML = `For Healthcare<br>Institutions`;
             titleRight = svgW * svgWPortion + svgLeft + 50/1050*width;
         }
+
         titleTop = (section.offsetHeight - title.offsetHeight - pTop - paragraph.offsetHeight) * 0.35;
 
         pRight = titleRight;
@@ -672,24 +667,29 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
     }
     //wider screen cases
     else{
-        if(idx === 0){ 
-            section.style.setProperty("text-align", "right");
-            ctaBtn.classList.add("btn-align-right-05nuo");
-            ctaBtn.classList.remove("btn-align-left-05nuo");
-        }
-
         let rightGap = 150/1920*width;
         rightGap = rightGap > 220 ? 220 : rightGap;
 
         let svgW = width * 0.67;
+        let svgLeft = 0;
         if(idx === 0){
+            let dist = width - scrollBarWidth_05nuo - svgW;
+            svgLeft = dist - 120 / 1920 * width;
+
+            section.style.setProperty("text-align", "right");
+            ctaBtn.classList.add("btn-align-right-05nuo");
+            ctaBtn.classList.remove("btn-align-left-05nuo");
+
             title.innerHTML = "For Employers & Enterprise";
-            titleRight = pRight = section.offsetWidth - svgW * svgWPortion - svgLeft_05nuo + rightGap;
+            titleRight = pRight = section.offsetWidth - svgW * svgWPortion - svgLeft + rightGap;
         }
         else if(idx === 1){
+            svgLeft = width * 0.05;
+
             title.innerHTML = "For Healthcare Institutions";
-            titleRight = pRight = svgW * svgWPortion + svgLeft_05nuo + rightGap;
+            titleRight = pRight = svgW * svgWPortion + svgLeft + rightGap;
         }
+
         //set paragraph margin top
         pTop = titleSize - 5/55*titleSize;
 
@@ -1488,17 +1488,17 @@ function scrollSvg_05nuo(){
     }
 
     //update title and paragraph responsive styles
-    {
-        if(state === 0){
-            responsiveEnterprisePanel_05nuo();
-        }
-        else if(state === 1){
-            responsiveInstitutionPanel_05nuo();
-        }
-        else if(state === 2){
-            responsiveAssociationPanel_05nuo();
-        }
-    }
+    // {
+    //     if(state === 0){
+    //         responsiveEnterprisePanel_05nuo();
+    //     }
+    //     else if(state === 1){
+    //         responsiveInstitutionPanel_05nuo();
+    //     }
+    //     else if(state === 2){
+    //         responsiveAssociationPanel_05nuo();
+    //     }
+    // }
 
     //set scrollY values
     let getScrollY = function(){
