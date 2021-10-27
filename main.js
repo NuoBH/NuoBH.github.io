@@ -697,8 +697,13 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
 
     //set cta btn background paddings
     let paddingH = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-left"));
-    let paddingV = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-top"));
-    btnBg.style.setProperty("padding", `${paddingV}px ${paddingH}px`);
+
+    const bgText = btnBg.querySelector(".btn-bg-text-5nuo");
+    let paddingV = (btnBg.offsetHeight - bgText.offsetHeight) / 2;
+
+    btnBg.style.setProperty("padding-top", `${paddingV}px`);
+    btnBg.style.setProperty("padding-bottom", `${paddingV}px`);
+    btnBg.style.setProperty("--narrow-padding-05nuo",`${paddingH}px`);
 }
 
 // responsive title and paragraph for association panel
@@ -801,13 +806,22 @@ function responsiveAscText_05nuo(section, gap){
     eduHalfPanel_05nuo.style.setProperty("padding-right", `${padding}px`);
 
     //set cta btn paddings
-    let ascPaddingH = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-left"));
-    let ascPaddingV = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-top"));
-    let eduPaddingH = parseFloat(window.getComputedStyle(eduCtaBtn).getPropertyValue("padding-left"));
-    let eduPaddingV = parseFloat(window.getComputedStyle(eduCtaBtn).getPropertyValue("padding-top"));
+    const ascBgText = ctaBtn3Bg_05nuo.querySelector(".btn-bg-text-5nuo");
+    let ascPaddingV = (ctaBtn3Bg_05nuo.offsetHeight - ascBgText.offsetHeight) / 2;
 
-    ctaBtn3Bg_05nuo.style.setProperty("padding", `${ascPaddingV}px ${ascPaddingH}px`);
-    ctaBtn4Bg_05nuo.style.setProperty("padding", `${eduPaddingV}px ${eduPaddingH}px`);
+    const eduBgText = ctaBtn4Bg_05nuo.querySelector(".btn-bg-text-5nuo");
+    let eduPaddingV = (ctaBtn4Bg_05nuo.offsetHeight - eduBgText.offsetHeight) / 2;
+
+    let ascPaddingH = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-left"));
+    let eduPaddingH = parseFloat(window.getComputedStyle(eduCtaBtn).getPropertyValue("padding-left"));
+
+    ctaBtn3Bg_05nuo.style.setProperty("padding-top", `${ascPaddingV}px`);
+    ctaBtn3Bg_05nuo.style.setProperty("padding-bottom", `${ascPaddingV}px`);
+    ctaBtn3Bg_05nuo.style.setProperty("--narrow-padding-05nuo", `${ascPaddingH}px`);
+
+    ctaBtn4Bg_05nuo.style.setProperty("padding-top", `${eduPaddingV}px`);
+    ctaBtn4Bg_05nuo.style.setProperty("padding-bottom", `${eduPaddingV}px`);
+    ctaBtn4Bg_05nuo.style.setProperty("--narrow-padding-05nuo", `${eduPaddingH}px`);
 }
 
 function responsiveEnterprisePanel_05nuo(){
