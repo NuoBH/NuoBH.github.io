@@ -536,6 +536,7 @@ body::-webkit-scrollbar{
 .panel-button-white-05nuo{
     background: rgb(224, 225, 231);
     color: rgb(93, 93, 187);
+    font-weight: 600;
 }
 .panel-button-dark-05nuo{
     background: rgb(127, 133, 216);
@@ -555,11 +556,13 @@ body::-webkit-scrollbar{
 }
 .btn-hover-bg-right-05nuo{
     padding-left: var(--narrow-padding-05nuo);
-    padding-right: calc(var(--btn-font-size-05nuo)*2.5);
+    padding-right: calc(var(--btn-font-size-05nuo)*2.75);
+    text-align: right;
 }
 .btn-hover-bg-left-05nuo{
     padding-right: var(--narrow-padding-05nuo);
-    padding-left: calc(var(--btn-font-size-05nuo)*3);
+    padding-left: calc(var(--btn-font-size-05nuo)*3.25);
+    text-align: left;
 }
 
 .btn-bg-light-05nuo{
