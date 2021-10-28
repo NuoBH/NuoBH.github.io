@@ -1044,93 +1044,119 @@ function leaveCtaBtnRight_05nuo(btn, isNarrow=false){
     }
     btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-right-end-05nuo 0.35s ease 0s 1 normal both");
 }
-function enterCtaBtnLeft_05nuo(btn, isNarrow=false){
-    if(isNarrow){
-        btn.style.setProperty("animation", "btn-narrow-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
-    }
-    else{
-        btn.style.setProperty("animation", "btn-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
-    }
-    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-start-05nuo 0.3s ease 0.27s 1 normal both");
-}
-function leaveCtaBtnLeft_05nuo(btn, isNarrow=false){
-    if(isNarrow){
-        btn.style.setProperty("animation", "btn-narrow-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
-    }
-    else{
-        btn.style.setProperty("animation", "btn-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
-    }
-    btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-end-05nuo 0.35s ease 0s 1 normal both");
-}
+// function enterCtaBtnLeft_05nuo(btn, isNarrow=false){
+//     if(isNarrow){
+//         btn.style.setProperty("animation", "btn-narrow-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
+//     }
+//     else{
+//         btn.style.setProperty("animation", "btn-bg-slide-left-start-05nuo 0.3s ease 0s 1 normal both");
+//     }
+//     btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-start-05nuo 0.3s ease 0.27s 1 normal both");
+// }
+// function leaveCtaBtnLeft_05nuo(btn, isNarrow=false){
+//     if(isNarrow){
+//         btn.style.setProperty("animation", "btn-narrow-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
+//     }
+//     else{
+//         btn.style.setProperty("animation", "btn-bg-slide-left-end-05nuo 0.3s ease 0s 1 normal both");
+//     }
+//     btn.querySelector(".btn-bg-content-05nuo").style.setProperty("animation", "arrow-slide-left-end-05nuo 0.35s ease 0s 1 normal both");
+// }
 
-function setCtaBtnHover_05nuo(){
+// function setCtaBtnHover_05nuo(){
+//     //cta btn 1
+//     ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+//         enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn1Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+//         enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn1Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     window.addEventListener("touchend", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+
+//     //cta btn 2
+//     ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+//         enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn2Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+//         enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn2Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+//     window.addEventListener("touchend", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
+//     }, eventListenerOption_05nuo);
+
+//     //cta btn 3
+//     ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+//         enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn3Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+//         enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn3Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     window.addEventListener("touchend", ()=>{
+//         leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+
+//     //cta btn 4
+//     ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
+//         enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn4Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
+//         enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     ctaBtn4Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+//     window.addEventListener("touchend", ()=>{
+//         leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
+//     }, eventListenerOption_05nuo);
+// }
+
+function setCtaBtnHover_05nuo(btn, isNarrow=false){
     //cta btn 1
-    ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
-        enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    btn.parentElement.addEventListener("mouseenter", ()=>{
+        enterCtaBtnRight_05nuo(btn, isNarrow);
     }, eventListenerOption_05nuo);
-    ctaBtn1Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    btn.parentElement.addEventListener("mouseleave", ()=>{
+        leaveCtaBtnRight_05nuo(btn, isNarrow);
     }, eventListenerOption_05nuo);
-    ctaBtn1Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
-        enterCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    btn.parentElement.addEventListener("touchstart", ()=>{
+        enterCtaBtnRight_05nuo(btn, isNarrow);
     }, eventListenerOption_05nuo);
-    ctaBtn1Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+    btn.parentElement.addEventListener("touchend", ()=>{
+        leaveCtaBtnRight_05nuo(btn, isNarrow);
     }, eventListenerOption_05nuo);
     window.addEventListener("touchend", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn1Bg_05nuo);
+        leaveCtaBtnRight_05nuo(btn, isNarrow);
     }, eventListenerOption_05nuo);
+}
 
-    //cta btn 2
-    ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
-        enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
-    }, eventListenerOption_05nuo);
-    ctaBtn2Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
-    }, eventListenerOption_05nuo);
-    ctaBtn2Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
-        enterCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
-    }, eventListenerOption_05nuo);
-    ctaBtn2Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
-    }, eventListenerOption_05nuo);
-    window.addEventListener("touchend", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn2Bg_05nuo);
-    }, eventListenerOption_05nuo);
-
-    //cta btn 3
-    ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
-        enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn3Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn3Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
-        enterCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn3Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    window.addEventListener("touchend", ()=>{
-        leaveCtaBtnRight_05nuo(ctaBtn3Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-
-    //cta btn 4
-    ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseenter", ()=>{
-        enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn4Bg_05nuo.parentElement.addEventListener("mouseleave", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn4Bg_05nuo.parentElement.addEventListener("touchstart", ()=>{
-        enterCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    ctaBtn4Bg_05nuo.parentElement.addEventListener("touchend", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
-    window.addEventListener("touchend", ()=>{
-        leaveCtaBtnLeft_05nuo(ctaBtn4Bg_05nuo, true);
-    }, eventListenerOption_05nuo);
+function setAllCtaBtnHover_05nuo(){
+    setCtaBtnHover_05nuo(ctaBtn1Bg_05nuo);
+    setCtaBtnHover_05nuo(ctaBtn2Bg_05nuo);
+    setCtaBtnHover_05nuo(ctaBtn3Bg_05nuo, true);
+    setCtaBtnHover_05nuo(ctaBtn4Bg_05nuo, true);
 }
 
 /**set section text and button transitions */
@@ -2065,6 +2091,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     //add hover and click event listeners to nav buttons
     setNavButtonsHoverClick_05nuo();
     //set cta btn hover
-    setCtaBtnHover_05nuo()
+    setAllCtaBtnHover_05nuo();
     controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
 });

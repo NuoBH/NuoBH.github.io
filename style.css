@@ -527,9 +527,9 @@ body::-webkit-scrollbar{
     padding:  max(1.5%, 8px) max(5%, 15px);
     transform: scale(1);
 }
-.btn-align-left-05nuo{
+/* .btn-align-left-05nuo{
     transform-origin: left;
-}
+} */
 .btn-align-right-05nuo{
     transform-origin: right;
 }
@@ -558,11 +558,11 @@ body::-webkit-scrollbar{
     padding-right: calc(var(--btn-font-size-05nuo)*2.75);
     text-align: right;
 }
-.btn-hover-bg-left-05nuo{
+/* .btn-hover-bg-left-05nuo{
     padding-right: var(--narrow-padding-05nuo);
     padding-left: calc(var(--btn-font-size-05nuo)*3.25);
     text-align: left;
-}
+} */
 
 .btn-bg-light-05nuo{
     background: white;
@@ -582,9 +582,9 @@ body::-webkit-scrollbar{
 .btn-bg-content-right-05nuo{
     left: calc(100% - var(--btn-font-size-05nuo)*2);
 }
-.btn-bg-content-left-05nuo{
+/* .btn-bg-content-left-05nuo{
     left: calc(var(--btn-font-size-05nuo)*1.5);
-}
+} */
 
 @keyframes btn-bg-slide-right-start-05nuo {
     0%{
@@ -655,7 +655,7 @@ body::-webkit-scrollbar{
     }
 }
 
-@keyframes btn-bg-slide-left-start-05nuo {
+/* @keyframes btn-bg-slide-left-start-05nuo {
     0%{
         opacity: 0.5;
         transform: translateX(100%);
@@ -722,7 +722,7 @@ body::-webkit-scrollbar{
         opacity: 0;
         transform: translateX(70%);
     }
-}
+} */
 
 /*panel text and btn transition anim*/
 .panel-text-start-05nuo{
