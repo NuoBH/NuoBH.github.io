@@ -200,6 +200,13 @@ function swipeDetect_05nuo(el, btns, callback){
  ***************************** responsive feature for svg, title div and texts ******************************* 
  ************************************************************************************************************* 
 */
+
+/** links for cta buttons */
+let employerLink_05nuo = "index.html",
+    institutionLink_05nuo = "index.html",
+    associationLink_05nuo = "index.html",
+    educatorLink_05nuo = "index.html";
+
 const headerTitle_05nuo = document.getElementById("header-title-05nuo");
 
 const svg_05nuo = document.getElementById("header-svg-05nuo");
@@ -217,10 +224,17 @@ const ascTitle_05nuo = ascHalfPanel_05nuo.children.item(0);
 const ascText_05nuo = ascHalfPanel_05nuo.children.item(1);
 const eduTitle_05nuo = eduHalfPanel_05nuo.children.item(0);
 const eduText_05nuo = eduHalfPanel_05nuo.children.item(1);
+
 const ctaBtn1Bg_05nuo = document.getElementById("cta-btn1-bg-05nuo");
 const ctaBtn2Bg_05nuo = document.getElementById("cta-btn2-bg-05nuo");
 const ctaBtn3Bg_05nuo = document.getElementById("cta-btn3-bg-05nuo");
 const ctaBtn4Bg_05nuo = document.getElementById("cta-btn4-bg-05nuo");
+
+const ctaBtn1_05nuo = ctaBtn1Bg_05nuo.parentElement;
+const ctaBtn2_05nuo = ctaBtn2Bg_05nuo.parentElement;
+const ctaBtn3_05nuo = ctaBtn3Bg_05nuo.parentElement;
+const ctaBtn4_05nuo = ctaBtn4Bg_05nuo.parentElement;
+
 
 const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
@@ -1069,6 +1083,23 @@ function setAllCtaBtnHover_05nuo(){
     setCtaBtnHover_05nuo(ctaBtn2Bg_05nuo);
     setCtaBtnHover_05nuo(ctaBtn3Bg_05nuo, true);
     setCtaBtnHover_05nuo(ctaBtn4Bg_05nuo, true);
+}
+
+
+/**set cta btn click */
+function ctaBtnLinkRedirect(link){
+    window.location.assign(link);
+}
+function setCtaBtnClick_05nuo(btn, link){
+    btn.parentElement.addEventListener("click", ()=>{
+        ctaBtnLinkRedirect(link);
+    }, eventListenerOption_05nuo);
+}
+function setAllCtaBtnClick_05nuo(){
+    setCtaBtnClick_05nuo(ctaBtn1_05nuo, employerLink_05nuo);
+    setCtaBtnClick_05nuo(ctaBtn2_05nuo, institutionLink_05nuo);
+    setCtaBtnClick_05nuo(ctaBtn3_05nuo, associationLink_05nuo);
+    setCtaBtnClick_05nuo(ctaBtn4_05nuo, educatorLink_05nuo);
 }
 
 /**set section text and button transitions */
@@ -2004,5 +2035,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     setNavButtonsHoverClick_05nuo();
     //set cta btn hover
     setAllCtaBtnHover_05nuo();
+    //set cta btn click
+    setAllCtaBtnClick_05nuo();
     controlScroll_05nuo.currentStats.updateCurPanel(window.scrollY);
 });
