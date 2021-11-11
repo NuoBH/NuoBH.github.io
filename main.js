@@ -202,10 +202,10 @@ function swipeDetect_05nuo(el, btns, callback){
 */
 
 /** links for cta buttons */
-let employerLink_05nuo = "index.html",
-    institutionLink_05nuo = "index.html",
-    associationLink_05nuo = "index.html",
-    educatorLink_05nuo = "index.html";
+let employerLink_05nuo = "/",
+    institutionLink_05nuo = "/",
+    associationLink_05nuo = "/",
+    educatorLink_05nuo = "/";
 
 const headerTitle_05nuo = document.getElementById("header-title-05nuo");
 
@@ -1091,9 +1091,10 @@ function ctaBtnLinkRedirect(link){
     window.location.assign(link);
 }
 function setCtaBtnClick_05nuo(btn, link){
-    btn.parentElement.addEventListener("click", ()=>{
-        ctaBtnLinkRedirect(link);
-    }, eventListenerOption_05nuo);
+    // btn.parentElement.addEventListener("click", ()=>{
+    //     ctaBtnLinkRedirect(link);
+    // }, eventListenerOption_05nuo);
+    btn.setAttribute("href", link);
 }
 function setAllCtaBtnClick_05nuo(){
     setCtaBtnClick_05nuo(ctaBtn1_05nuo, employerLink_05nuo);
