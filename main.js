@@ -616,10 +616,10 @@ function getSectionFontSize_05nuo(width, height){
         }
     }
 
-    if(!isMobileOrTablet_05nuo){
-        titleSize /= window.devicePixelRatio;
-        paragraphSize /= window.devicePixelRatio;
-    }
+    // if(!isMobileOrTablet_05nuo){
+    //     titleSize /= window.devicePixelRatio;
+    //     paragraphSize /= window.devicePixelRatio;
+    // }
     return {titleSize, paragraphSize};
 }
 
