@@ -20,11 +20,10 @@ a{
     text-decoration: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 .full-header-05nuo{
-    --title-size-05nuo: 35px;
-    --large-title-size-05nuo: 40px;
     position: relative;
     background: linear-gradient(180deg, rgb(91, 97, 187) 30%,rgb(209, 206, 218) 100%);
     display: block;
@@ -44,13 +43,18 @@ a{
     }
 }
 
+.title-stress-05nuo{
+    font-weight: 400;
+    font-style: italic;
+}
+
 #header-title-05nuo{
     position: relative;
     display: block;
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: max(3%, 35px) 4% max(3%, 20px) max(5%, 20px);
+    padding: max(3%, 50px) 4% max(1.5%, 20px) max(5%, 20px);
 
     font-family: 'Lato', sans-serif;
     color: rgb(255, 255, 255);
@@ -72,8 +76,7 @@ a{
     box-sizing: border-box;
     margin: 0;
 
-    font-size: var(--large-title-size-05nuo);
-    font-weight: normal;
+    font-weight: 300;
     transition: width 0.2s ease;
 }
 
@@ -660,14 +663,16 @@ a{
 
 #enterprise-panel-05nuo{
     --btn-font-size-05nuo: 30px;
-    color:rgb(75, 81, 168);
+    /* color:rgb(75, 81, 168); */
+    color: black;
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
     text-align: right;
 }
 #enterprise-panel-05nuo h2{
     padding-left: 7%;
     font-size: 55px;
-    font-weight: 600;
+    font-weight: 700;
+    color:rgb(75, 81, 168);
 }
 #enterprise-panel-05nuo .enterprise-p-05nuo{
     padding-left: 7%;
@@ -676,13 +681,14 @@ a{
 
 #institution-panel-05nuo{
     --btn-font-size-05nuo: 30px;
-    color: white;
+    color: rgb(218, 220, 255);
     background: rgb(116, 122, 206);
 }
 #institution-panel-05nuo h2{
     padding-right: 7%;
     font-size: 55px;
-    font-weight: 600;
+    font-weight: 700;
+    color: white;
 }
 #institution-panel-05nuo .institution-p-05nuo{
     padding-right: 5%;
@@ -691,7 +697,7 @@ a{
 
 #association-panel-05nuo{
     --btn-font-size-05nuo: 30px;
-    color:rgb(75, 81, 168);
+    color: black;
     background: linear-gradient(180deg, rgb(233, 234, 240) 0%, rgb(209, 206, 218) 80%);
 }
 .asc-flex-05nuo{
@@ -716,6 +722,8 @@ a{
 }
 #asc-half-panel-05nuo h2{
     padding-bottom: 3%;
+    font-weight: 700;
+    color: rgb(75, 81, 168);
 }
 #edu-half-panel-05nuo{
     position: relative;
@@ -725,6 +733,8 @@ a{
 }
 #edu-half-panel-05nuo h2{
     padding-bottom: 3%;
+    font-weight: 700;
+    color: rgb(75, 81, 168);
 }
 .reset-handp-05nuo{
     margin: 0;
@@ -745,7 +755,7 @@ a{
         -ms-user-select: none;
             user-select: none;
     overflow: hidden;
-    font-weight: 600;
+    font-weight: 700;
 
     transform-style: preserve-3d;
     transform-origin: center;

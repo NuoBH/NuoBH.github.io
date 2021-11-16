@@ -306,9 +306,27 @@ function responsiveHeaderTitle(headerTitle){
         }
     }
     else{
+        let titleSize = 45;
+
+        if(width > 1920 && width <= 2300){
+            titleSize = 51;
+        }
+        else if(width > 2300 && width <= 2700){
+            titleSize = 57;
+        }
+        else if(width > 2700 && width <= 3300){
+            titleSize = 61;
+        }
+        else if(width > 3300 && width <= 3700){
+            titleSize = 75;
+        }
+        else if(width > 3700){
+            titleSize = 80;
+        }
+
         subtitle.style.setProperty("justify-content", "center");
         subtitle.style.setProperty("text-align", "center");
-        subtitle.style.setProperty("font-size", "45px");
+        subtitle.style.setProperty("font-size", `${titleSize}px`);
         subtitle.style.setProperty("display", "flex");      
         subtitleLine1.style.setProperty("width", "4px");
         subtitle.style.setProperty("gap", "20px");
@@ -321,78 +339,32 @@ function responsiveHeaderTitle(headerTitle){
         else if(width < 1250 && width >= 880){
             subtitle.style.setProperty("font-size", "34px");    
         }
-        else if(width < 880){
-            subtitle.style.setProperty("font-size", "calc(var(--large-title-size-05nuo) * 1.05)");
+        else if(width < 880 && width >= 600 ){
+            subtitle.style.setProperty("font-size", "30px");
+        }
+        else if(width < 600 && width >= 400){
+            subtitle.style.setProperty("font-size", "25px");
+        }
+        else if(width < 400){
+            subtitle.style.setProperty("font-size", "17px");
+        }
+
+        if(width < 880){
             headerTitle.style.setProperty("flex-direction", "column");
             headerTitle.style.setProperty("gap", "5px");
         }
 
         if(width < widthLimit_05nuo){
-            subtitleItem1.innerHTML = "Manage Continuing Education<br><em>without</em> the Admin Work";
+            subtitleItem1.innerHTML = "Manage Continuing Education<br><span class='title-stress-05nuo'>without</span> the Admin Work";
             subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
             subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B<br>B</span>`;
         }
         else{
-            subtitleItem1.innerHTML = "Manage Continuing Education <em>without</em> the Admin Work";
+            subtitleItem1.innerHTML = "Manage Continuing Education <span class='title-stress-05nuo'>without</span> the Admin Work";
             subtitleLine1.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
             subtitleLine2.innerHTML = `<span style="opacity: 0;user-select: none;">B</span>`;
         }
     }
-}
-
-//set title font size responsively
-function responsiveFonts(headerContainer){
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    if(width < widthLimit_05nuo){
-        if(width < height){
-            if(width < widthLimit_05nuo && width >= 600){
-                headerContainer.style.setProperty("--title-size-05nuo", "26px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "35px");
-            }
-            else if(width < 600 && width >= 400){
-                headerContainer.style.setProperty("--title-size-05nuo", "23px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "30px");
-            }
-            else if(width < 400 && width >= 350){
-                headerContainer.style.setProperty("--title-size-05nuo", "23px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "30px");
-            }
-            else{
-                headerContainer.style.setProperty("--title-size-05nuo", "23x");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "27px");
-            }
-        }
-        else{
-            if(width < widthLimit_05nuo && width >= 600){
-                headerContainer.style.setProperty("--title-size-05nuo", "26px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "29px");
-            }
-            else if(width < 600 && width >= 400){
-                headerContainer.style.setProperty("--title-size-05nuo", "23px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "24px");
-            }
-            else{
-                headerContainer.style.setProperty("--title-size-05nuo", "10px");
-                headerContainer.style.setProperty("--large-title-size-05nuo", "15px");
-            }
-        }
-    }
-    else{
-        if(width < 1200){
-            headerContainer.style.setProperty("--title-size-05nuo", "26px");
-            headerContainer.style.setProperty("--large-title-size-05nuo", "37px");
-        }
-        else if(width < 1450 && width >= 1200){
-            headerContainer.style.setProperty("--title-size-05nuo", "30px");
-            headerContainer.style.setProperty("--large-title-size-05nuo", "40px");
-        }
-        else{
-            headerContainer.style.setProperty("--title-size-05nuo", "34px");
-            headerContainer.style.setProperty("--large-title-size-05nuo", "41px");
-        }
-    } 
 }
 
 //make svg and its container responsive in horizontal mode
@@ -485,7 +457,7 @@ function responsiveNavButton_05nuo(){
     let gap;
 
     const smallScreenAdapt = function(){
-        buttonH = buttonW = `clamp(15px, 2vmax, 90px)`;
+        buttonH = buttonW = `clamp(15px, 2vmax, 25px)`;
         gap = 30;
 
         navButtonContainer_05nuo.style.setProperty("height", `${buttonH}`);
@@ -493,7 +465,7 @@ function responsiveNavButton_05nuo(){
         navButtonContainer_05nuo.style.setProperty("width", `${w}px`);
         navButtonContainer_05nuo.style.setProperty("flex-direction", `row`);
 
-        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.985;
+        top = (height - navButtonContainer_05nuo.offsetHeight) * 0.95;
         left = (width - navButtonContainer_05nuo.offsetWidth) * 0.5;
     }
     const normalScreenAdapt = function(){
@@ -537,55 +509,56 @@ function getSectionFontSize_05nuo(width, height){
     if(width < widthLimit_05nuo){
         if(width < height){
             if(width >= 590){
-                titleSize = 45;
+                titleSize = 31;
                 paragraphSize = 25;
                 //when screen narrow in height
                 if(height < 850 && height >= 700){
-                    titleSize = 35;
+                    titleSize = 26;
                     paragraphSize = 20;
                 }
-                if(height < 700){
-                    titleSize = 30;
+                else if(height < 700){
+                    titleSize = 24;
                     paragraphSize = 18;
                 }
             }
             else if(width < 590 && width >= 450){
-                titleSize = 36;
+                titleSize = 28;
                 paragraphSize = 22;
                 //when screen narrow in height
                 if(height < 700 && height >= 600){
+                    titleSize = 27;
                     paragraphSize = 20;
                 }
                 else if(height < 600){
-                    titleSize = 34;
+                    titleSize = 22;
                     paragraphSize = 16;
                 }
             }
             else if(width < 450){
-                titleSize = 32/450 * width;
+                titleSize = 25/450 * width;
                 paragraphSize = 19/450 * width;
                 //when screen narrow in height
                 if(height < 650 && height >= 550){
-                    titleSize = 32/450 * width;
+                    titleSize = 23.5/450 * width;
                     paragraphSize = 17/450 * width;
                 }
                 else if(height < 550){
-                    titleSize = 30/450 * width;
+                    titleSize = 19/450 * width;
                     paragraphSize = 13/450 * width;
                 }
             }
         }
         //when screen is narrow in height
         else{
-            titleSize = 38;
+            titleSize = 30;
             paragraphSize = 23;
 
             if(height < 600 && height >= 400){
-                titleSize = 35;
+                titleSize = 26;
                 paragraphSize = 20;
             }
             else if(height < 400){
-                titleSize = 35/1050 * width;
+                titleSize = 26/1050 * width;
                 paragraphSize = 20/1050 * width;
             }
         }
@@ -593,26 +566,43 @@ function getSectionFontSize_05nuo(width, height){
         paragraphSize = paragraphSize < 12 ? 12 : paragraphSize;
     }
     else{
-        titleSize = 55;
+        titleSize = 38;
         paragraphSize = 30;
 
         if(width < 1200){
-            titleSize = 50;
+            titleSize = 30;
             paragraphSize = 24;
         }
 
+        if(width > 1920 && width <= 2300){
+            titleSize = 44;
+            paragraphSize = 38;
+        }
+        else if(width > 2300 && width <= 2700){
+            titleSize = 48;
+            paragraphSize = 42;
+        }
+        else if(width > 2700 && width <= 3300){
+            titleSize = 53;
+            paragraphSize = 47;
+        }
+        else if(width > 3300 && width <= 3700){
+            titleSize = 56;
+            paragraphSize = 50;
+        }
+        else if(width > 3700){
+            titleSize = 65;
+            paragraphSize = 59;
+        }
+
         //when screen is narrow in height
-        if(height < 550 && height >= 350){
-            titleSize = 38;
+        if(height < 550){
+            titleSize = 29;
             paragraphSize = 23;
             if(width < 1150){
-                titleSize = 34;
+                titleSize = 25;
                 paragraphSize = 19;
             }
-        }
-        else if(height < 350){
-            titleSize = 34;
-            paragraphSize = 19;
         }
     }
 
@@ -655,7 +645,7 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
     let {titleSize, paragraphSize} = getSectionFontSize_05nuo(width, height);
 
     //set cta btn font size
-    let btnFontSize = paragraphSize * 0.85;
+    let btnFontSize = paragraphSize * 0.8;
     section.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
 
     //smaller vertical screen cases
@@ -671,13 +661,13 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
             ctaBtn.classList.add("btn-align-left-05nuo");
             ctaBtn.classList.remove("btn-align-right-05nuo");
 
-            title.innerHTML = `For Employers<br>& Enterprise`;
+            title.innerHTML = `<i class="far fa-building"></i> Employers<br>& Enterprise`;
             titleRight = section.offsetWidth - svgW * svgWPortion - svgLeft + 50/1050*width;
         }
         else if(idx === 1){
             svgLeft = width * 0.05;
 
-            title.innerHTML = `For Healthcare<br>Institutions`;
+            title.innerHTML = `<i class="far fa-hospital"></i> Healthcare<br>Institutions`;
             titleRight = svgW * svgWPortion + svgLeft + 50/1050*width;
         }
 
@@ -688,14 +678,14 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
 
         //in case of even smaller screen like phone screen
         // set paragraph style
-        if(width < 520){
-            if(idx === 0){
-                title.innerHTML = "For<br>Employers<br>& Enterprise";
-            }
-            else if(idx === 1){
-                title.innerHTML = "For<br>Healthcare<br>Institutions";
-            }
-        }
+        // if(width < 520){
+        //     if(idx === 0){
+        //         title.innerHTML = `<i class="far fa-building"></i><br>Employers<br>& Enterprise`;
+        //     }
+        //     else if(idx === 1){
+        //         title.innerHTML = `<i class="far fa-hospital"></i><br>Healthcare<br>Institutions`;
+        //     }
+        // }
     }
     //wider screen cases
     else{
@@ -712,13 +702,13 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
             ctaBtn.classList.add("btn-align-right-05nuo");
             ctaBtn.classList.remove("btn-align-left-05nuo");
 
-            title.innerHTML = "For Employers & Enterprise";
+            title.innerHTML = `<i class="far fa-building"></i> Employers & Enterprise`;
             titleRight = pRight = section.offsetWidth - svgW * svgWPortion - svgLeft + rightGap;
         }
         else if(idx === 1){
             svgLeft = width * 0.05;
 
-            title.innerHTML = "For Healthcare Institutions";
+            title.innerHTML = `<i class="far fa-hospital"></i> Healthcare Institutions`;
             titleRight = pRight = svgW * svgWPortion + svgLeft + rightGap;
         }
 
@@ -740,7 +730,7 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
     //set cta btn background paddings
     let paddingH = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-left"));
 
-    const bgText = btnBg.querySelector(".btn-bg-text-5nuo");
+    const bgText = btnBg.querySelector(".btn-bg-text-05nuo");
     let paddingV = (btnBg.offsetHeight - bgText.offsetHeight) / 2;
 
     btnBg.style.setProperty("padding-top", `${paddingV}px`);
@@ -790,7 +780,6 @@ function responsiveAscText_05nuo(section, gap){
         eduPTop = eduPBottom = 0.025 * section.offsetHeight;
         ascPBottom = 0.035 * section.offsetHeight;
         ascPTop = ascHeight - (ascChildren.item(0).offsetHeight + ascChildren.item(1).offsetHeight + ascPBottom);
-        console.log(gap)
         //set flex items left and right paddings
         padding = padding_large = 0.05 * ascWidth;
         padding = padding < 50 ? 50 : padding;
@@ -816,13 +805,18 @@ function responsiveAscText_05nuo(section, gap){
         padding = padding < 30 ? 30 : padding;
         padding_large = padding_large < 50 ? 50 : padding_large;
         //set flex items margin top
-        ascTop = (section.offsetHeight - svgHeight_05nuo) / 1.75;
-        if(width < widthLimit_05nuo){
-            ascTop = (section.offsetHeight - svgHeight_05nuo) / 3;
+        let svgH = width * 0.67 / 1.604;
+        ascTop = (section.offsetHeight - svgH) / 1.5;
+        if(width < 1600 && width >= widthLimit_05nuo){
+            console.log("!!!");
+            ascTop = (section.offsetHeight - svgH) / 2.5;
+        }
+        else if(width < widthLimit_05nuo){
+            ascTop = (section.offsetHeight - svgH) / 3;
         }
         ascTop = ascTop < 20 ? 20: ascTop;
             //the portion of svg image viewable 
-        let viewableImgH = svgHeight_05nuo > section.offsetHeight ? section.offsetHeight : svgHeight_05nuo;
+        let viewableImgH = svgH > section.offsetHeight ? section.offsetHeight : svgH;
         eduTop = (section.offsetHeight - viewableImgH) / 2 + viewableImgH / 2.5;
         if(eduTop + eduHalfPanel_05nuo.offsetHeight > section.offsetHeight){
             eduTop = section.offsetHeight - eduHalfPanel_05nuo.offsetHeight - 40;
@@ -849,10 +843,10 @@ function responsiveAscText_05nuo(section, gap){
     eduHalfPanel_05nuo.style.setProperty("padding-right", `${padding}px`);
 
     //set cta btn paddings
-    const ascBgText = ctaBtn3Bg_05nuo.querySelector(".btn-bg-text-5nuo");
+    const ascBgText = ctaBtn3Bg_05nuo.querySelector(".btn-bg-text-05nuo");
     let ascPaddingV = (ctaBtn3Bg_05nuo.offsetHeight - ascBgText.offsetHeight) / 2;
 
-    const eduBgText = ctaBtn4Bg_05nuo.querySelector(".btn-bg-text-5nuo");
+    const eduBgText = ctaBtn4Bg_05nuo.querySelector(".btn-bg-text-05nuo");
     let eduPaddingV = (ctaBtn4Bg_05nuo.offsetHeight - eduBgText.offsetHeight) / 2;
 
     let ascPaddingH = parseFloat(window.getComputedStyle(ascCtaBtn).getPropertyValue("padding-left"));
@@ -906,7 +900,6 @@ function resizeHero_05nuo(state=0){
 
 function responsiveTitle_05nuo(){
     responsiveHeaderTitle(headerTitle_05nuo);
-    responsiveFonts(fullHeader_05nuo);
 }
 
 /*************************************************************************************************
@@ -1194,6 +1187,7 @@ let svgPanDir_05nuo = 1;
 let svgPanSpeed_05nuo = 0.2;
 let stopSvgPan_05nuo = true;
 let canCheckSvgPan_05nuo = true;
+let svgPanInFocus_05nuo = true;
 
 //check svg width to know if need to pan svg translate x
 function svgPanCheck_05uo(){
@@ -1302,7 +1296,7 @@ function svgStopPanAnimate_05nuo(timestamp){
 
 //the function to call to start check/initiate/stop svg pan
 const svgPanStartCheck = function(){
-    if(canCheckSvgPan_05nuo){
+    if(canCheckSvgPan_05nuo && svgPanInFocus_05nuo){
         svgPanCheck_05uo();
         if(!stopSvgPan_05nuo){
             cancelAnimationFrame(svgPanAnim_05nuo);
@@ -1946,11 +1940,11 @@ vis_05nuo(function(){
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        canCheckSvgPan_05nuo = false;
+        // svgPanInFocus_05nuo = false;
     }
-    if(vis_05nuo() == true){
-        canCheckSvgPan_05nuo = true;
-    }
+    // if(vis_05nuo() == true){
+    //     svgPanInFocus_05nuo = true;
+    // }
 });
 
 let notIE_05nuo = (document.documentMode === undefined),
@@ -1962,12 +1956,12 @@ if (notIE_05nuo && !isChromium_05nuo) {
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        canCheckSvgPan_05nuo = false;
+        // svgPanInFocus_05nuo = false;
     });
 
-    window.addEventListener("focusin", function(){
-        canCheckSvgPan_05nuo = true;    
-    })
+    // window.addEventListener("focusin", function(){
+    //     svgPanInFocus_05nuo = true;    
+    // })
 } 
 else {
     // checks for IE and Chromium versions
@@ -1977,12 +1971,12 @@ else {
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        canCheckSvgPan_05nuo = false;
+        // svgPanInFocus_05nuo = false;
     });
 
-    window.addEventListener("focus", function(){
-        canCheckSvgPan_05nuo = true;    
-    })
+    // window.addEventListener("focus", function(){
+    //     svgPanInFocus_05nuo = true;   
+    // })
 }
 
 
