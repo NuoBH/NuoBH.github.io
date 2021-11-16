@@ -201,7 +201,7 @@ function swipeDetect_05nuo(el, btns, callback){
  ************************************************************************************************************* 
 */
 
-/** links for cta buttons */
+/** CHANGE LINKS URL HERE: links for cta buttons */
 let employerLink_05nuo = "/",
     institutionLink_05nuo = "/",
     associationLink_05nuo = "/",

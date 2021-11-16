@@ -54,7 +54,10 @@ a{
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    padding: max(3%, 50px) 4% max(1.5%, 20px) max(5%, 20px);
+
+    padding-right: 4%; 
+    padding-bottom: max(1.5%, 20px); 
+    padding-left: max(5%, 20px);
 
     font-family: 'Lato', sans-serif;
     color: rgb(255, 255, 255);
@@ -1243,4 +1246,11 @@ a{
     transition: border-radius 0.2s cubic-bezier(.48,-0.59,.53,1.5), transform 0.2s cubic-bezier(.48,-0.59,.53,1.5),
     border 0.1s ease, background 0.1s ease;
     cursor: pointer;
+}
+
+
+/*TODO: change the padding-top to desired spacing to leave space for header menu 
+        when the site is integrated into Wordpress*/
+.header-title-padding-top-05nuo{
+    padding-top: max(3%, 50px);
 }
