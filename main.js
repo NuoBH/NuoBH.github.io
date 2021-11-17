@@ -240,10 +240,8 @@ const widthLimit_05nuo = 1050;
 let whRatio_05nuo = 2.3;
 
 // svg width height ratio & min width in responsive mode
-// const minSVGW_V_05nuo = 575;
 const minSVGW_H_05nuo = 1160;
 const svgWRatioH_05nuo = 0.7;
-// const svgWRatioV_05nuo = 1.1;
 
 //store svg width, height, left, top values after resize
 let svgHeight_05nuo = 0;
@@ -371,7 +369,6 @@ function responsiveHeaderTitle(headerTitle){
 function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     const width = window.innerWidth;
     const height = window.innerHeight;
-
     let w = width;
     let h;
     let top;
@@ -384,7 +381,7 @@ function responsiveSVG_05nuo(container, svg, headerTitle, state=0){
     //before svg is in scroll mode(this will always be run first when refreshed)
     if(!isSvgScroll_05nuo){
         if(width < widthLimit_05nuo && width < height){
-            svgH = ( height - titleHeight - headerTitle.offsetTop ) * 0.95;
+            svgH = ( height - titleHeight - headerTitle.offsetTop ) * 0.9;
             svgW = svgH * 1.604;
             left = (svgW - w) / -2;
         }
@@ -605,11 +602,6 @@ function getSectionFontSize_05nuo(width, height){
             }
         }
     }
-
-    // if(!isMobileOrTablet_05nuo){
-    //     titleSize /= window.devicePixelRatio;
-    //     paragraphSize /= window.devicePixelRatio;
-    // }
     return {titleSize, paragraphSize};
 }
 
@@ -645,8 +637,7 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
     let {titleSize, paragraphSize} = getSectionFontSize_05nuo(width, height);
 
     //set cta btn font size
-    let btnFontSize = paragraphSize * 0.8;
-    section.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
+    let btnFontSize = paragraphSize * 0.85;
 
     //smaller vertical screen cases
     if(width < widthLimit_05nuo && width < height){
@@ -675,17 +666,6 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
 
         pRight = titleRight;
         pTop = titleSize - 5/1000 * width;
-
-        //in case of even smaller screen like phone screen
-        // set paragraph style
-        // if(width < 520){
-        //     if(idx === 0){
-        //         title.innerHTML = `<i class="far fa-building"></i><br>Employers<br>& Enterprise`;
-        //     }
-        //     else if(idx === 1){
-        //         title.innerHTML = `<i class="far fa-hospital"></i><br>Healthcare<br>Institutions`;
-        //     }
-        // }
     }
     //wider screen cases
     else{
@@ -726,9 +706,10 @@ function responsiveSectionText_05nuo(section, idx, btnBg){
     paragraph.style.setProperty(hGapToSet, `${pRight}px`);
     paragraph.style.setProperty("margin-top", `${pTop}px`);
     paragraph.style.setProperty("font-size", `${paragraphSize}px`);
+    section.style.setProperty("--btn-font-size-05nuo", `${btnFontSize}px`);
 
     //set cta btn background paddings
-    let paddingH = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-left"));
+    let paddingH = parseFloat(window.getComputedStyle(ctaBtn).getPropertyValue("padding-left")) * 0.8;
 
     const bgText = btnBg.querySelector(".btn-bg-text-05nuo");
     let paddingV = (btnBg.offsetHeight - bgText.offsetHeight) / 2;
@@ -808,7 +789,6 @@ function responsiveAscText_05nuo(section, gap){
         let svgH = width * 0.67 / 1.604;
         ascTop = (section.offsetHeight - svgH) / 1.5;
         if(width < 1600 && width >= widthLimit_05nuo){
-            console.log("!!!");
             ascTop = (section.offsetHeight - svgH) / 2.5;
         }
         else if(width < widthLimit_05nuo){
@@ -991,9 +971,7 @@ function setNavButtonsHoverClick_05nuo(){
             if(!navButtonClicked_05nuo[i]){
                 navButtonHover_05nuo[i] = false;
                 leaveNavButton_05nuo(btn);
-                controlScroll_05nuo.snapScroll(i);
-                // btn.setAttribute("aria-pressed", "true");
-            }
+                controlScroll_05nuo.snapScroll(i);            }
         });
         window.addEventListener("touchend", ()=>{
             if(!navButtonClicked_05nuo[i]){
@@ -1084,9 +1062,6 @@ function ctaBtnLinkRedirect(link){
     window.location.assign(link);
 }
 function setCtaBtnClick_05nuo(btn, link){
-    // btn.parentElement.addEventListener("click", ()=>{
-    //     ctaBtnLinkRedirect(link);
-    // }, eventListenerOption_05nuo);
     btn.setAttribute("href", link);
 }
 function setAllCtaBtnClick_05nuo(){
@@ -1736,10 +1711,15 @@ class ControlScroll_05nuo{
         //simulate normal scroll
         let moveY = this.getScrollDelta(e, scrollMethod);
         //normal scroll for intro and enterprise panel
-        if(this.targetScrollPos < enterprisePanel_05nuo.offsetTop){
+
+        let startSnapScroll = fullHeader_05nuo.offsetHeight - window.innerHeight;
+        startSnapScroll = startSnapScroll < 0 ? 0 : startSnapScroll;
+
+        // if(this.targetScrollPos < enterprisePanel_05nuo.offsetTop){
+        if(this.targetScrollPos < startSnapScroll){
             this.targetScrollPos += moveY;
             this.targetScrollPos = this.targetScrollPos < 0 ? 0 : this.targetScrollPos;
-            this.targetScrollPos = this.targetScrollPos > enterprisePanel_05nuo.offsetTop ? enterprisePanel_05nuo.offsetTop : this.targetScrollPos;
+            this.targetScrollPos = this.targetScrollPos > startSnapScroll ? startSnapScroll : this.targetScrollPos;
             //normal scroll speed for mobile in first two panels
             this.setLerpSpeedForMobile(false);
         }
@@ -1747,9 +1727,26 @@ class ControlScroll_05nuo{
         else{
             //slow scroll for mobile
             this.setLerpSpeedForMobile(true);
+            //snap scroll to enterprise panel if scrolling down
+            if(this.currentScrollPos < enterprisePanel_05nuo.offsetTop * 0.98){
+                if(moveY > 0){
+                    if(this.cumulativeMoveY < 0){ this.cumulativeMoveY = 0;}
+                    this.cumulativeMoveY += moveY;
+                    if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
+                        this.targetScrollPos = enterprisePanel_05nuo.offsetTop;
+                        this.cumulativeMoveY = 0;
+                    } 
+                }
+                else if(moveY < 0){
+                    this.setLerpSpeedForMobile(false);
+                    if(this.currentScrollPos <= startSnapScroll * 1.1 && this.targetScrollPos < enterprisePanel_05nuo.offsetTop ){
+                        this.targetScrollPos += moveY;
+                    }
+                }
+            }
             //snap scroll to institution panel if scrolling down
             // normal scroll back up if scrolling up
-            if(this.currentScrollPos >= enterprisePanel_05nuo.offsetTop * 0.98 && this.currentScrollPos < institutionPanel_05nuo.offsetTop * 0.98){
+            else if(this.currentScrollPos >= enterprisePanel_05nuo.offsetTop * 0.98 && this.currentScrollPos < institutionPanel_05nuo.offsetTop * 0.98){
                 if(moveY > 0){
                     if(this.cumulativeMoveY < 0){ this.cumulativeMoveY = 0;}
                     this.cumulativeMoveY += moveY;
@@ -1759,8 +1756,13 @@ class ControlScroll_05nuo{
                     }
                 }
                 else if(moveY < 0){
-                    if(this.currentScrollPos <= enterprisePanel_05nuo.offsetTop * 1.1 && this.targetScrollPos < institutionPanel_05nuo.offsetTop ){
-                        this.targetScrollPos += moveY;
+                    // if(this.currentScrollPos <= enterprisePanel_05nuo.offsetTop * 1.1 && this.targetScrollPos < institutionPanel_05nuo.offsetTop ){
+                    //     this.targetScrollPos += moveY;
+                    // }
+                    if(this.cumulativeMoveY > 0){ this.cumulativeMoveY = 0;}
+                    this.cumulativeMoveY += moveY;
+                    if(Math.abs(this.cumulativeMoveY) >= this.cumulativeMoveYLimit){
+                        this.targetScrollPos = 0;
                     }
                 }
             }
@@ -1940,11 +1942,7 @@ vis_05nuo(function(){
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        // svgPanInFocus_05nuo = false;
     }
-    // if(vis_05nuo() == true){
-    //     svgPanInFocus_05nuo = true;
-    // }
 });
 
 let notIE_05nuo = (document.documentMode === undefined),
@@ -1956,12 +1954,7 @@ if (notIE_05nuo && !isChromium_05nuo) {
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        // svgPanInFocus_05nuo = false;
     });
-
-    // window.addEventListener("focusin", function(){
-    //     svgPanInFocus_05nuo = true;    
-    // })
 } 
 else {
     // checks for IE and Chromium versions
@@ -1971,12 +1964,7 @@ else {
         svgPanAnimLastTime_05nuo = undefined;
         lastScrollSVGLerpTime_05nuo = undefined;
         controlScroll_05nuo.lastScrollSVGLerpTime_05nuo = undefined;
-        // svgPanInFocus_05nuo = false;
     });
-
-    // window.addEventListener("focus", function(){
-    //     svgPanInFocus_05nuo = true;   
-    // })
 }
 
 
@@ -2012,7 +2000,11 @@ const startTitleAnim_05nuo = function(){
     }, 1300);
 }
 
-window.addEventListener("resize", responsiveFunc_05nuo, eventListenerOption_05nuo);
+window.addEventListener("resize", () => {
+    responsiveFunc_05nuo();
+    requestTimeout(responsiveFunc_05nuo, 30);
+}, eventListenerOption_05nuo);
+
 document.addEventListener('DOMContentLoaded', ()=>{
     requestTimeout(responsiveFunc_05nuo, 0);
     requestTimeout(responsiveFunc_05nuo, 100);

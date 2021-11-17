@@ -47,6 +47,10 @@ a{
     font-weight: 400;
     font-style: italic;
 }
+.title-stress-bold-05nuo{
+    font-weight: 700;
+    font-style: italic;
+}
 
 #header-title-05nuo{
     position: relative;
@@ -427,7 +431,7 @@ a{
 #enterprise-panel-05nuo{
     --btn-font-size-05nuo: 30px;
     /* color:rgb(75, 81, 168); */
-    color: black;
+    color: rgb(59, 59, 59);
     background: linear-gradient(180deg, rgb(209, 206, 218) 0%, rgb(233, 234, 240) 35%);
     text-align: right;
 }
@@ -435,7 +439,7 @@ a{
     padding-left: 7%;
     font-size: 55px;
     font-weight: 700;
-    color:rgb(75, 81, 168);
+    color:rgb(0, 0, 0);
 }
 #enterprise-panel-05nuo .enterprise-p-05nuo{
     padding-left: 7%;
@@ -460,7 +464,7 @@ a{
 
 #association-panel-05nuo{
     --btn-font-size-05nuo: 30px;
-    color: black;
+    color: rgb(59, 59, 59);
     background: linear-gradient(180deg, rgb(233, 234, 240) 0%, rgb(209, 206, 218) 80%);
 }
 .asc-flex-05nuo{
@@ -486,7 +490,7 @@ a{
 #asc-half-panel-05nuo h2{
     padding-bottom: 3%;
     font-weight: 700;
-    color: rgb(75, 81, 168);
+    color: rgb(0, 0, 0);
 }
 #edu-half-panel-05nuo{
     position: relative;
@@ -497,7 +501,7 @@ a{
 #edu-half-panel-05nuo h2{
     padding-bottom: 3%;
     font-weight: 700;
-    color: rgb(75, 81, 168);
+    color: rgb(0, 0, 0);
 }
 .reset-handp-05nuo{
     margin: 0;
@@ -508,7 +512,7 @@ a{
     position: relative;
     display: inline-block;
     padding: max(2%, 11px) max(5%, 15px);
-    border-radius: 10% / 50%;
+    border-radius: 5% / 25%;
     text-align: center;
     font-size: var(--btn-font-size-05nuo);
     margin-top: calc(var(--btn-font-size-05nuo) * 1.5);
@@ -522,7 +526,7 @@ a{
 }
 .panel-btn-smaller-radius{
     text-align: center;
-    border-radius: 5% / 50%;
+    border-radius: 2.5% / 25%;
     padding:  max(1.5%, 8px) max(5%, 15px);
     transform: scale(1);
 }
@@ -551,7 +555,7 @@ a{
 }
 .btn-hover-bg-right-05nuo{
     padding-left: var(--narrow-padding-05nuo);
-    padding-right: calc(var(--btn-font-size-05nuo)*2.75);
+    padding-right: calc(var(--btn-font-size-05nuo)*2.65);
     text-align: right;
 }
 
@@ -583,7 +587,7 @@ a{
     100%{
         opacity: 1;
         transform: translateX(0%);
-        border-radius: 10% / 50%;
+        border-radius: 5% / 25%;
     }
 }
 @keyframes btn-narrow-bg-slide-right-start-05nuo {
@@ -595,7 +599,7 @@ a{
     100%{
         opacity: 1;
         transform: translateX(0%);
-        border-radius: 5% / 50%;
+        border-radius: 2.5% / 25%;
     }
 }
 @keyframes arrow-slide-right-start-05nuo {
@@ -612,7 +616,7 @@ a{
     0%{
         opacity: 1;
         transform: translateX(0%);
-        border-radius: 10% / 50%;
+        border-radius: 5% / 25%;
     }
     100%{
         opacity: 0.5;
@@ -624,7 +628,7 @@ a{
     0%{
         opacity: 1;
         transform: translateX(0%);
-        border-radius: 5% / 50%;
+        border-radius: 2.5% / 25%;
     }
     100%{
         opacity: 0.25;
