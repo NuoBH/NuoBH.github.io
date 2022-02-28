@@ -267,8 +267,8 @@ body{
     --archiveTranslate: 150vw;
 
     display: block;
-    -webkit-transform: translateX(var(--archiveTranslate)) perspective(10000px) rotateX(var(--chatRotateX)) rotateY(var(--chatRotateY)) scaleX(var(--chatCubeScale)) scaleY(var(--chatCubeScale));
-    transform: translateX(var(--archiveTranslate)) perspective(10000px) rotateX(var(--chatRotateX)) rotateY(var(--chatRotateY)) scaleX(var(--chatCubeScale)) scaleY(var(--chatCubeScale));
+    -webkit-transform: perspective(10000px) translateX(var(--archiveTranslate)) rotateX(var(--chatRotateX)) rotateY(var(--chatRotateY)) scaleX(var(--chatCubeScale)) scaleY(var(--chatCubeScale));
+    transform: perspective(10000px) translateX(var(--archiveTranslate)) rotateX(var(--chatRotateX)) rotateY(var(--chatRotateY)) scaleX(var(--chatCubeScale)) scaleY(var(--chatCubeScale));
 }
 
 .chat-cube{
@@ -291,10 +291,11 @@ body{
     height: var(--faceHeightFour);
     border: none;
     overflow: visible;
+    box-sizing: border-box;
 
-    -webkit-font-smoothing: antialiased;
+    /* -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility; */
 
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
@@ -315,9 +316,9 @@ body{
 
             backface-visibility: visible;
     background: rgba(255,255,255,0.5);
-    overflow: hidden;
+    /* overflow: hidden; */
 
-    z-index: initial;
+    /* z-index: initial; */
 }
 /* initial state: face four are front top bottom back, face two are left right */
 .face-four{
@@ -383,9 +384,9 @@ body{
     text-align: center;
     padding: 20px;
 
-    -webkit-font-smoothing: antialiased;
+    /* -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility; */
 
     opacity: 0;
     -webkit-transition: opacity 0.5s ease;

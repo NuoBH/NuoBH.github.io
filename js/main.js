@@ -9,6 +9,10 @@ function changeGravity(x, y){
     engine.gravity.y = y;
 }
 
+window.addEventListener("mouseover", (e)=>{
+    console.log(e.target);
+})
+
 /****** help funciton ********/
 //add event hander to option/continue buttons and remove the listener and the DOM element afterwards
 function addEventHandlerToButtons(optionDOM, event, fn){
