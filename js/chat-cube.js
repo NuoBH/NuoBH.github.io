@@ -431,37 +431,37 @@ class ChatCube{
     }
 
     // check if current tab is active or not
-    checkBlur(){
-        vis(function(){
-            // if(vis()){                   
-            // } 
-            if(vis() == false) {
-                // tab not focused
-                this.lastFaceChangeLerpAF = undefined;
-                this.lastRotateLerpAF = undefined;
-            }
-        });
+    // checkBlur(){
+    //     vis(function(){
+    //         // if(vis()){                   
+    //         // } 
+    //         if(vis() == false) {
+    //             // tab not focused
+    //             this.lastFaceChangeLerpAF = undefined;
+    //             this.lastRotateLerpAF = undefined;
+    //         }
+    //     });
         
-        var notIE = (document.documentMode === undefined),
-            isChromium = window.chrome;
-        if (notIE && !isChromium) {
-            // checks for Firefox and other  NON IE Chrome versions
-            window.addEventListener("focusout", function () {
-                // blur
-                this.lastFaceChangeLerpAF = undefined;
-                this.lastRotateLerpAF = undefined;
-            });
-        } 
-        else {
-            // checks for IE and Chromium versions
-            // bind blur event
-            window.addEventListener("blur", function () {
-                // blur
-                this.lastFaceChangeLerpAF = undefined;
-                this.lastRotateLerpAF = undefined;
-            });
-        }
-    }
+    //     var notIE = (document.documentMode === undefined),
+    //         isChromium = window.chrome;
+    //     if (notIE && !isChromium) {
+    //         // checks for Firefox and other  NON IE Chrome versions
+    //         window.addEventListener("focusout", function () {
+    //             // blur
+    //             this.lastFaceChangeLerpAF = undefined;
+    //             this.lastRotateLerpAF = undefined;
+    //         });
+    //     } 
+    //     else {
+    //         // checks for IE and Chromium versions
+    //         // bind blur event
+    //         window.addEventListener("blur", function () {
+    //             // blur
+    //             this.lastFaceChangeLerpAF = undefined;
+    //             this.lastRotateLerpAF = undefined;
+    //         });
+    //     }
+    // }
 }
 
 var chatCube = new ChatCube("instruction-cube", 0.1, 0.1);
