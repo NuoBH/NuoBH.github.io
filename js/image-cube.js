@@ -155,7 +155,7 @@ class ImageCube{
 
         this.dragRotate();
 
-        this.checkBlur();
+        // this.checkBlur();
 
         this.resizeCube();
 
