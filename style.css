@@ -317,8 +317,6 @@ body{
             backface-visibility: visible;
     background: rgba(255,255,255,0.5);
     /* overflow: hidden; */
-
-    /* z-index: initial; */
 }
 /* initial state: face four are front top bottom back, face two are left right */
 .face-four{

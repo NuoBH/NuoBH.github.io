@@ -90,13 +90,13 @@ class ChatCube{
 
 
         this.checkBlur();
-        // this.startTilt();
+        this.startTilt();
 
         this.cubeOnResize();
         window.addEventListener(`resize`, this.cubeOnResize.bind(this));
 
 
-        // this.front.style.setProperty(`z-index`, `2`);
+        this.front.style.setProperty(`z-index`, `2`);
         this.front.style.setProperty(`pointer-events`, `all`);
 
     }
@@ -260,8 +260,8 @@ class ChatCube{
     }
 
     hideAndShow(toRemove, toAdd){
-        // toRemove.style.setProperty(`z-index`, `initial`);
-        // toAdd.style.setProperty(`z-index`, `2`);
+        toRemove.style.setProperty(`z-index`, `initial`);
+        toAdd.style.setProperty(`z-index`, `2`);
 
         toRemove.children[0].style.setProperty(`opacity`, `0`);
         toAdd.children[0].style.setProperty(`opacity`, `1`);
