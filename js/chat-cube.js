@@ -343,21 +343,21 @@ class ChatCube{
         }
 
         let textDOM = face.firstElementChild;
-        // if(isSafari){
-        //     textDOM.addEventListener(`wheel`, function(e){
-        //         if(this.curstate == allow) this.safariScroll(e, face);
-        //     }.bind(this));
-        // }
+        if(isSafari){
+            textDOM.addEventListener(`wheel`, function(e){
+                if(this.curstate == allow) this.safariScroll(e, face);
+            }.bind(this));
+        }
 
-        // if(mobileAndTabletCheck()){
-        //     textDOM.addEventListener(`touchstart`, function(e){
-        //         if(this.curstate == allow && canAddScroll) this.mobileScrollStart(e);
-        //     }.bind(this));
+        if(mobileAndTabletCheck()){
+            textDOM.addEventListener(`touchstart`, function(e){
+                if(this.curstate == allow && canAddScroll) this.mobileScrollStart(e);
+            }.bind(this));
 
-        //     textDOM.addEventListener(`touchmove`, function(e){
-        //         if(this.curstate == allow && canAddScroll) this.mobileScroll(e, face);  
-        //     }.bind(this));
-        // }
+            textDOM.addEventListener(`touchmove`, function(e){
+                if(this.curstate == allow && canAddScroll) this.mobileScroll(e, face);  
+            }.bind(this));
+        }
 
     }
 
