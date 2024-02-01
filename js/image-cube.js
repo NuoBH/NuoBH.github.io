@@ -280,8 +280,10 @@ class ImageCube{
         curRotateX = lerp(curRotateX, targetX, 1 - Math.pow(this.lerpSpeed, deltaTime));
         curRotateY = lerp(curRotateY, targetY, 1 - Math.pow(this.lerpSpeed, deltaTime));
         //set rotate deg to css
-        this.cube.style.setProperty("--imageRotateX", `${curRotateX}deg`);
-        this.cube.style.setProperty("--imageRotateY", `${curRotateY}deg`);
+        requestTimeout(()=>{
+            this.cube.style.setProperty("--imageRotateX", `${curRotateX}deg`);
+            this.cube.style.setProperty("--imageRotateY", `${curRotateY}deg`);
+        }, 0);
 
         cancelAnimationFrame(this.rotateCubeAnimFrame);
 
