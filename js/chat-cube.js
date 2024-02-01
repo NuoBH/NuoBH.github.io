@@ -161,12 +161,10 @@ class ChatCube{
         this.currentFaceHeightFour = lerp(this.currentFaceHeightFour, 
             this.targetFaceHeightFour, 1 - Math.pow(this.lerpSpeedFaceChange, deltaTime));
 
-        requestSetTimeout(()=>{
-            this.cube.style.setProperty("--faceWidthTwo", `${this.currentFaceWidthTwo}px`);
-            this.cube.style.setProperty("--faceHeightTwo", `${this.currentFaceHeightTwo}px`);
-            this.cube.style.setProperty("--faceWidthFour", `${this.currentFaceWidthFour}px`);
-            this.cube.style.setProperty("--faceHeightFour", `${this.currentFaceHeightFour}px`);
-        }, 0)
+        this.cube.style.setProperty("--faceWidthTwo", `${this.currentFaceWidthTwo}px`);
+        this.cube.style.setProperty("--faceHeightTwo", `${this.currentFaceHeightTwo}px`);
+        this.cube.style.setProperty("--faceWidthFour", `${this.currentFaceWidthFour}px`);
+        this.cube.style.setProperty("--faceHeightFour", `${this.currentFaceHeightFour}px`);
 
         cancelAnimationFrame(this.faceChangeAnimFrame);
 
