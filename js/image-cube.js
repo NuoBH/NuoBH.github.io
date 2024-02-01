@@ -288,7 +288,7 @@ class ImageCube{
         cancelAnimationFrame(this.rotateCubeAnimFrame);
 
         //test whether cur rotation is close enough to target rotation
-        if(Math.abs(curRotateX - targetX) <= 0.05 && Math.abs(curRotateY - targetY) <= 0.05){
+        if(Math.abs(curRotateX - targetX) <= 0.1 && Math.abs(curRotateY - targetY) <= 0.1){
             this.lastRotateAF = undefined;
         }
         else{
