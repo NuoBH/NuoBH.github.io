@@ -65,7 +65,7 @@ window.addEventListener(`firstCollide`, function(){
         let optionDOM = optionCreator.addOptionButtons(frontFace, 
                         [next]);
             
-        addEventHandlerToButtons(optionDOM, optionEventName, waterEnd);
+        addEventHandlerToButtons(optionDOM, optionEventName, waterOption11);
     }, 2500);
     
 });
