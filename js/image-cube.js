@@ -116,32 +116,32 @@ class ImageCube{
 
         //set video hover show control effect
         this.videos = this.cube.querySelectorAll("video");
-        if(this.videos.length > 0){
-            for(var i = 0; i < this.videos.length; i ++){
-                this.videos[i].addEventListener("mouseenter", function(ev){
-                    if(!this.isDragging){
-                        if(ev.cancelable){
-                            ev.preventDefault();
-                        }
-                        ev.target.setAttribute("controls", "controls");
-                    }
-                }.bind(this));
+        // if(this.videos.length > 0){
+        //     for(var i = 0; i < this.videos.length; i ++){
+        //         this.videos[i].addEventListener("mouseenter", function(ev){
+        //             if(!this.isDragging){
+        //                 if(ev.cancelable){
+        //                     ev.preventDefault();
+        //                 }
+        //                 ev.target.setAttribute("controls", "controls");
+        //             }
+        //         }.bind(this));
 
-                this.videos[i].addEventListener("mouseleave", function(ev){
-                    if(!this.isDragging){
-                        if(ev.cancelable){
-                            ev.preventDefault();
-                        }
-                        ev.target.removeAttribute("controls");
-                    }
-                }.bind(this));
-            }
+        //         this.videos[i].addEventListener("mouseleave", function(ev){
+        //             if(!this.isDragging){
+        //                 if(ev.cancelable){
+        //                     ev.preventDefault();
+        //                 }
+        //                 ev.target.removeAttribute("controls");
+        //             }
+        //         }.bind(this));
+        //     }
 
-            //show video controls at start if device is mobile
-            if(mobileAndTabletCheck()){
-                ImageCube.showAllVideoControls(this.videos);
-            }
-        }
+        //     //show video controls at start if device is mobile
+        //     if(mobileAndTabletCheck()){
+        //         ImageCube.showAllVideoControls(this.videos);
+        //     }
+        // }
 
         if(this.isVideoCube){
             this.setVideoCube();
@@ -280,15 +280,13 @@ class ImageCube{
         curRotateX = lerp(curRotateX, targetX, 1 - Math.pow(this.lerpSpeed, deltaTime));
         curRotateY = lerp(curRotateY, targetY, 1 - Math.pow(this.lerpSpeed, deltaTime));
         //set rotate deg to css
-        requestTimeout(()=>{
-            this.cube.style.setProperty("--imageRotateX", `${curRotateX}deg`);
-            this.cube.style.setProperty("--imageRotateY", `${curRotateY}deg`);
-        }, 0);
+        this.cube.style.setProperty("--imageRotateX", `${curRotateX}deg`);
+        this.cube.style.setProperty("--imageRotateY", `${curRotateY}deg`);
 
         cancelAnimationFrame(this.rotateCubeAnimFrame);
 
         //test whether cur rotation is close enough to target rotation
-        if(Math.abs(curRotateX - targetX) <= 0.1 && Math.abs(curRotateY - targetY) <= 0.1){
+        if(Math.abs(curRotateX - targetX) <= 0.7 && Math.abs(curRotateY - targetY) <= 0.7){
             this.lastRotateAF = undefined;
         }
         else{

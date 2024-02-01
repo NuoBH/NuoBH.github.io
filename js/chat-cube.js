@@ -244,17 +244,15 @@ class ChatCube{
         curRotateY = lerp(curRotateY, this.targetRotateY,
             1 - Math.pow(this.lerpSpeedRotate, deltaTime));
 
-        requestTimeout(()=>{
-            this.cube.style.setProperty("--chatRotateX", `${curRotateX}deg`);
-            this.cube.style.setProperty("--chatRotateY", `${curRotateY}deg`);
-        }, 0);
+        this.cube.style.setProperty("--chatRotateX", `${curRotateX}deg`);
+        this.cube.style.setProperty("--chatRotateY", `${curRotateY}deg`);
         // this.cube.style.setProperty("--chatRotateX", `${curRotateX}deg`);
         // this.cube.style.setProperty("--chatRotateY", `${curRotateY}deg`);
 
         cancelAnimationFrame(this.rotateAnimFrame);
 
-        if(Math.abs(curRotateX - this.targetRotateX) <= 0.1 && 
-            Math.abs(curRotateY - this.targetRotateY) <= 0.1){
+        if(Math.abs(curRotateX - this.targetRotateX) <= 0.7 && 
+            Math.abs(curRotateY - this.targetRotateY) <= 0.7){
             this.lastRotateLerpAF = undefined;
         }
         else{
