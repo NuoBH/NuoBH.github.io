@@ -256,7 +256,9 @@ class ImageCube{
         this.YDeg += deltaX * speed;
         this.XDeg -= deltaY * speed;
 
-
+        if(this.lastRotateAF === undefined){
+            this.rotateCubeAnimFrame = requestAnimFrame(this.rotateLerp.bind(this));
+        }
     }
 
     //rotate cube using lerp
