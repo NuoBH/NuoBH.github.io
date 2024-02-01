@@ -115,33 +115,33 @@ class ImageCube{
         this.videoCubeAutoPlay = videoCubeAutoPlay;
 
         //set video hover show control effect
-        this.videos = this.cube.querySelectorAll("video");
-        if(this.videos.length > 0){
-            for(var i = 0; i < this.videos.length; i ++){
-                this.videos[i].addEventListener("mouseenter", function(ev){
-                    if(!this.isDragging){
-                        if(ev.cancelable){
-                            ev.preventDefault();
-                        }
-                        ev.target.setAttribute("controls", "controls");
-                    }
-                }.bind(this));
+        // this.videos = this.cube.querySelectorAll("video");
+        // if(this.videos.length > 0){
+        //     for(var i = 0; i < this.videos.length; i ++){
+        //         this.videos[i].addEventListener("mouseenter", function(ev){
+        //             if(!this.isDragging){
+        //                 if(ev.cancelable){
+        //                     ev.preventDefault();
+        //                 }
+        //                 ev.target.setAttribute("controls", "controls");
+        //             }
+        //         }.bind(this));
 
-                this.videos[i].addEventListener("mouseleave", function(ev){
-                    if(!this.isDragging){
-                        if(ev.cancelable){
-                            ev.preventDefault();
-                        }
-                        ev.target.removeAttribute("controls");
-                    }
-                }.bind(this));
-            }
+        //         this.videos[i].addEventListener("mouseleave", function(ev){
+        //             if(!this.isDragging){
+        //                 if(ev.cancelable){
+        //                     ev.preventDefault();
+        //                 }
+        //                 ev.target.removeAttribute("controls");
+        //             }
+        //         }.bind(this));
+        //     }
 
-            //show video controls at start if device is mobile
-            if(mobileAndTabletCheck()){
-                ImageCube.showAllVideoControls(this.videos);
-            }
-        }
+        //     //show video controls at start if device is mobile
+        //     if(mobileAndTabletCheck()){
+        //         ImageCube.showAllVideoControls(this.videos);
+        //     }
+        // }
 
         if(this.isVideoCube){
             this.setVideoCube();
