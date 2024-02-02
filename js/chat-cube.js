@@ -251,8 +251,8 @@ class ChatCube{
 
         cancelAnimationFrame(this.rotateAnimFrame);
 
-        if(Math.abs(curRotateX - this.targetRotateX) <= 0.7 && 
-            Math.abs(curRotateY - this.targetRotateY) <= 0.7){
+        if(Math.abs(curRotateX - this.targetRotateX) <= 0.3 && 
+            Math.abs(curRotateY - this.targetRotateY) <= 0.3){
             this.lastRotateLerpAF = undefined;
         }
         else{
