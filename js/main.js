@@ -971,7 +971,7 @@ function sendOption1(){
     requestTimeout(function(){
         // cubeContent.showVideo(backFace, `./videos/freeze.mp4`);
         addImageCube("videocubeFreeze", backFace, [
-            `./videos/freeze.mp4`,
+            `./videos/freeze water.mp4`,
             `./images/freezeimgS1.jpg`,
             `./images/freezeimgS2.jpg`,
             `./images/freezeimgL1.jpg`,
