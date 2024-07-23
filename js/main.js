@@ -330,12 +330,12 @@ function cleanOption2(){
     requestTimeout(function(){
         // cubeContent.showVideo(topFace, `./videos/wash.mp4`);
         addImageCube("videocubeWash", topFace, [
-            `./videos/wash sep1.mp4`,
+            `./videos/wash1.mp4`,
             `./images/washimgS1.jpg`,
             `./images/washimgS2.jpg`,
-            `./videos/wash sep2.mp4`,
-            `./videos/wash sep4.mp4`,
-            `./videos/wash sep3.mp4`
+            `./videos/wash2.mp4`,
+            `./videos/wash4.mp4`,
+            `./videos/wash3.mp4`
         ], true, true);
     }, 3500);
 
@@ -354,12 +354,12 @@ function cleanOption3(){
     requestTimeout(function(){
         // cubeContent.showVideo(topFace, `./videos/disinfect.mp4`);
         addImageCube("videocubeDisinfect", topFace, [
-            `./videos/disinfect sep1.mp4`,
+            `./videos/disinfect1.mp4`,
             `./images/disinfectimgS1.jpg`,
             `./images/disinfectimgS2.jpg`,
-            `./videos/disinfect sep2.mp4`,
-            `./videos/disinfect sep4.mp4`,
-            `./videos/disinfect sep3.mp4`
+            `./videos/disinfect2.mp4`,
+            `./videos/disinfect4.mp4`,
+            `./videos/disinfect3.mp4`
         ], true, true);
     }, 5000);
 
